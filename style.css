@@ -324,3 +324,97 @@ footer p {
     font-size: 20px;
     margin-bottom: 10px;
 }
+
+
+/*exam-table*/
+
+.exam-table {
+    margin: 12px auto;
+    text-align: center;
+    padding: 0 16px;
+}
+
+.exam-table h3 {
+    margin-bottom: 10px;
+    color: #2e2c2c;
+    font-weight: bold;
+    font-display: swap;
+    font-family: "Segoe UI", sans-serif;
+    font-style: normal;
+    font-size: 1.2rem;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px 16px;
+    /* Đảm bảo padding không làm tăng kích thước tổng thể */
+    border-radius: 8px;
+    /* Bo góc cho bảng */
+    background-color: #f9f9f9;
+    /* Màu nền nhẹ cho bảng */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Hiệu ứng bóng nhẹ cho bảng */
+    margin-bottom: 20px;
+    /* Khoảng cách dưới cùng */
+    padding-bottom: 16px;
+    /* Padding dưới cùng để tránh nội dung chèn vào viền */
+    border: 1px solid #ddd;
+    /* Viền nhẹ cho bảng */
+    overflow-y: hidden;
+    /* Ẩn cuộn dọc nếu không cần thiết */
+    overflow-x: auto;
+    /* Cho phép cuộn ngang nếu cần thiết */
+    max-height: 500px;
+    /* Giới hạn chiều cao tối đa của bảng */
+    position: relative;
+}
+
+table {
+    width: 100%;
+    min-width: 400px;
+    /* Đảm bảo cuộn ngang trên màn hình nhỏ */
+    border-collapse: collapse;
+    font-family: "Segoe UI", sans-serif;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+}
+
+thead {
+    background-color: #f8f8f8;
+}
+
+th,
+td {
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+th {
+    font-weight: bold;
+    background-color: #b30000;
+    color: white;
+    font-size: 1rem;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+/* Mobile-friendly font */
+
+@media (max-width: 600px) {
+    .exam-table h3 {
+        font-size: 1.2rem;
+    }
+    th,
+    td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
