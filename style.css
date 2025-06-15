@@ -25,6 +25,13 @@ body {
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+    color: #b30000;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
 
 /* Top bar chạy chữ */
 
