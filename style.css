@@ -197,15 +197,15 @@ main.container {
     text-decoration: none;
     margin-top: 10px;
     box-shadow: 0 0 10px rgba(224, 79, 79, 0.7);
+    animation: blinker 1s linear infinite;
     /* Hiệu ứng sáng */
 }
 
-
-/* @keyframes blinker {
+@keyframes blinker {
     80% {
         opacity: 0;
     }
-} */
+}
 
 .practice-btn a {
     color: white;
