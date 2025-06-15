@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trình xem ảnh toàn màn hình</title>
+    <link rel="icon" type="image/x-icon" href="favicon-16x16.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMt23cez/3paNdF+e1z5l5a7b6d5c5e5c5c5c5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha384-1CmrxMRARb6aLqgBO7f2Q8z4c5e5c5c5c5c5c5c5c5c5c5c5c5c5c5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" integrity="sha384-1CmrxMRARb6aLqgBO7f2Q8z4c5e5c5c5c5c5c5c5c5c5c5c5c5c5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha384-1CmrxMRARb6aLqgBO7f2Q8z4c5e5c5c5c5c5c5c5c5c5c5c5c5c5" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.12/css/lightgallery.min.css" integrity="sha384-1CmrxMRARb6aLqgBO7f2Q8z4c5e5c5c5c5c5c5c5c5c5c5c5c5c5" crossorigin="anonymous">
+
+    <!-- LightGallery CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+        }
+        
+        header.top-bar {
+            background: #b30000;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .marquee-content p {
+            margin: 0;
+            animation: marquee 40s linear infinite;
+            white-space: nowrap;
+        }
+        
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .blink {
+            animation: blink 1s step-start infinite;
+        }
+        
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 20px;
+        }
+        
+        .navbar .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 50px;
+        }
+        
+        .contact {
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 15px;
+        }
+        
+        main.container {
+            padding: 30px 15px;
+            text-align: center;
+        }
+        
+        h2 {
+            margin-bottom: 2px;
+            color: #b30000;
+        }
+        
+        i {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+        }
+        
+        .gallery a {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .contact {
+                font-size: 13px;
+                gap: 2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top-bar modern-marquee">
+        <div class="marquee-content">
+            <p>Mọi thông tin cần tìm hiểu về dịch vụ dạy lái xe trên công nghệ giả lập và bổ túc tay lái mới xin quý khách vui lòng liên hệ hotline: 09.8888.2266.
+                <span class="blink">💥 Taylaimoi.com - 120mophong.com 💥</span>
+                <span>Xin chân thành cảm ơn! "Phía trước tay lái là cuộc sống của bạn và mọi người, phía sau tay lái là gia đình của bạn" 💥120mophong.com & Taylaimoi.com 💥</span></p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="#">
+                    <img src="logo.png" alt="Logo Taylaimoi.com" class="logo-img"></a>
+            </div>
+            <div class="contact">
+                <span>📞 <a href="tel:0989465167">0989.465.167</a> - <strong>Thầy Tuấn - Tiếp nhận đăng ký hồ sơ</strong></span>
+                <span>📞 <a href="tel:0988882266">09.8888.2266</a> - <strong>Hotline Taylaimoi.com</strong></span>
+                <span>📧 <a href="mailto:Taylaimoi226@gmail.com">Taylaimoi226@gmail.com</a> </span>
+                <span>📍 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2>Mẹo trả lời nhanh 600 câu lý thuyết thi sát hạch GPLX hạng B1, B2, C, D, E đậu 100%</h2>
+        <i>(Click để xem toàn màn hình)</i>
+        <div id="lightgallery" class="gallery">
+            <!-- Ảnh tự động thêm bằng JS -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p><strong>www.Taylaimoi.com</strong></p>
+            <p>Địa chỉ: 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</p>
+            <p>Hotline: 09.8888.2266 | Email: Taylaimoi226@gmail.com</p>
+        </div>
+    </footer>
+
+    <!-- LightGallery JS & Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/fullscreen/lg-fullscreen.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
+
+    <script>
+        const images = [{
+            id: 1015,
+            alt: "Ảnh núi"
+        }, {
+            id: 1025,
+            alt: "Cánh đồng"
+        }, {
+            id: 1035,
+            alt: "Bãi biển"
+        }, {
+            id: 1045,
+            alt: "Thành phố"
+        }, {
+            id: 1055,
+            alt: "Hoàng hôn"
+        }];
+
+        const gallery = document.getElementById("lightgallery");
+
+        images.forEach(({
+            id,
+            alt
+        }) => {
+            const full = `https://picsum.photos/id/${id}/1200/800`;
+            const thumb = `https://picsum.photos/id/${id}/300/200`;
+
+            const link = document.createElement("a");
+            link.href = full;
+            link.setAttribute("data-lg-size", "1200-800");
+            link.innerHTML = `<img src="${thumb}" alt="${alt}" />`;
+
+            gallery.appendChild(link);
+        });
+
+        lightGallery(gallery, {
+            plugins: [lgZoom, lgThumbnail, lgFullscreen],
+            speed: 500,
+            hideBarsDelay: 2000,
+            fullScreen: true,
+            actualSize: true,
+            download: false
+        });
+    </script>
+</body>
+
+</html>
