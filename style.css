@@ -361,7 +361,7 @@ footer p {
 
 table {
     width: 100%;
-    min-width: 400px;
+    min-width: 500px;
     /* Đảm bảo cuộn ngang trên màn hình nhỏ */
     border-collapse: collapse;
     font-family: "Segoe UI", sans-serif;
