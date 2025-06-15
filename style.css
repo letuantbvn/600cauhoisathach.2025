@@ -349,18 +349,6 @@ footer p {
     max-width: 100%;
     margin: 0 auto;
     padding: 10px 16px;
-    /* Đảm bảo padding không làm tăng kích thước tổng thể */
-    border-radius: 8px;
-    /* Bo góc cho bảng */
-    background-color: #f9f9f9;
-    /* Màu nền nhẹ cho bảng */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* Hiệu ứng bóng nhẹ cho bảng */
-    margin-bottom: 20px;
-    /* Khoảng cách dưới cùng */
-    padding-bottom: 16px;
-    /* Padding dưới cùng để tránh nội dung chèn vào viền */
-    border: 1px solid #ddd;
     /* Viền nhẹ cho bảng */
     overflow-y: hidden;
     /* Ẩn cuộn dọc nếu không cần thiết */
