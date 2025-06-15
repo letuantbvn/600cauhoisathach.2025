@@ -177,7 +177,30 @@ main.container {
     color: #b30000;
     padding-top: 20px;
     font-size: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+
+/* Practice content */
+
+.practice-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.practice-content p {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.practice-section {
+    margin-bottom: 60px;
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 20px;
 }
 
 
@@ -284,4 +307,20 @@ footer p {
         width: 90%;
         max-width: 300px;
     }
+}
+
+
+/* Practice-class*/
+
+.practice-class {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.practice-class h3 {
+    color: #b30000;
+    font-size: 20px;
+    margin-bottom: 10px;
 }
