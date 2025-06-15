@@ -330,7 +330,7 @@ footer p {
 
 .exam-table {
     margin: 12px auto;
-    text-align: center;
+    text-align: left;
     padding: 0 16px;
 }
 
@@ -354,7 +354,7 @@ footer p {
     /* Ẩn cuộn dọc nếu không cần thiết */
     overflow-x: auto;
     /* Cho phép cuộn ngang nếu cần thiết */
-    max-height: 500px;
+    max-height: 600px;
     /* Giới hạn chiều cao tối đa của bảng */
     position: relative;
 }
@@ -396,13 +396,13 @@ tr:nth-child(even) {
 
 /* Mobile-friendly font */
 
-@media (max-width: 800px) {
+@media (max-width: 600px) {
     .exam-table h3 {
         font-size: 1.2rem;
     }
     th,
     td {
-        padding: 10px;
+        padding: 6px;
         font-size: 0.9rem;
     }
 }
