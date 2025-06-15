@@ -361,7 +361,7 @@ footer p {
 
 table {
     width: 100%;
-    min-width: 500px;
+    min-width: 600px;
     /* Đảm bảo cuộn ngang trên màn hình nhỏ */
     border-collapse: collapse;
     font-family: "Segoe UI", sans-serif;
@@ -396,7 +396,7 @@ tr:nth-child(even) {
 
 /* Mobile-friendly font */
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .exam-table h3 {
         font-size: 1.2rem;
     }
