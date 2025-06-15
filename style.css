@@ -46,7 +46,7 @@ a {
 }
 
 .top-bar .marquee-content {
-    animation: marquee 30s linear infinite;
+    animation: marquee 40s linear infinite;
     display: inline-block;
 }
 
@@ -148,6 +148,7 @@ main.container {
     padding: 8px 16px;
     border: 2px solid #b30000;
     background-color: white;
+    font-size: medium;
     color: #b30000;
     border-radius: 8px;
     cursor: pointer;
@@ -184,8 +185,9 @@ main.container {
 
 .practice-btn {
     padding: 12px 20px;
-    background-color: #e60000;
+    background-color: #d30007;
     border: none;
+    display: inline-block;
     width: 100%;
     max-width: 400px;
     border-radius: 8px;
@@ -194,7 +196,16 @@ main.container {
     cursor: pointer;
     text-decoration: none;
     margin-top: 10px;
+    box-shadow: 0 0 10px rgba(224, 79, 79, 0.7);
+    /* Hiệu ứng sáng */
 }
+
+
+/* @keyframes blinker {
+    80% {
+        opacity: 0;
+    }
+} */
 
 .practice-btn a {
     color: white;
@@ -202,6 +213,8 @@ main.container {
 }
 
 .practice-btn:hover {
+    box-shadow: 0 0 30px rgba(245, 185, 185, 0.7);
+    /* Hiệu ứng sáng hơn khi hover */
     background-color: #b30000;
 }
 
