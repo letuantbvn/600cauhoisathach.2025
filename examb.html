@@ -11,6 +11,13 @@
             text-align: center;
         }
         
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        
         #timer {
             font-size: 28px;
             font-weight: bold;
@@ -38,52 +45,21 @@
         
         iframe {
             width: 100%;
-            min-height: 3000px;
-            /* Chiều cao đủ lớn để không cần cuộn iframe */
+            height: 100%;
             border: none;
-            overflow: hidden;
             background-color: #f0f0f0;
         }
         
-        @media (max-width: 600px) {
+        @media (min-width: 768px) {
             .timer {
-                font-size: 20px;
-                padding: 8px;
+                font-size: 24px;
+                padding: 12px;
             }
-            iframe {
-                min-height: 3500px;
+            .form-wrapper {
+                top: 60px;
             }
         }
-        
-        @media (max-width: 400px) {
-            .timer {
-                font-size: 18px;
-                padding: 6px;
-            }
-            iframe {
-                min-height: 4000px;
-            }
-        }
-        
-        @media (max-width: 300px) {
-            .timer {
-                font-size: 16px;
-                padding: 4px;
-            }
-            iframe {
-                min-height: 4500px;
-            }
-        }
-        
-        @media (max-width: 200px) {
-            .timer {
-                font-size: 14px;
-                padding: 2px;
-            }
-            iframe {
-                min-height: 5000px;
-            }
-        }
+    </style>
     </style>
 </head>
 
