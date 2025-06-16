@@ -38,8 +38,51 @@
         
         iframe {
             width: 100%;
-            height: 800px;
+            min-height: 3000px;
+            /* Chiều cao đủ lớn để không cần cuộn iframe */
             border: none;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        
+        @media (max-width: 600px) {
+            .timer {
+                font-size: 20px;
+                padding: 8px;
+            }
+            iframe {
+                min-height: 3500px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .timer {
+                font-size: 18px;
+                padding: 6px;
+            }
+            iframe {
+                min-height: 4000px;
+            }
+        }
+        
+        @media (max-width: 300px) {
+            .timer {
+                font-size: 16px;
+                padding: 4px;
+            }
+            iframe {
+                min-height: 4500px;
+            }
+        }
+        
+        @media (max-width: 200px) {
+            .timer {
+                font-size: 14px;
+                padding: 2px;
+            }
+            iframe {
+                min-height: 5000px;
+            }
         }
     </style>
 </head>
