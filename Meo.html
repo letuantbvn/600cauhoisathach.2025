@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         body {
             background-color: #f9f9f9;
@@ -95,7 +96,6 @@
         
         .text-content {
             text-align: center;
-            margin-bottom: 20px;
             font-size: 1.2rem;
             color: #ffffff;
             font-family: "Segoe UI", sans-serif;
@@ -110,13 +110,79 @@
             cursor: pointer;
             display: inline-block;
             width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: auto;
             text-transform: uppercase;
+            margin: 16px auto;
+            animation: pulse 1.5s infinite;
+            transition: background-color 0.5s ease;
         }
         
-        .text-content:hover {
-            background-color: #e40808;
+        .tab-content {
+            margin-top: 10px;
+        }
+        /* Tabs chia đều chiều ngang trên desktop */
+        
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            border-bottom: 2px solid #c62828;
+            margin-bottom: 10px;
+            margin-top: 30px
+        }
+        
+        .nav-tabs .nav-item {
+            flex: 1 1 0;
+            text-align: center;
+        }
+        
+        .nav-tabs .nav-link {
+            width: 100%;
+            border: none;
+            border-radius: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: 500;
+            padding: 12px 16px;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            background-color: #eee;
+        }
+        
+        .nav-tabs .nav-link.active {
+            background-color: #b30000;
+            color: #fff;
+            border-bottom: 2px solid #b71c1c;
+        }
+        
+        @media (max-width: 576px) {
+            .nav-tabs {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                border-bottom: none;
+            }
+            .nav-tabs .nav-item {
+                width: 100%;
+            }
+            .nav-tabs .nav-link {
+                width: 100%;
+                text-align: left;
+                border-radius: 0;
+                border-left: 4px solid transparent;
+                margin-bottom: 5px;
+            }
+            .nav-tabs .nav-link.active {
+                background-color: #d50000;
+                /* Màu nền khi active */
+                color: #fff;
+                border-left-color: #b71c1c;
+                /* Viền trái nổi bật */
+            }
         }
     </style>
 </head>
@@ -137,10 +203,10 @@
                     <img src="image/logo.png" alt="Logo Taylaimoi.com" class="logo-img"></a>
             </div>
             <div class="contact">
-                <span>📞 Thầy Tuấn - Tiếp nhận đăng ký hồ sơ: <a href="tel:0989465167">0989.465.167</a></span>
-                <span>📞 Hotline Taylaimoi.com: <a href="tel:0988882266">09.8888.2266</a></span>
-                <span>📧 Mail CSKH: <a href="mailto:Taylaimoi226@gmail.com">Taylaimoi2266@gmail.com</a> </span>
-                <span>📍 Địa chỉ:<b> 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</b></span>
+                <span><i class="fa-solid fa-phone" style="color: #b30000;"></i> Thầy Tuấn - Tiếp nhận đăng ký hồ sơ: <a href="tel:0989465167">0989.465.167(Phone & Zalo)</a></span>
+                <span><i class="fa-solid fa-square-phone-flip"style="color: #b30000"></i> Hotline Taylaimoi.com: <a href="tel:0988882266">09.8888.2266</a></span>
+                <span><i class="fa-solid fa-house" style="color: #b30000"></i> Thư CSKH: <a href="mailto:Taylaimoi226@gmail.com">Taylaimoi2266@gmail.com</a> </span>
+                <span><i class="fa-solid fa-envelope-open-text" style="color: #b30000"></i> Địa chỉ:<b> 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</b></span>
             </div>
         </div>
     </nav>
@@ -184,8 +250,8 @@
     <div class="container py-4">
         <!-- <h2 class="text-center text-primary mb-4">Bộ ảnh ôn thi lý thuyết & thực hành</h2> -->
         <h2>Mẹo trả lời nhanh 600 câu lý thuyết thi sát hạch GPLX</h2>
-        <div class="text-content">Hạng B1, B2, C, D, E đậu 100% </div>
-        <p style="text-align: center;"><i style="text-align: center;">(Click để xem toàn màn hình)</i></p>
+        <div class="text-content">Hạng B, C1, C, D1, D2, D thi đỗ 100% </div>
+        <p style="text-align: center;"><i style="text-align: center;">(Chọn phần và Click vào hình ảnh để có thể xem nội dung)</i></p>
 
         <!-- Tabs -->
         <ul class="nav nav-tabs justify-content-center" id="tabGroup" role="tablist">
@@ -216,7 +282,25 @@
             </div>
         </div>
     </div>
-
+    <footer>
+        <div class="footer-content">
+            <p><strong>www.Taylaimoi.com</strong></p>
+            <p>Địa chỉ: 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</p>
+            <a href="https://www.facebook.com/taylaimoi2266" class="fb-button" target="_blank" title="Chat Facebook" style="color:white; padding: 10px; font-size: 14px;">
+                <img src="image/icons8_facebook.svg" style="width: 24px; height: 24px" alt="Chat Facebook"> Facebook Taylaimoi
+            </a>
+            <a href="https://zalo.me/0989465167" class="zalo-button" target="_blank" title="Chat Zalo" style="color:white ;padding: 10px; font-size: 14px;">
+                <img src="image/icons8_zalo.svg" style="width: 24px; height: 24px; " alt="Chat Zalo"> Zalo Tiếp nhân hồ sơ
+            </a>
+            <a href="https://www.tiktok.com/@kenhtaylaimoi.com" class="youtube-button" target="_blank" title="Xem Video" style="color:white ;padding: 10px; font-size: 14px;">
+                <img src="image/icons8_tiktok.svg" style="width: 24px; height: 24px;" alt="Xem Video">Tiktok Taylaimoi
+            </a>
+            <p>Hotline: 09.8888.2266 | Email: Taylaimoi2266@gmail.com</p>
+        </div>
+    </footer>
+    <section class="contact-section">
+        <a href="tel:0989465167" class="call-button" title="Gọi ngay"><i class="fas fa-phone"></i></a>
+    </section>
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.umd.min.js"></script>
@@ -227,17 +311,100 @@
     <script>
         const galleries = {
             'meo': [
-                "image/Meo/Meo_ly_thuyet_ (1).jpg",
-                "image/Meo/Meo_ly_thuyet_ (2).jpg",
-                "image/Meo/Meo_ly_thuyet_ (3).jpg"
+                "image/Doc-hieu/1.jpg",
+                "image/Doc-hieu/3.jpg",
+                "image/Doc-hieu/4.jpg",
+                "image/Doc-hieu/2.jpg",
+                "image/Doc-hieu/5.jpg",
+                "image/Doc-hieu/6.jpg",
+                "image/Doc-hieu/7.jpg",
+                "image/Doc-hieu/8.jpg",
+                "image/Doc-hieu/9.jpg",
+                "image/Doc-hieu/10.jpg",
+                "image/Doc-hieu/11.jpg",
+                "image/Doc-hieu/12.jpg",
+                "image/Doc-hieu/13.jpg",
+                "image/Doc-hieu/14.jpg",
+                "image/Doc-hieu/15.jpg",
+                "image/Doc-hieu/16.jpg",
+                "image/Doc-hieu/17.jpg",
+                "image/Doc-hieu/18.jpg",
+                "image/Doc-hieu/19.jpg",
+                "image/Doc-hieu/20.jpg",
+                "image/Doc-hieu/21.jpg",
+                "image/Doc-hieu/22.jpg",
+                "image/Doc-hieu/23.jpg",
+                "image/Doc-hieu/24.jpg",
+                "image/Doc-hieu/25.jpg",
+                "image/Doc-hieu/26.jpg",
+                "image/Doc-hieu/27.jpg",
+                "image/Doc-hieu/28.jpg",
+                "image/Doc-hieu/29.jpg",
+                "image/Doc-hieu/30.jpg",
+                "image/Doc-hieu/31.jpg",
+                "image/Doc-hieu/32.jpg",
+
             ],
             'bienbao': [
-                "image/Bienbao/Bien_bao_ (1).jpg",
-                "image/Bienbao/Bien_bao_ (2).jpg"
+                "image/ly-thuyet/1.jpg",
+                "image/ly-thuyet/2.jpg",
+                "image/ly-thuyet/3.jpg",
+                "image/ly-thuyet/4.jpg",
+                "image/ly-thuyet/5.jpg",
+                "image/ly-thuyet/6.jpg",
+                "image/ly-thuyet/7.jpg",
+                "image/ly-thuyet/8.jpg",
+                "image/ly-thuyet/9.jpg",
+                "image/ly-thuyet/10.jpg",
+                "image/ly-thuyet/11.jpg",
+                "image/ly-thuyet/12.jpg",
+                "image/ly-thuyet/13.jpg",
+                "image/ly-thuyet/14.jpg",
+                "image/ly-thuyet/15.jpg",
+                "image/ly-thuyet/16.jpg",
+                "image/ly-thuyet/17.jpg",
+                "image/ly-thuyet/18.jpg",
+                "image/ly-thuyet/19.jpg",
+                "image/ly-thuyet/20.jpg",
+                "image/ly-thuyet/21.jpg",
+                "image/ly-thuyet/22.jpg",
+                "image/ly-thuyet/23.jpg",
+                "image/ly-thuyet/24.jpg",
+                "image/ly-thuyet/25.jpg",
+                "image/ly-thuyet/26.jpg",
+                "image/ly-thuyet/27.jpg",
+                "image/ly-thuyet/28.jpg",
+                "image/ly-thuyet/29.jpg",
+                "image/ly-thuyet/30.jpg",
+                "image/ly-thuyet/31.jpg",
+                "image/ly-thuyet/32.jpg",
+                "mage/ly-thuyet/33.jpg",
+                "image/ly-thuyet/34.jpg",
+                "image/ly-thuyet/35.jpg",
+                "image/ly-thuyet/36.jpg",
+                "image/ly-thuyet/37.jpg",
             ],
             'sahinh': [
-                "image/Sahinh/Sa_hinh_ (1).jpg",
-                "image/Sahinh/Sa_hinh_ (2).jpg"
+                "image/Sa-hinh/1.jpg",
+                "image/Sa-hinh/2.jpg",
+                "image/Sa-hinh/3.jpg",
+                "image/Sa-hinh/4.jpg",
+                "image/Sa-hinh/5.jpg",
+                "image/Sa-hinh/6.jpg",
+                "image/Sa-hinh/7.jpg",
+                "image/Sa-hinh/8.jpg",
+                "image/Sa-hinh/9.jpg",
+                "image/Sa-hinh/10.jpg",
+                "image/Sa-hinh/11.jpg",
+                "image/Sa-hinh/12.jpg",
+                "image/Sa-hinh/13.jpg",
+                "image/Sa-hinh/14.jpg",
+                "image/Sa-hinh/15.jpg",
+                "image/Sa-hinh/16.jpg",
+                "image/Sa-hinh/17.jpg",
+                "image/Sa-hinh/18.jpg",
+                "image/Sa-hinh/19.jpg",
+                "image/Sa-hinh/20.jpg",
             ]
         };
 
