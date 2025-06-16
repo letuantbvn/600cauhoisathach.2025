@@ -557,3 +557,278 @@
                                     display: block;
                                 }
                             }
+                            /* Responsive: menu ngang */
+                            
+                            @media (min-width: 769px) {
+                                .main-menu {
+                                    flex-direction: row;
+                                    justify-content: center;
+                                }
+                                .main-menu li a {
+                                    padding: 8px 16px;
+                                }
+                            }
+                            /* Responsive: logo */
+                            
+                            @media (max-width: 768px) {
+                                .logo-img {
+                                    height: 50px;
+                                    width: auto;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .logo-img {
+                                    height: 60px;
+                                    width: auto;
+                                }
+                            }
+                            /* Responsive: top bar */
+                            
+                            @media (max-width: 768px) {
+                                .top-bar {
+                                    font-size: 12px;
+                                    padding: 6px 12px;
+                                }
+                                .top-bar .marquee-content {
+                                    animation: marquee 30s linear infinite;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .top-bar {
+                                    font-size: 14px;
+                                    padding: 8px 16px;
+                                }
+                                .top-bar .marquee-content {
+                                    animation: marquee 40s linear infinite;
+                                }
+                            }
+                            /* Responsive: tab navigation */
+                            
+                            @media (max-width: 768px) {
+                                .tab-list {
+                                    flex-direction: column;
+                                    align-items: stretch;
+                                }
+                                .tab {
+                                    width: 100%;
+                                    text-align: center;
+                                    margin-bottom: 10px;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .tab-list {
+                                    flex-direction: row;
+                                    justify-content: center;
+                                }
+                                .tab {
+                                    width: auto;
+                                    text-align: center;
+                                    margin-bottom: 0;
+                                }
+                            }
+                            /* Responsive: practice section */
+                            
+                            @media (max-width: 768px) {
+                                .practice-section {
+                                    padding: 16px;
+                                }
+                                .practice-content {
+                                    padding: 16px;
+                                }
+                                .practice-btn {
+                                    width: 100%;
+                                    max-width: none;
+                                    padding: 12px;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .practice-section {
+                                    padding: 24px;
+                                }
+                                .practice-content {
+                                    padding: 20px;
+                                }
+                                .practice-btn {
+                                    width: 100%;
+                                    max-width: 400px;
+                                    padding: 12px 20px;
+                                }
+                            }
+                            /* Responsive: other sections */
+                            
+                            @media (max-width: 768px) {
+                                .other-section h3 {
+                                    font-size: 18px;
+                                }
+                                .box {
+                                    padding: 12px;
+                                }
+                                .btn-outline {
+                                    padding: 8px 12px;
+                                    font-size: 14px;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .other-section h3 {
+                                    font-size: 20px;
+                                }
+                                .box {
+                                    padding: 16px;
+                                }
+                                .btn-outline {
+                                    padding: 10px 16px;
+                                    font-size: 16px;
+                                }
+                            }
+                            /* Responsive: footer */
+                            
+                            @media (max-width: 768px) {
+                                footer p {
+                                    font-size: 14px;
+                                    margin: 5px 0;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                footer p {
+                                    font-size: 16px;
+                                    margin: 5px 0;
+                                }
+                            }
+                            /* Responsive: exam table */
+                            
+                            @media (max-width: 768px) {
+                                .exam-table h3 {
+                                    font-size: 1.2rem;
+                                }
+                                th,
+                                td {
+                                    padding: 8px;
+                                    font-size: 0.9rem;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .exam-table h3 {
+                                    font-size: 1.2rem;
+                                }
+                                th,
+                                td {
+                                    padding: 12px 16px;
+                                    font-size: 1rem;
+                                }
+                            }
+                            /* Responsive: call button */
+                            
+                            @media (max-width: 768px) {
+                                .call-button {
+                                    width: 50px;
+                                    height: 50px;
+                                    font-size: 24px;
+                                    line-height: 50px;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .call-button {
+                                    width: 60px;
+                                    height: 60px;
+                                    font-size: 28px;
+                                    line-height: 60px;
+                                }
+                            }
+                            /* Responsive: iframe */
+                            
+                            @media (max-width: 768px) {
+                                iframe {
+                                    height: 300px;
+                                    width: 100%;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                iframe {
+                                    height: 2000px;
+                                    width: 100%;
+                                }
+                            }
+                            /* Responsive: preloader */
+                            
+                            @media (max-width: 768px) {
+                                .preloader {
+                                    padding: 20px;
+                                }
+                                .loading p {
+                                    font-size: 16px;
+                                }
+                                .spinner {
+                                    width: 30px;
+                                    height: 30px;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .preloader {
+                                    padding: 40px;
+                                }
+                                .loading p {
+                                    font-size: 18px;
+                                }
+                                .spinner {
+                                    width: 40px;
+                                    height: 40px;
+                                }
+                            }
+                            /* Responsive: navbar */
+                            
+                            @media (max-width: 768px) {
+                                .navbar {
+                                    padding: 10px 0;
+                                }
+                                .navbar .container {
+                                    flex-direction: column;
+                                    align-items: flex-start;
+                                    gap: 10px;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .navbar {
+                                    padding: 12px 0;
+                                }
+                                .navbar .container {
+                                    flex-direction: row;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                }
+                            }
+                            /* Responsive: main menu */
+                            
+                            @media (max-width: 768px) {
+                                .main-menu {
+                                    flex-direction: column;
+                                    align-items: flex-start;
+                                    gap: 8px;
+                                }
+                                .main-menu li a {
+                                    padding: 6px 10px;
+                                    display: block;
+                                }
+                            }
+                            
+                            @media (min-width: 769px) {
+                                .main-menu {
+                                    flex-direction: row;
+                                    justify-content: center;
+                                    gap: 16px;
+                                }
+                                .main-menu li a {
+                                    padding: 8px 16px;
+                                }
+                            }
+                            /* Responsive: top bar */
