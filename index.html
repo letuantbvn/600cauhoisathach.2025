@@ -229,7 +229,7 @@
 
     <footer>
         <div class="footer-content">
-            <p><strong>www.Taylaimoi.com</strong></p>
+            <p><strong>www.Taylaimoi.com - Trực thuộc CSGT Việt Nam</strong></p>
             <p>Địa chỉ: 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</p>
             <a href="https://www.facebook.com/taylaimoi2266" class="fb-button" target="_blank" title="Chat Facebook" style="color:white; padding: 10px; font-size: 14px;">
                 <img src="image/icons8_facebook.svg" style="width: 24px; height: 24px" alt="Chat Facebook"> Facebook Taylaimoi
@@ -277,18 +277,14 @@
             const list = document.getElementById("question-list");
             list.innerHTML = questions.map((q, i) => `<li><strong>${i + 1}.</strong> ${q}</li>`).join("");
             document.getElementById("question-output").style.display = "block";
-        }
-
-        // Xử lý Tab
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-
-                tab.classList.add('active');
-                const panelId = tab.dataset.tab;
-                document.getElementById(panelId).classList.add('active');
-            });
+        } // Xử lý Tab document.querySelectorAll('.tab').forEach(tab => { tab.addEventListener('click',
+        () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            tab.classList.add('active');
+            const panelId = tab.dataset.tab;
+            document.getElementById(panelId).classList.add('active');
+        });
         });
     </script>
 
