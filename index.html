@@ -17,21 +17,17 @@
         <div class="preloader">
             <div class="loading">
                 <img src="image/logo.png" alt="Logo Taylaimoi.com" class="logo-img">
-                <p>Đang tải...</p>
+                <p>Đang tải dữ liệu, vui lòng chờ...</p>
+                <div class="spinner"></div>
             </div>
         </div>
+
         <script>
             // Ẩn preloader sau 3 giây
             setTimeout(() => {
-                document.querySelector('.preloader').style.display = 'none';
-            }, 3000);
-        </script>
-        <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-        <script>
-            // Kiểm tra xem preloader có tồn tại không
-            if (document.querySelector('.preloader')) {
-                document.querySelector('.preloader').style.display = 'none';
-            } <!-- Nếu không tồn tại, không làm gì cả -->
+                const preloader = document.querySelector('.preloader');
+                if (preloader) preloader.style.display = 'none';
+            }, 2000);
         </script>
     </section>
 
@@ -50,8 +46,6 @@
         })();
     </script>
     <!--End of Tawk.to Script-->
-
-
 
     <header class="top-bar modern-marquee">
         <div class="marquee-content">
@@ -75,8 +69,12 @@
             </div>
         </div>
     </nav>
-
     <main class="container">
+        <ul class="main-menu">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+            <li><a href="Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
+            <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
+        </ul>
         <section class="intro">
             <h1>600 CÂU HỎI SÁT HẠCH LÁI XE CƠ GIỚI ĐƯỜNG BỘ - 2025 - BỘ CÔNG AN </h1>
             <div>
@@ -251,7 +249,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer id="footer">
         <div class="footer-content">
             <p><strong>www.Taylaimoi.com</strong></p>
             <p>Địa chỉ: 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</p>
@@ -319,7 +317,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>

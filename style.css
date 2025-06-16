@@ -431,3 +431,139 @@
                                     /* Đảm bảo iframe chiếm toàn bộ chiều rộng */
                                 }
                             }
+                            /* Preloader - hiệu ứng full màn hình */
+                            
+                            .preloader {
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 100%;
+                                height: 100vh;
+                                background: white;
+                                z-index: 9999;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                            }
+                            /* Container loading căn giữa */
+                            
+                            .loading {
+                                text-align: center;
+                                animation: fadeIn 0.5s ease-in-out;
+                            }
+                            /* Logo */
+                            
+                            .loading .logo-img {
+                                width: 200px;
+                                height: auto;
+                                margin-bottom: 20px;
+                            }
+                            /* Text */
+                            
+                            .loading p {
+                                font-size: 18px;
+                                color: #464646;
+                                font-weight: medium;
+                                margin-bottom: 20px;
+                            }
+                            /* Spinner */
+                            
+                            .spinner {
+                                width: 40px;
+                                height: 40px;
+                                border: 4px solid #eee;
+                                border-top: 4px solid #b30000;
+                                border-radius: 50%;
+                                animation: spin 1s linear infinite;
+                                margin: 0 auto;
+                            }
+                            /* Animations */
+                            
+                            @keyframes spin {
+                                0% {
+                                    transform: rotate(0deg);
+                                }
+                                100% {
+                                    transform: rotate(360deg);
+                                }
+                            }
+                            
+                            @keyframes fadeIn {
+                                from {
+                                    opacity: 0;
+                                    transform: scale(0.95);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: scale(1);
+                                }
+                            }
+                            /* Navbar */
+                            
+                            .navbar {
+                                background-color: #f0f0f0;
+                                border-bottom: 1px solid #ccc;
+                                padding: 12px 0;
+                            }
+                            
+                            .navbar .container {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                flex-wrap: wrap;
+                            }
+                            /* Logo */
+                            
+                            .logo {
+                                flex-shrink: 0;
+                            }
+                            
+                            .logo-img {
+                                height: 50px;
+                                width: auto;
+                                object-fit: contain;
+                            }
+                            /* Menu */
+                            
+                            .main-menu {
+                                list-style: none;
+                                display: flex;
+                                gap: 10px;
+                                margin: 20px 0;
+                                padding: 12px 12px;
+                                flex-wrap: wrap;
+                                background-color: #f0f0f0;
+                            }
+                            
+                            .main-menu li a {
+                                color: #b30000;
+                                font-weight: bold;
+                                font-size: 16px;
+                                text-decoration: none;
+                                padding: 8px 12px;
+                                border-radius: 6px;
+                                transition: background-color 0.3s, color 0.3s;
+                            }
+                            
+                            .main-menu li a:hover {
+                                background-color: #b30000;
+                                color: white;
+                            }
+                            /* Responsive: menu xuống dòng dưới logo */
+                            
+                            @media (max-width: 768px) {
+                                .navbar .container {
+                                    flex-direction: column;
+                                    align-items: flex-start;
+                                    gap: 10px;
+                                }
+                                .main-menu {
+                                    flex-direction: column;
+                                    align-items: flex-start;
+                                }
+                                .main-menu li a {
+                                    padding: 6px 10px;
+                                    display: block;
+                                }
+                            }
