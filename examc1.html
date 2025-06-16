@@ -53,27 +53,24 @@
 
     <!-- NHÚNG GOOGLE FORM Ở ĐÂY -->
     <iframe id="form" src="https://docs.google.com/forms/d/e/1FAIpQLScE_m-kWxHcX0DS7ngECuwCdf9XL31QNAO7gsS4keqryaPL4A/viewform?embedded=true"></iframe>
-    <!-- <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScE_m-kWxHcX0DS7ngECuwCdf9XL31QNAO7gsS4keqryaPL4A/viewform?embedded=true" width="640" height="15438" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe> -->
-
     <script>
-        // Thời gian tính bằng giây
-        let totalTime = 22 * 60; // 5 phút
-
+        // Tổng thời gian: 10 phút (đổi nếu cần)
+        let totalTime = 22 * 60; // giây
         const timerElement = document.getElementById("timer");
-        const iframe = document.getElementById("form");
 
         const countdown = setInterval(() => {
-            let minutes = Math.floor(totalTime / 60);
-            let seconds = totalTime % 60;
-            timerElement.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
-            totalTime--;
+            const minutes = Math.floor(totalTime / 60);
+            const seconds = totalTime % 60;
+            timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-            if (totalTime < 0) {
+            if (totalTime <= 0) {
                 clearInterval(countdown);
-                // Hết giờ: tự động submit bằng cách redirect tới link Submit
-                alert("Hết giờ! Form sẽ được nộp ngay bây giờ.");
-                iframe.contentWindow.postMessage('submit', '*');
+                alert("⏰ Hết giờ! Vui lòng nhấn 'Gửi' để nộp bài.");
+                timerElement.textContent = "00:00";
+                timerElement.style.color = "gray";
             }
+
+            totalTime--;
         }, 1000);
     </script>
 </body>
