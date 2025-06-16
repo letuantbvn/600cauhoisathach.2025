@@ -5,8 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Trình xem ảnh toàn màn hình</title>
+    <meta name="description" content="600 Câu Hỏi Sát Hạch Lái Xe 2025 - Ôn thi lý thuyết bằng lái xe hạng B, C, D với bộ đề chuẩn của Bộ Công An">
+    <meta name="keywords" content="thi bằng lái xe, 600 câu hỏi sát hạch, luyện thi lái xe, mẹo thi lý thuyết">
     <link rel="icon" type="image/x-icon" href="image/favicon-16x16.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMt23cez/3paNdF+e1z5l5a7b6d5c5e5c5c5c5" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha384-1CmrxMRARb6aLqgBO7f2Q8z4c5e5c5c5c5c5c5c5c5c5c5c5c5c5c5" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" integrity="sha384-1CmrxMRARb6aLqgBO7f2Q8z4c5e5c5c5c5c5c5c5c5c5c5c5c5c5" crossorigin="anonymous">
@@ -99,15 +102,14 @@
         
         i {
             font-size: 16px;
-            color: #666;
             margin-bottom: 20px;
             display: block;
         }
         
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
         }
         
         .gallery a {
@@ -115,11 +117,16 @@
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: block;
+            aspect-ratio: 4/3;
+            /* Tỷ lệ khung hình cố định */
+            position: relative;
         }
         
         .gallery img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
+            /* Đảm bảo ảnh phủ đầy khung mà không bị méo */
             display: block;
             transition: transform 0.3s;
         }
@@ -128,11 +135,13 @@
             transform: scale(1.05);
         }
         
-        @media (max-width: 768px) {
-            .contact {
-                font-size: 13px;
-                gap: 2px;
-            }
+        .main-menu {
+            list-style: none;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -145,7 +154,6 @@
                 <span>Xin chân thành cảm ơn! "Phía trước tay lái là cuộc sống của bạn và mọi người, phía sau tay lái là gia đình của bạn" 💥120mophong.com & Taylaimoi.com 💥</span></p>
         </div>
     </header>
-
     <nav class="navbar">
         <div class="container">
             <div class="logo">
@@ -162,7 +170,14 @@
     </nav>
 
     <main class="container">
-        <h2>Mẹo trả lời nhanh 600 câu lý thuyết thi sát hạch GPLX hạng B1, B2, C, D, E đậu 100%</h2>
+        <ul class="main-menu">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+            <li><a href="Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
+            <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
+            <li><a href="Galery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
+            <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
+        </ul>
+        <h2>Một số hình ảnh của Taylaimoi.com</h2>
         <i>(Click để xem toàn màn hình)</i>
         <div id="lightgallery" class="gallery">
             <!-- Ảnh tự động thêm bằng JS -->
@@ -194,173 +209,107 @@
 
     <script>
         const images = [{
-            src: "image/Meo/Meo_ly_thuyet_ (1).jpg",
+            src: "image/Gallery/img (1).jpg",
             alt: "Ảnh 1"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (2).jpg",
+            src: "image/Gallery/img (2).jpg",
             alt: "Ảnh 2"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (3).jpg",
+            src: "image/Gallery/img (3).jpg",
             alt: "Ảnh 3"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (4).jpg",
+            src: "image/Gallery/img (4).jpg",
             alt: "Ảnh 4"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (5).jpg",
+            src: "image/Gallery/img (5).jpg",
             alt: "Ảnh 5"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (6).jpg",
+            src: "image/Gallery/img (6).jpg",
             alt: "Ảnh 6"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (7).jpg",
+            src: "image/Gallery/img (7).jpg",
             alt: "Ảnh 7"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (8).jpg",
+            src: "image/Gallery/img (8).jpg",
             alt: "Ảnh 8"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (9).jpg",
+            src: "image/Gallery/img (9).jpg",
             alt: "Ảnh 9"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (10).jpg",
+            src: "image/Gallery/img (10).jpg",
             alt: "Ảnh 10"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (11).jpg",
+            src: "image/Gallery/img (11).jpg",
             alt: "Ảnh 11"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (12).jpg",
+            src: "image/Gallery/img (12).jpg",
             alt: "Ảnh 12"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (13).jpg",
+            src: "image/Gallery/img (13).jpg",
             alt: "Ảnh 13"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (14).jpg",
+            src: "image/Gallery/img (14).jpg",
             alt: "Ảnh 14"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (15).jpg",
+            src: "image/Gallery/img (15).jpg",
             alt: "Ảnh 15"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (16).jpg",
+            src: "image/Gallery/img (16).jpg",
             alt: "Ảnh 16"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (17).jpg",
+            src: "image/Gallery/img (17).jpg",
             alt: "Ảnh 17"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (18).jpg",
+            src: "image/Gallery/img (18).jpg",
             alt: "Ảnh 18"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (19).jpg",
+            src: "image/Gallery/img (19).jpg",
             alt: "Ảnh 19"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (20).jpg",
+            src: "image/Gallery/img (20).jpg",
             alt: "Ảnh 20"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (21).jpg",
+            src: "image/Gallery/img (21).jpg",
             alt: "Ảnh 21"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (22).jpg",
+            src: "image/Gallery/img (22).jpg",
             alt: "Ảnh 22"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (23).jpg",
+            src: "image/Gallery/img (23).jpg",
             alt: "Ảnh 23"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (24).jpg",
+            src: "image/Gallery/img (24).jpg",
             alt: "Ảnh 24"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (25).jpg",
+            src: "image/Gallery/img (25).jpg",
             alt: "Ảnh 25"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (26).jpg",
+            src: "image/Gallery/img (26).jpg",
             alt: "Ảnh 26"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (27).jpg",
+            src: "image/Gallery/img (27).jpg",
             alt: "Ảnh 27"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (28).jpg",
+            src: "image/Gallery/img (28).jpg",
             alt: "Ảnh 28"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (29).jpg",
+            src: "image/Gallery/img (29).jpg",
             alt: "Ảnh 29"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (30).jpg",
+            src: "image/Gallery/img (30).jpg",
             alt: "Ảnh 30"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (31).jpg",
+            src: "image/Gallery/img (31).jpg",
             alt: "Ảnh 31"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (32).jpg",
+            src: "image/Gallery/img (32).jpg",
             alt: "Ảnh 32"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (33).jpg",
+            src: "image/Gallery/img (33).jpg",
             alt: "Ảnh 33"
         }, {
-            src: "image/Meo/Meo_ly_thuyet_ (34).jpg",
+            src: "image/Gallery/img (34).jpg",
             alt: "Ảnh 34"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (35).jpg",
-            alt: "Ảnh 35"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (36).jpg",
-            alt: "Ảnh 36"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (37).jpg",
-            alt: "Ảnh 37"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (38).jpg",
-            alt: "Ảnh 38"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (39).jpg",
-            alt: "Ảnh 39"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (40).jpg",
-            alt: "Ảnh 40"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (41).jpg",
-            alt: "Ảnh 41"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (42).jpg",
-            alt: "Ảnh 42"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (43).jpg",
-            alt: "Ảnh 43"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (44).jpg",
-            alt: "Ảnh 44"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (45).jpg",
-            alt: "Ảnh 45"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (46).jpg",
-            alt: "Ảnh 46"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (47).jpg",
-            alt: "Ảnh 47"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (48).jpg",
-            alt: "Ảnh 48"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (49).jpg",
-            alt: "Ảnh 49"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (50).jpg",
-            alt: "Ảnh 50"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (51).jpg",
-            alt: "Ảnh 51"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (52).jpg",
-            alt: "Ảnh 52"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (53).jpg",
-            alt: "Ảnh 53"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (54).jpg",
-            alt: "Ảnh 54"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (55).jpg",
-            alt: "Ảnh 55"
-        }, {
-            src: "image/Meo/Meo_ly_thuyet_ (56).jpg",
-            alt: "Ảnh 56"
         }];
 
         const gallery = document.getElementById("lightgallery");
@@ -379,7 +328,7 @@
         lightGallery(gallery, {
             plugins: [lgZoom, lgThumbnail, lgFullscreen],
             speed: 500,
-            download: true,
+            download: false,
             fullScreen: true,
         });
     </script>

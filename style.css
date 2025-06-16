@@ -91,7 +91,6 @@
                             /* Intro section */
                             
                             .intro h1 {
-                                color: #b30000;
                                 font-size: 24px;
                                 margin-bottom: 10px;
                             }
@@ -513,35 +512,26 @@
                                 align-items: center;
                                 flex-wrap: wrap;
                             }
-                            /* Logo */
-                            
-                            .logo {
-                                flex-shrink: 0;
-                            }
-                            
-                            .logo-img {
-                                height: 50px;
-                                width: auto;
-                                object-fit: contain;
-                            }
                             /* Menu */
                             
                             .main-menu {
                                 list-style: none;
                                 display: flex;
-                                gap: 10px;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 24px;
                                 margin: 20px 0;
                                 padding: 12px 12px;
                                 flex-wrap: wrap;
                                 background-color: #f0f0f0;
                             }
                             
-                            .main-menu li a {
+                            .main-menu a {
                                 color: #b30000;
                                 font-weight: bold;
                                 font-size: 16px;
                                 text-decoration: none;
-                                padding: 8px 12px;
+                                padding: 8px 16px;
                                 border-radius: 6px;
                                 transition: background-color 0.3s, color 0.3s;
                             }
