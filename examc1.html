@@ -4,11 +4,21 @@
 <head>
     <meta charset="UTF-8" />
     <title>Đề hạng C1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Đề thi hạng C1 - Thời gian làm bài 22 phút. Vui lòng không làm mới trang trong quá trình làm bài.">
     <link rel="icon" type="image/x-icon" href="image/favicon-16x16.png">
     <style>
         body {
             font-family: "Segoe UI", sans-serif;
             text-align: center;
+        }
+        
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
         
         #timer {
@@ -38,50 +48,59 @@
         
         iframe {
             width: 100%;
-            min-height: 3000px;
-            /* Chiều cao đủ lớn để không cần cuộn iframe */
+            height: 100%;
             border: none;
-            overflow: hidden;
             background-color: #f0f0f0;
         }
+        /* Responsive theo từng kích thước */
         
-        @media (max-width: 600px) {
+        @media (max-width: 1024px) {
             .timer {
                 font-size: 20px;
-                padding: 8px;
+                padding: 12px;
             }
-            iframe {
-                min-height: 3500px;
+            .form-wrapper {
+                top: 55px;
             }
         }
         
-        @media (max-width: 400px) {
+        @media (max-width: 768px) {
             .timer {
                 font-size: 18px;
-                padding: 6px;
+                padding: 10px;
             }
-            iframe {
-                min-height: 4000px;
+            .form-wrapper {
+                top: 50px;
             }
         }
         
-        @media (max-width: 300px) {
+        @media (max-width: 414px) {
+            .timer {
+                font-size: 17px;
+                padding: 9px;
+            }
+            .form-wrapper {
+                top: 48px;
+            }
+        }
+        
+        @media (max-width: 375px) {
             .timer {
                 font-size: 16px;
-                padding: 4px;
+                padding: 8px;
             }
-            iframe {
-                min-height: 4500px;
+            .form-wrapper {
+                top: 45px;
             }
         }
         
-        @media (max-width: 200px) {
+        @media (max-width: 320px) {
             .timer {
-                font-size: 14px;
-                padding: 2px;
+                font-size: 15px;
+                padding: 7px;
             }
-            iframe {
-                min-height: 5000px;
+            .form-wrapper {
+                top: 42px;
             }
         }
     </style>
@@ -115,6 +134,15 @@
 
             totalTime--;
         }, 1000);
+
+        <
+        script >
+            window.addEventListener('load', function() {
+                setTimeout(() => {
+                    window.scrollTo(0, 1);
+                }, 100);
+            }); <
+        />
     </script>
 </body>
 

@@ -52,14 +52,55 @@
             border: none;
             background-color: #f0f0f0;
         }
+        /* Responsive theo từng kích thước */
         
-        @media (min-width: 768px) {
+        @media (max-width: 1024px) {
             .timer {
-                font-size: 24px;
+                font-size: 20px;
                 padding: 12px;
             }
             .form-wrapper {
-                top: 60px;
+                top: 55px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .timer {
+                font-size: 18px;
+                padding: 10px;
+            }
+            .form-wrapper {
+                top: 50px;
+            }
+        }
+        
+        @media (max-width: 414px) {
+            .timer {
+                font-size: 17px;
+                padding: 9px;
+            }
+            .form-wrapper {
+                top: 48px;
+            }
+        }
+        
+        @media (max-width: 375px) {
+            .timer {
+                font-size: 16px;
+                padding: 8px;
+            }
+            .form-wrapper {
+                top: 45px;
+            }
+        }
+        
+        @media (max-width: 320px) {
+            .timer {
+                font-size: 15px;
+                padding: 7px;
+            }
+            .form-wrapper {
+                top: 42px;
             }
         }
     </style>
