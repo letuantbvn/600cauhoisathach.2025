@@ -177,6 +177,38 @@
             <li><a href="Galery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
         </ul>
+        <!-- Info -->
+        <section class="stats-section">
+            <div class="container stats-container">
+                <div class="stat-box">
+                    <i class="fa-solid fa-chalkboard-teacher"></i>
+                    <h2 class="counter" data-count="50">0</h2>
+                    <p>THẦY GIÁO</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-headset"></i>
+                    <h2 class="counter" data-count="24">0</h2>
+                    <p>HỖ TRỢ</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <h2 class="counter" data-count="150000">0</h2>
+                    <p>HỌC VIÊN</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-handshake"></i>
+                    <h2 class="counter" data-count="300">0</h2>
+                    <p>ĐỐI TÁC</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-award"></i>
+                    <h2 class="counter" data-count="2">0</h2>
+                    <p>GIẢI THƯỞNG</p>
+                </div>
+            </div>
+        </section>
+
+
         <h2>Một số hình ảnh của Taylaimoi.com</h2>
         <i>(Click để xem toàn màn hình)</i>
         <div id="lightgallery" class="gallery">
@@ -310,7 +342,86 @@
         }, {
             src: "image/Gallery/img (34).jpg",
             alt: "Ảnh 34"
+        }, {
+            src: "image/Gallery/img (35).jpg",
+            alt: "Ảnh 35"
+        }, {
+            src: "image/Gallery/img (36).jpg",
+            alt: "Ảnh 36"
+        }, {
+            src: "image/Gallery/img (37).jpg",
+            alt: "Ảnh 37"
+        }, {
+            src: "image/Gallery/img (38).jpg",
+            alt: "Ảnh 38"
+        }, {
+            src: "image/Gallery/img (39).jpg",
+            alt: "Ảnh 39"
+        }, {
+            src: "image/Gallery/img (40).jpg",
+            alt: "Ảnh 40"
+        }, {
+            src: "image/Gallery/img (41).jpg",
+            alt: "Ảnh 41"
+        }, {
+            src: "image/Gallery/img (42).jpg",
+            alt: "Ảnh 42"
+        }, {
+            src: "image/Gallery/img (43).jpg",
+            alt: "Ảnh 43"
+        }, {
+            src: "image/Gallery/img (44).jpg",
+            alt: "Ảnh 44"
+        }, {
+            src: "image/Gallery/img (45).jpg",
+            alt: "Ảnh 45"
+        }, {
+            src: "image/Gallery/img (46).jpg",
+            alt: "Ảnh 46"
+        }, {
+            src: "image/Gallery/img (47).jpg",
+            alt: "Ảnh 47"
+        }, {
+            src: "image/Gallery/img (48).jpg",
+            alt: "Ảnh 48"
+        }, {
+            src: "image/Gallery/img (49).jpg",
+            alt: "Ảnh 49"
+        }, {
+            src: "image/Gallery/img (50).jpg",
+            alt: "Ảnh 50"
+        }, {
+            src: "image/Gallery/img (51).jpg",
+            alt: "Ảnh 51"
+        }, {
+            src: "image/Gallery/img (52).jpg",
+            alt: "Ảnh 52"
+        }, {
+            src: "image/Gallery/img (53).jpg",
+            alt: "Ảnh 53"
+        }, {
+            src: "image/Gallery/img (54).jpg",
+            alt: "Ảnh 54"
+        }, {
+            src: "image/Gallery/img (55).jpg",
+            alt: "Ảnh 55"
+        }, {
+            src: "image/Gallery/img (56).jpg",
+            alt: "Ảnh 56"
+        }, {
+            src: "image/Gallery/img (57).jpg",
+            alt: "Ảnh 57"
+        }, {
+            src: "image/Gallery/img (58).jpg",
+            alt: "Ảnh 58"
+        }, {
+            src: "image/Gallery/img (59).jpg",
+            alt: "Ảnh 59"
+        }, {
+            src: "image/Gallery/img (60).jpg",
+            alt: "Ảnh 60"
         }];
+
 
         const gallery = document.getElementById("lightgallery");
 
@@ -359,6 +470,36 @@
         if (window.location.pathname.endsWith("exam600.html")) {
             history.replaceState({}, "", "/exam600");
         }
+    </script>
+    <!-- CountUp -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.min.js"></script>
+
+    <script>
+        // Tự động đếm khi section hiển thị
+        const statsSection = document.querySelector(".stats-section");
+        const counters = document.querySelectorAll(".counter");
+        let hasAnimated = false;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    hasAnimated = true;
+                    counters.forEach(counter => {
+                        const value = parseInt(counter.getAttribute("data-count"));
+                        const countUp = new CountUp(counter, value, {
+                            duration: 2,
+                            separator: ","
+                        });
+                        if (!countUp.error) countUp.start();
+                    });
+                    observer.unobserve(statsSection); // Ngừng theo dõi sau khi chạy
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        observer.observe(statsSection);
     </script>
 
 </body>
