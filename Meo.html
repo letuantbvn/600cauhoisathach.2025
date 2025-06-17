@@ -461,6 +461,26 @@
     </script>
     <!-- Giả lập URL -->
     <script>
+        // Khi truy cập index.html, giả lập URL là /
+        if (window.location.pathname.endsWith("index.html")) {
+            history.replaceState({}, "", "/");
+        }
+        // Khi truy cập meo.html, giả lập URL là /meo
+        if (window.location.pathname.endsWith("Meo.html")) {
+            history.replaceState({}, "", "/meo");
+        }
+        // Khi truy cập 120mophong.html, giả lập URL là /120mophong
+        if (window.location.pathname.endsWith("120mophong.html")) {
+            history.replaceState({}, "", "/120mophong");
+        }
+        // Khi truy cập galery.html, giả lập URL là /galery
+        if (window.location.pathname.endsWith("Galery.html")) {
+            history.replaceState({}, "", "/galery");
+        }
+        // Khi truy cập exam.html, giả lập URL là /exam
+        if (window.location.pathname.endsWith("exam.html")) {
+            history.replaceState({}, "", "/exam");
+        }
         // Khi truy cập examb.html, giả lập URL là /examb
         if (window.location.pathname.endsWith("examb.html")) {
             history.replaceState({}, "", "/examb");
@@ -486,6 +506,7 @@
             history.replaceState({}, "", "/exam600");
         }
     </script>
+
 
 </body>
 
