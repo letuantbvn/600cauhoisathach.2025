@@ -596,7 +596,7 @@
                                     padding: 6px 12px;
                                 }
                                 .top-bar .marquee-content {
-                                    animation: marquee 40s linear infinite;
+                                    animation: marquee 60s linear infinite;
                                 }
                             }
                             
@@ -606,7 +606,7 @@
                                     padding: 8px 16px;
                                 }
                                 .top-bar .marquee-content {
-                                    animation: marquee 40s linear infinite;
+                                    animation: marquee 60s linear infinite;
                                 }
                             }
                             /* Responsive: tab navigation */
