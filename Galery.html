@@ -177,37 +177,30 @@
             <li><a href="Galery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
         </ul>
-        <!-- Info -->
         <section class="stats-section">
             <div class="container stats-container">
                 <div class="stat-box">
-                    <i class="fa-solid fa-chalkboard-teacher"></i>
-                    <h2 class="counter" data-count="50">0</h2>
+                    <h2>50+</h2>
                     <p>THẦY GIÁO</p>
                 </div>
                 <div class="stat-box">
-                    <i class="fa-solid fa-headset"></i>
-                    <h2 class="counter" data-count="24">0</h2>
+                    <h2>24 / 7</h2>
                     <p>HỖ TRỢ</p>
                 </div>
                 <div class="stat-box">
-                    <i class="fa-solid fa-user-graduate"></i>
-                    <h2 class="counter" data-count="150000">0</h2>
+                    <h2>680000+</h2>
                     <p>HỌC VIÊN</p>
                 </div>
                 <div class="stat-box">
-                    <i class="fa-solid fa-handshake"></i>
-                    <h2 class="counter" data-count="300">0</h2>
+                    <h2>300+</h2>
                     <p>ĐỐI TÁC</p>
                 </div>
                 <div class="stat-box">
-                    <i class="fa-solid fa-award"></i>
-                    <h2 class="counter" data-count="2">0</h2>
+                    <h2>2+</h2>
                     <p>GIẢI THƯỞNG</p>
                 </div>
             </div>
         </section>
-
 
         <h2>Một số hình ảnh của Taylaimoi.com</h2>
         <i>(Click để xem toàn màn hình)</i>
@@ -470,36 +463,6 @@
         if (window.location.pathname.endsWith("exam600.html")) {
             history.replaceState({}, "", "/exam600");
         }
-    </script>
-    <!-- CountUp -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.6.2/countUp.min.js"></script>
-
-    <script>
-        // Tự động đếm khi section hiển thị
-        const statsSection = document.querySelector(".stats-section");
-        const counters = document.querySelectorAll(".counter");
-        let hasAnimated = false;
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting && !hasAnimated) {
-                    hasAnimated = true;
-                    counters.forEach(counter => {
-                        const value = parseInt(counter.getAttribute("data-count"));
-                        const countUp = new CountUp(counter, value, {
-                            duration: 2,
-                            separator: ","
-                        });
-                        if (!countUp.error) countUp.start();
-                    });
-                    observer.unobserve(statsSection); // Ngừng theo dõi sau khi chạy
-                }
-            });
-        }, {
-            threshold: 0.5
-        });
-
-        observer.observe(statsSection);
     </script>
 
 </body>
