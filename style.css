@@ -26,7 +26,7 @@
                             a {
                                 text-decoration: none;
                                 color: #b30000;
-                                font-weight: bold;
+                                font-weight: medium;
                                 transition: color 0.3s;
                             }
                             /* Top bar chạy chữ */
@@ -550,7 +550,7 @@
                                 .navbar .container {
                                     flex-direction: column;
                                     align-items: flex-start;
-                                    gap: 10px;
+                                    gap: 6px;
                                     border-radius: 20px;
                                 }
                                 .main-menu {
@@ -799,6 +799,7 @@
                                     flex-direction: column;
                                     align-items: flex-start;
                                     gap: 10px;
+                                    align-items: center;
                                 }
                             }
                             
@@ -819,6 +820,7 @@
                                     flex-direction: column;
                                     align-items: flex-start;
                                     gap: 8px;
+                                    border-radius: 20px;
                                 }
                                 .main-menu li a {
                                     padding: 6px 10px;
@@ -876,7 +878,7 @@
                             @media (max-width: 768px) {
                                 .stats-container {
                                     flex-direction: column;
-                                    gap: 20px;
+                                    gap: 12px;
                                 }
                                 .stat-box h2 {
                                     font-size: 28px;
