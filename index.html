@@ -335,7 +335,25 @@
             });
         });
     </script>
-
+    <script>
+        // Hiển thị thông báo khi người dùng rời khỏi trang
+        window.addEventListener('beforeunload', function(event) {
+            event.preventDefault();
+            event.returnValue = '';
+        });
+    </script>
+    <script>
+        // Hiển thị thông báo khi người dùng tải lại trang
+        window.addEventListener('load', function() {
+            alert('Chào mừng bạn đến với 600 Câu Hỏi Sát Hạch Lái Xe 2025!');
+        });
+    </script>
+    <script>
+        // Hiển thị thông báo khi người dùng nhấp vào nút gọi điện
+        document.querySelector('.call-button').addEventListener('click', function() {
+            alert('Bạn đã nhấp vào nút gọi điện!');
+        });
+    </script>
 </body>
 
 </html>
