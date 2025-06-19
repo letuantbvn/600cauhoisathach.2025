@@ -1,0 +1,975 @@
+                                                /* style.css */
+                                                /* Reset cơ bản */
+                                                
+                                                * {
+                                                    box-sizing: border-box;
+                                                    margin: 0;
+                                                    padding: 0;
+                                                }
+                                                
+                                                body {
+                                                    font-family: "Segoe UI", sans-serif;
+                                                    line-height: 1.6;
+                                                    background-color: #f9f9f9;
+                                                    color: #333;
+                                                }
+                                                
+                                                .container {
+                                                    max-width: 1200px;
+                                                    margin: 0 auto;
+                                                    padding: 0 16px;
+                                                    /* Thêm padding trái/phải */
+                                                    width: 100%;
+                                                    box-sizing: border-box;
+                                                }
+                                                
+                                                a {
+                                                    text-decoration: none;
+                                                    color: #b30000;
+                                                    font-weight: medium;
+                                                    transition: color 0.3s;
+                                                }
+                                                /* Top bar chạy chữ */
+                                                
+                                                .top-bar {
+                                                    background: #b30000;
+                                                    color: white;
+                                                    padding: 8px 16px;
+                                                    font-size: 16px;
+                                                    overflow: hidden;
+                                                    white-space: nowrap;
+                                                    position: relative;
+                                                }
+                                                
+                                                .top-bar .marquee-content {
+                                                    animation: marquee 40s linear infinite;
+                                                    display: inline-block;
+                                                }
+                                                
+                                                @keyframes marquee {
+                                                    0% {
+                                                        transform: translateX(100%);
+                                                    }
+                                                    100% {
+                                                        transform: translateX(-100%);
+                                                    }
+                                                }
+                                                /* Navbar */
+                                                
+                                                .navbar {
+                                                    background-color: white;
+                                                    padding: 12px 16px;
+                                                    border-bottom: 1px solid #ddd;
+                                                }
+                                                
+                                                .navbar .container {
+                                                    display: flex;
+                                                    flex-wrap: wrap;
+                                                    align-items: center;
+                                                    justify-content: space-between;
+                                                    padding: 12px 16px;
+                                                }
+                                                
+                                                .logo-img {
+                                                    height: 60px;
+                                                    width: auto;
+                                                    object-fit: contain;
+                                                }
+                                                
+                                                .contact span {
+                                                    display: block;
+                                                    font-size: 14px;
+                                                    margin-top: 4px;
+                                                }
+                                                /* Main container */
+                                                
+                                                main.container {
+                                                    padding: 20px;
+                                                    max-width: 960px;
+                                                    margin: auto;
+                                                }
+                                                /* Intro section */
+                                                
+                                                .intro h1 {
+                                                    font-size: 24px;
+                                                    margin-bottom: 10px;
+                                                }
+                                                
+                                                .intro h4 {
+                                                    font-style: italic;
+                                                    margin-bottom: 10px;
+                                                }
+                                                
+                                                .intro .highlight {
+                                                    background: #ffe9e9;
+                                                    padding: 10px;
+                                                    border-left: 5px solid #b30000;
+                                                    margin-top: 10px;
+                                                    font-weight: bold;
+                                                }
+                                                /* Chapter summary */
+                                                
+                                                .chapter-summary ul {
+                                                    margin-left: 20px;
+                                                    margin-top: 10px;
+                                                }
+                                                /* Tab navigation */
+                                                
+                                                .tab-group {
+                                                    margin-top: 20px;
+                                                }
+                                                
+                                                .tab-list {
+                                                    display: flex;
+                                                    flex-wrap: wrap;
+                                                    justify-content: left;
+                                                    list-style: none;
+                                                    padding: 0;
+                                                    gap: 10px;
+                                                    margin-bottom: 20px;
+                                                }
+                                                
+                                                .tab {
+                                                    padding: 8px 16px;
+                                                    border: 2px solid #b30000;
+                                                    background-color: white;
+                                                    font-size: medium;
+                                                    color: #b30000;
+                                                    border-radius: 8px;
+                                                    cursor: pointer;
+                                                    transition: 0.3s;
+                                                }
+                                                
+                                                .tab:hover,
+                                                .tab.active {
+                                                    background-color: #b30000;
+                                                    color: white;
+                                                }
+                                                /* Tab panels */
+                                                
+                                                .tab-panel {
+                                                    display: none;
+                                                    text-align: center;
+                                                }
+                                                
+                                                .tab-panel.active {
+                                                    display: block;
+                                                }
+                                                
+                                                .practice-section h3 {
+                                                    color: #b30000;
+                                                    padding-top: 20px;
+                                                    font-size: 20px;
+                                                    margin-bottom: 10px;
+                                                }
+                                                /* Practice content */
+                                                
+                                                .practice-content {
+                                                    background-color: #fff;
+                                                    padding: 20px;
+                                                    border-radius: 8px;
+                                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                                }
+                                                
+                                                .practice-content p {
+                                                    margin-bottom: 10px;
+                                                    font-size: 16px;
+                                                }
+                                                
+                                                .practice-section {
+                                                    margin-bottom: 60px;
+                                                    background-color: #f0f0f0;
+                                                    padding: 24px;
+                                                    border-radius: 8px;
+                                                    margin-top: 20px;
+                                                }
+                                                /* Practice button */
+                                                
+                                                .practice-btn {
+                                                    padding: 12px 20px;
+                                                    background-color: #d30007;
+                                                    border: none;
+                                                    display: inline-block;
+                                                    width: 100%;
+                                                    max-width: 400px;
+                                                    border-radius: 8px;
+                                                    color: white;
+                                                    font-size: 16px;
+                                                    cursor: pointer;
+                                                    text-decoration: none;
+                                                    margin-top: 10px;
+                                                    box-shadow: 0 0 10px rgba(224, 79, 79, 0.7);
+                                                    animation: blinker 1s linear infinite;
+                                                    /* Hiệu ứng sáng */
+                                                }
+                                                
+                                                @keyframes blinker {
+                                                    80% {
+                                                        opacity: 0;
+                                                    }
+                                                }
+                                                
+                                                .practice-btn a {
+                                                    color: white;
+                                                    text-decoration: none;
+                                                }
+                                                
+                                                .practice-btn:hover {
+                                                    box-shadow: 0 0 30px rgba(245, 185, 185, 0.7);
+                                                    /* Hiệu ứng sáng hơn khi hover */
+                                                    background-color: #b30000;
+                                                }
+                                                /* Other sections */
+                                                
+                                                .other-section {
+                                                    margin-top: 40px;
+                                                }
+                                                
+                                                .other-section h3 {
+                                                    font-size: 20px;
+                                                    margin-bottom: 10px;
+                                                }
+                                                
+                                                .box {
+                                                    border: 1px solid #ccc;
+                                                    padding: 16px 20px;
+                                                    margin-bottom: 20px;
+                                                    border-radius: 8px;
+                                                    background: white;
+                                                }
+                                                
+                                                .btn-outline {
+                                                    display: inline-block;
+                                                    margin-top: 10px;
+                                                    padding: 10px 16px;
+                                                    border: 2px solid #b30000;
+                                                    color: #b30000;
+                                                    text-decoration: none;
+                                                    border-radius: 6px;
+                                                    font-weight: bold;
+                                                }
+                                                
+                                                .btn-outline:hover {
+                                                    background-color: #b30000;
+                                                    color: white;
+                                                }
+                                                /* Footer */
+                                                
+                                                footer {
+                                                    background-color: #222;
+                                                    color: white;
+                                                    padding: 20px;
+                                                    text-align: center;
+                                                    margin-top: 40px;
+                                                }
+                                                
+                                                footer p {
+                                                    margin: 5px 0;
+                                                }
+                                                /* Responsive */
+                                                
+                                                @media (max-width: 600px) {
+                                                    .contact span {
+                                                        font-size: 12px;
+                                                    }
+                                                    .tab {
+                                                        width: 100%;
+                                                        text-align: center;
+                                                    }
+                                                    .practice-btn {
+                                                        width: 90%;
+                                                        max-width: 300px;
+                                                    }
+                                                }
+                                                /* Practice-class*/
+                                                
+                                                .practice-class {
+                                                    background-color: #f0f0f0;
+                                                    padding: 24px;
+                                                    border-radius: 8px;
+                                                    margin-top: 20px;
+                                                }
+                                                
+                                                .practice-class h3 {
+                                                    color: #b30000;
+                                                    font-size: 20px;
+                                                    margin-bottom: 10px;
+                                                }
+                                                /*exam-table*/
+                                                
+                                                .exam-table {
+                                                    margin: 12px auto;
+                                                    text-align: left;
+                                                    padding: 0 16px;
+                                                }
+                                                
+                                                .exam-table h3 {
+                                                    margin-bottom: 10px;
+                                                    color: #2e2c2c;
+                                                    font-weight: bold;
+                                                    font-display: swap;
+                                                    font-family: "Segoe UI", sans-serif;
+                                                    font-style: normal;
+                                                    font-size: 1.2rem;
+                                                }
+                                                
+                                                .table-wrapper {
+                                                    overflow-x: auto;
+                                                    max-width: 100%;
+                                                    margin: 0 auto;
+                                                    padding: 10px 16px;
+                                                    /* Viền nhẹ cho bảng */
+                                                    overflow-y: hidden;
+                                                    /* Ẩn cuộn dọc nếu không cần thiết */
+                                                    overflow-x: auto;
+                                                    /* Cho phép cuộn ngang nếu cần thiết */
+                                                    max-height: 600px;
+                                                    /* Giới hạn chiều cao tối đa của bảng */
+                                                    position: relative;
+                                                }
+                                                
+                                                table {
+                                                    width: 100%;
+                                                    min-width: 600px;
+                                                    /* Đảm bảo cuộn ngang trên màn hình nhỏ */
+                                                    border-collapse: collapse;
+                                                    font-family: "Segoe UI", sans-serif;
+                                                    margin: 0 auto;
+                                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                                    background-color: white;
+                                                    border-radius: 8px;
+                                                }
+                                                
+                                                thead {
+                                                    background-color: #f8f8f8;
+                                                }
+                                                
+                                                th,
+                                                td {
+                                                    padding: 12px 16px;
+                                                    border: 1px solid #ccc;
+                                                    text-align: center;
+                                                }
+                                                
+                                                th {
+                                                    font-weight: bold;
+                                                    background-color: #b30000;
+                                                    color: white;
+                                                    font-size: 1rem;
+                                                }
+                                                
+                                                tr:nth-child(even) {
+                                                    background-color: #f9f9f9;
+                                                }
+                                                /* Mobile-friendly font */
+                                                
+                                                @media (max-width: 600px) {
+                                                    .exam-table h3 {
+                                                        font-size: 1.2rem;
+                                                    }
+                                                    th,
+                                                    td {
+                                                        padding: 6px;
+                                                        font-size: 0.9rem;
+                                                    }
+                                                }
+                                                /* Call and chat buttons */
+                                                
+                                                .call-button {
+                                                    position: fixed;
+                                                    bottom: 20px;
+                                                    right: 20px;
+                                                    width: 60px;
+                                                    height: 60px;
+                                                    background-color: #b30000;
+                                                    color: white;
+                                                    font-size: 28px;
+                                                    text-align: center;
+                                                    line-height: 60px;
+                                                    border-radius: 50%;
+                                                    box-shadow: 0 0 10px rgba(255, 39, 39, 0.6);
+                                                    z-index: 10000;
+                                                    text-decoration: none;
+                                                    animation: pulse 1.5s infinite;
+                                                }
+                                                
+                                                @keyframes pulse {
+                                                    0% {
+                                                        transform: scale(1);
+                                                        box-shadow: 0 0 0 0 rgba(255, 39, 39, 0.6);
+                                                    }
+                                                    70% {
+                                                        transform: scale(1.1);
+                                                        box-shadow: 0 0 0 15px rgba(40, 167, 69, 0);
+                                                    }
+                                                    100% {
+                                                        transform: scale(1);
+                                                        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+                                                    }
+                                                }
+                                                /*frame*/
+                                                
+                                                iframe {
+                                                    background-color: #ffe9e9;
+                                                    display: block;
+                                                    margin: 20px auto;
+                                                    width: 100%;
+                                                    height: 2000px;
+                                                    border-radius: 8px;
+                                                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                                    border: none;
+                                                }
+                                                /* Responsive iframe */
+                                                
+                                                @media (max-width: 600px) {
+                                                    iframe {
+                                                        height: 300px;
+                                                        /* Giảm chiều cao
+        */
+                                                        width: 100%;
+                                                        /* Đảm bảo iframe chiếm toàn bộ chiều rộng */
+                                                    }
+                                                }
+                                                /* Preloader - hiệu ứng full màn hình */
+                                                
+                                                .preloader {
+                                                    position: fixed;
+                                                    top: 0;
+                                                    left: 0;
+                                                    width: 100%;
+                                                    height: 100vh;
+                                                    background: white;
+                                                    z-index: 9999;
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                    flex-direction: column;
+                                                }
+                                                /* Container loading căn giữa */
+                                                
+                                                .loading {
+                                                    text-align: center;
+                                                    animation: fadeIn 0.5s ease-in-out;
+                                                }
+                                                /* Logo */
+                                                
+                                                .loading .logo-img {
+                                                    width: 200px;
+                                                    height: auto;
+                                                    margin-bottom: 20px;
+                                                }
+                                                /* Text */
+                                                
+                                                .loading p {
+                                                    font-size: 18px;
+                                                    color: #464646;
+                                                    font-weight: medium;
+                                                    margin-bottom: 20px;
+                                                }
+                                                /* Spinner */
+                                                
+                                                .spinner {
+                                                    width: 40px;
+                                                    height: 40px;
+                                                    border: 4px solid #eee;
+                                                    border-top: 4px solid #b30000;
+                                                    border-radius: 50%;
+                                                    animation: spin 1s linear infinite;
+                                                    margin: 0 auto;
+                                                }
+                                                /* Animations */
+                                                
+                                                @keyframes spin {
+                                                    0% {
+                                                        transform: rotate(0deg);
+                                                    }
+                                                    100% {
+                                                        transform: rotate(360deg);
+                                                    }
+                                                }
+                                                
+                                                @keyframes fadeIn {
+                                                    from {
+                                                        opacity: 0;
+                                                        transform: scale(0.95);
+                                                    }
+                                                    to {
+                                                        opacity: 1;
+                                                        transform: scale(1);
+                                                    }
+                                                }
+                                                /* Navbar */
+                                                
+                                                .navbar {
+                                                    background-color: #f0f0f0;
+                                                    border-bottom: 1px solid #ccc;
+                                                    padding: 12px 0;
+                                                }
+                                                
+                                                .navbar .container {
+                                                    display: flex;
+                                                    justify-content: space-between;
+                                                    align-items: center;
+                                                    flex-wrap: wrap;
+                                                }
+                                                /* Menu */
+                                                
+                                                .main-menu {
+                                                    list-style: none;
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                    gap: 24px;
+                                                    margin: 20px 0;
+                                                    padding: 12px 12px;
+                                                    flex-wrap: wrap;
+                                                    border-radius: 40px;
+                                                    background-color: #f0f0f0;
+                                                }
+                                                
+                                                .main-menu a {
+                                                    color: #b30000;
+                                                    font-weight: bold;
+                                                    font-size: 16px;
+                                                    text-decoration: none;
+                                                    padding: 8px 16px;
+                                                    border-radius: 40px;
+                                                    transition: background-color 0.3s, color 0.3s;
+                                                }
+                                                
+                                                .main-menu li a:hover {
+                                                    background-color: #b30000;
+                                                    color: white;
+                                                    border: #ffcbcd 1px solid;
+                                                    shadow: 0 0 10px rgba(255, 39, 39, 0.6);
+                                                    box-shadow: inset 0 0 10px rgba(255, 39, 39, 0.6);
+                                                }
+                                                /* Responsive: menu xuống dòng dưới logo */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .navbar .container {
+                                                        flex-direction: column;
+                                                        align-items: flex-start;
+                                                        gap: 12px;
+                                                        border-radius: 20px;
+                                                    }
+                                                    .main-menu {
+                                                        flex-direction: column;
+                                                        align-items: flex-start;
+                                                        border-radius: 20px;
+                                                        gap: 10px;
+                                                    }
+                                                    .main-menu li a {
+                                                        padding: 6px 10px;
+                                                        display: block;
+                                                    }
+                                                }
+                                                /* Responsive: menu ngang */
+                                                
+                                                @media (min-width: 769px) {
+                                                    .main-menu {
+                                                        flex-direction: row;
+                                                        justify-content: center;
+                                                    }
+                                                    .main-menu li a {
+                                                        padding: 8px 16px;
+                                                    }
+                                                }
+                                                /* Responsive: logo */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .logo-img {
+                                                        height: 50px;
+                                                        width: auto;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .logo-img {
+                                                        height: 60px;
+                                                        width: auto;
+                                                    }
+                                                }
+                                                /* Responsive: top bar */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .top-bar {
+                                                        font-size: 12px;
+                                                        padding: 6px 12px;
+                                                    }
+                                                    .top-bar .marquee-content {
+                                                        animation: marquee 60s linear infinite;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .top-bar {
+                                                        font-size: 14px;
+                                                        padding: 8px 16px;
+                                                    }
+                                                    .top-bar .marquee-content {
+                                                        animation: marquee 60s linear infinite;
+                                                    }
+                                                }
+                                                /* Responsive: tab navigation */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .tab-list {
+                                                        flex-direction: column;
+                                                        align-items: stretch;
+                                                    }
+                                                    .tab {
+                                                        width: 100%;
+                                                        text-align: center;
+                                                        margin-bottom: 10px;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .tab-list {
+                                                        flex-direction: row;
+                                                        justify-content: center;
+                                                    }
+                                                    .tab {
+                                                        width: auto;
+                                                        text-align: center;
+                                                        margin-bottom: 0;
+                                                    }
+                                                }
+                                                /* Responsive: practice section */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .practice-section {
+                                                        padding: 16px;
+                                                    }
+                                                    .practice-content {
+                                                        padding: 16px;
+                                                    }
+                                                    .practice-btn {
+                                                        width: 100%;
+                                                        max-width: none;
+                                                        padding: 12px;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .practice-section {
+                                                        padding: 24px;
+                                                    }
+                                                    .practice-content {
+                                                        padding: 20px;
+                                                    }
+                                                    .practice-btn {
+                                                        width: 100%;
+                                                        max-width: 400px;
+                                                        padding: 12px 20px;
+                                                    }
+                                                }
+                                                /* Responsive: other sections */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .other-section h3 {
+                                                        font-size: 18px;
+                                                    }
+                                                    .box {
+                                                        padding: 12px;
+                                                    }
+                                                    .btn-outline {
+                                                        padding: 8px 12px;
+                                                        font-size: 14px;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .other-section h3 {
+                                                        font-size: 20px;
+                                                    }
+                                                    .box {
+                                                        padding: 16px;
+                                                    }
+                                                    .btn-outline {
+                                                        padding: 10px 16px;
+                                                        font-size: 16px;
+                                                    }
+                                                }
+                                                /* Responsive: footer */
+                                                
+                                                @media (max-width: 768px) {
+                                                    footer p {
+                                                        font-size: 14px;
+                                                        margin: 5px 0;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    footer p {
+                                                        font-size: 16px;
+                                                        margin: 5px 0;
+                                                    }
+                                                }
+                                                /* Responsive: exam table */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .exam-table h3 {
+                                                        font-size: 1.2rem;
+                                                    }
+                                                    th,
+                                                    td {
+                                                        padding: 8px;
+                                                        font-size: 0.9rem;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .exam-table h3 {
+                                                        font-size: 1.2rem;
+                                                    }
+                                                    th,
+                                                    td {
+                                                        padding: 12px 16px;
+                                                        font-size: 1rem;
+                                                    }
+                                                }
+                                                /* Responsive: call button */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .call-button {
+                                                        width: 50px;
+                                                        height: 50px;
+                                                        font-size: 24px;
+                                                        line-height: 50px;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .call-button {
+                                                        width: 60px;
+                                                        height: 60px;
+                                                        font-size: 28px;
+                                                        line-height: 60px;
+                                                    }
+                                                }
+                                                /* Responsive: iframe */
+                                                
+                                                @media (max-width: 768px) {
+                                                    iframe {
+                                                        height: 300px;
+                                                        width: 100%;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    iframe {
+                                                        height: 2000px;
+                                                        width: 100%;
+                                                    }
+                                                }
+                                                /* Responsive: preloader */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .preloader {
+                                                        padding: 20px;
+                                                    }
+                                                    .loading p {
+                                                        font-size: 16px;
+                                                    }
+                                                    .spinner {
+                                                        width: 30px;
+                                                        height: 30px;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .preloader {
+                                                        padding: 40px;
+                                                    }
+                                                    .loading p {
+                                                        font-size: 18px;
+                                                    }
+                                                    .spinner {
+                                                        width: 40px;
+                                                        height: 40px;
+                                                    }
+                                                }
+                                                /* Responsive: navbar */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .navbar {
+                                                        padding: 10px 0;
+                                                    }
+                                                    .navbar .container {
+                                                        flex-direction: column;
+                                                        align-items: flex-start;
+                                                        gap: 10px;
+                                                        align-items: left;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .navbar {
+                                                        padding: 12px 0;
+                                                    }
+                                                    .navbar .container {
+                                                        flex-direction: row;
+                                                        justify-content: space-around;
+                                                        align-items: left;
+                                                    }
+                                                }
+                                                /* Stats Section */
+                                                
+                                                .stats-section {
+                                                    background-color: #b30000;
+                                                    background-image: none;
+                                                    /* hoặc #b30000 nếu muốn tông đậm hơn */
+                                                    color: white;
+                                                    padding: 40px 0;
+                                                    text-align: center;
+                                                    margin: 40px 0;
+                                                    border-radius: 4px;
+                                                }
+                                                
+                                                .stats-container {
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                    gap: 60px;
+                                                    flex-wrap: wrap;
+                                                    text-align: center;
+                                                }
+                                                
+                                                .stat-box h2 {
+                                                    font-size: 32px;
+                                                    color: #fff;
+                                                    font-weight: bold;
+                                                    margin-bottom: 8px;
+                                                }
+                                                
+                                                .stat-box p {
+                                                    font-size: 14px;
+                                                    text-transform: uppercase;
+                                                    letter-spacing: 1px;
+                                                    margin: 0;
+                                                }
+                                                /* Responsive */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .stats-container {
+                                                        flex-direction: column;
+                                                        gap: 12px;
+                                                        text-align: center;
+                                                    }
+                                                    .stat-box h2 {
+                                                        font-size: 28px;
+                                                    }
+                                                    .stat-box p {
+                                                        font-size: 13px;
+                                                    }
+                                                }
+                                                /*button*/
+                                                
+                                                .button-home {
+                                                    color: #b30000;
+                                                    padding: 10px 20px;
+                                                    border: none;
+                                                    border-radius: 6px;
+                                                    margin-bottom: 10px;
+                                                    cursor: pointer;
+                                                    font-size: 16px;
+                                                    font-weight: bold;
+                                                    transition: background-color 0.3s, box-shadow 0.3s;
+                                                }
+                                                
+                                                .button-home:hover {
+                                                    background-color: #b30000;
+                                                    color: white;
+                                                }
+                                                
+                                                .button-home a {
+                                                    color: inherit;
+                                                    text-decoration: none;
+                                                }
+                                                /*gallery*/
+                                                
+                                                .gallery {
+                                                    display: grid;
+                                                    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                                                    gap: 15px;
+                                                }
+                                                
+                                                .gallery a {
+                                                    border-radius: 8px;
+                                                    overflow: hidden;
+                                                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                                                    display: block;
+                                                    aspect-ratio: 4/3;
+                                                    /* Tỷ lệ khung hình cố định */
+                                                    position: relative;
+                                                }
+                                                
+                                                .gallery img {
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    object-fit: cover;
+                                                    /* Đảm bảo ảnh phủ đầy khung mà không bị méo */
+                                                    display: block;
+                                                    transition: transform 0.3s;
+                                                }
+                                                
+                                                .gallery img:hover {
+                                                    transform: scale(1.05);
+                                                }
+                                                
+                                                .gallery a:hover img {
+                                                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                                                }
+                                                
+                                                .gallery a:focus img {
+                                                    outline: 2px solid #b30000;
+                                                    outline-offset: 2px;
+                                                }
+                                                /* Gallery text */
+                                                
+                                                .text-gallery {
+                                                    text-align: center;
+                                                    color: #b30000;
+                                                    margin: auto;
+                                                    max-width: 800px;
+                                                }
+                                                
+                                                .text-gallery p {
+                                                    font-size: 14px;
+                                                    margin-bottom: 20px;
+                                                    color: #464646;
+                                                    font-style: italic;
+                                                }
+                                                /* Responsive gallery */
+                                                
+                                                @media (max-width: 768px) {
+                                                    .gallery {
+                                                        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                                                        gap: 10px;
+                                                    }
+                                                    .gallery a {
+                                                        aspect-ratio: 3/2;
+                                                    }
+                                                    .gallery img {
+                                                        object-fit: cover;
+                                                    }
+                                                    .text-gallery {
+                                                        padding: 10px;
+                                                        text-align: left;
+                                                    }
+                                                }
+                                                
+                                                @media (min-width: 769px) {
+                                                    .gallery {
+                                                        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                                                        gap: 15px;
+                                                    }
+                                                    .gallery a {
+                                                        aspect-ratio: 4/3;
+                                                    }
+                                                    .gallery img {
+                                                        object-fit: cover;
+                                                    }
+                                                }

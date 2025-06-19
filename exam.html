@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trắc Nghiệm Tương Tác - Taylaimoi.com</title>
+    <meta name="description" content="600 Câu Hỏi Sát Hạch Lái Xe 2025 - Ôn thi lý thuyết bằng lái xe hạng B, C1,C, D,D1,D2 với bộ đề chuẩn của Bộ Công An">
+    <meta name="keywords" content="thi bằng lái xe, 600 câu hỏi sát hạch, luyện thi lái xe, mẹo thi lý thuyết">
+    <meta name="author" content="600 Câu Hỏi Sát Hạch Lái Xe 2025, Taylaimoi.com, taylaimoi2266">
+    <link rel="icon" type="image/x-icon" href="image/favicon-16x16.png">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/style_part.css">
+
+</head>
+
+<body>
+    <!-- Form nhập thông tin cá nhân -->
+    <div class="info-form-container" id="info-form-container">
+        <header>
+            <h1>Thông tin của bạn</h1>
+            <p class="description">Vui lòng cung cấp thông tin cá nhân trước khi bắt đầu bài trắc nghiệm</p>
+        </header>
+
+        <div class="success-message" id="success-message">
+            <strong>✓ Thông tin đã được gửi thành công!</strong>
+            <p>Đang chuẩn bị bài trắc nghiệm...</p>
+        </div>
+
+        <form id="info-form">
+            <div class="form-group">
+                <label for="name">Họ và tên</label>
+                <input type="text" id="name" name="name" required placeholder="Nguyễn Văn A">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="tel" id="phone" name="phone" required placeholder="0987654321">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Địa chỉ</label>
+                <input type="text" id="address" name="address" required placeholder="Số nhà, đường, quận/huyện, tỉnh/thành phố">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="example@email.com">
+            </div>
+
+            <button type="submit" class="btn-start">Bắt đầu làm bài</button>
+        </form>
+    </div>
+
+    <!-- Phần trắc nghiệm (ban đầu ẩn) -->
+    <div class="container hidden" id="quiz-container">
+        <header>
+            <h1>Ôn luyện đề theo chương</h1>
+            <p class="description">Chọn đáp án và xem kết quả ngay lập tức. Di chuyển giữa các câu hỏi bằng cách sử dụng nút điều hướng hoặc chọn câu hỏi từ danh sách.</p>
+        </header>
+
+        <div class="content">
+            <div class="questions-sidebar">
+                <div class="sidebar-title">Danh sách câu hỏi</div>
+                <div class="questions-grid" id="questions-grid">
+                    <!-- Câu hỏi sẽ được tạo bằng JavaScript -->
+                </div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-header">
+                    <div class="question-title">Câu hỏi <span id="current-question">1</span>/<span id="total-questions">30</span></div>
+                </div>
+
+                <div class="question-text" id="question-text">
+                    <!-- Nội dung câu hỏi sẽ được thêm bằng JavaScript -->
+                </div>
+
+                <div class="options-container" id="options-container">
+                    <!-- Các lựa chọn sẽ được thêm bằng JavaScript -->
+                </div>
+
+                <div class="feedback" id="feedback">
+                    <!-- Phản hồi sẽ được thêm bằng JavaScript -->
+                </div>
+
+                <div class="navigation">
+                    <button class="btn-prev" id="prev-btn" disabled>← Câu trước</button>
+                    <button class="btn-next" id="next-btn">Câu tiếp theo →</button>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-bar"></div>
+                    </div>
+                    <div class="progress-text">Tiến độ: <span id="progress-text">0%</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-container" id="result-container">
+            <h2 class="result-title">Kết quả trắc nghiệm</h2>
+            <p>Bạn đã hoàn thành bài trắc nghiệm!</p>
+            <div class="score">Điểm: <span id="score">0</span>/<span>30</span></div>
+            <p id="result-message"></p>
+            <button class="restart-btn" id="restart-btn">Làm lại bài trắc nghiệm</button>
+        </div>
+    </div>
+</body>
+<script src="assets/examb2.js"></script>
+
+</html>
