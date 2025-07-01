@@ -1,5 +1,5 @@
 // URL Google Apps Script
-const QUESTIONS_API_URL = "https://script.google.com/macros/s/AKfycbz_vduI_hkzFMHhDUWdXc8gMEHttwxyenKS8Sc9t8expOzL1jU_4ILhYCLYqK4QeT2O3w/exec";
+const QUESTIONS_API_URL = "https://script.google.com/macros/s/AKfycbyBE2_f58KpjSl490VVp6-h0rHwMdiJ5MW_9gWfEyXZiIQe9bmDHqfSGbSNkzFSipS7Ew/exec";
 const SUBMIT_API_URL = "https://script.google.com/macros/s/AKfycby8755k-eccdi8ehjHWe0G_tGvIR_D2QL5o09PaF6xNIGYRDQBBux9EInBs4ecHofY39g/exec";
 
 // Biến toàn cục
@@ -79,6 +79,8 @@ async function fetchQuestions() {
         }
 
         const data = await response.json();
+        console.log("Dữ liệu nhận được:", data); // Debug
+
 
         if (data.error) {
             throw new Error(data.error);
@@ -104,7 +106,8 @@ async function fetchQuestions() {
         questions = [{
             question: "Hà Nội là thủ đô của quốc gia nào?",
             options: ["Việt Nam", "Lào", "Campuchia", "Thái Lan"],
-            correctAnswer: 0
+            correctAnswer: 0,
+            imageUrl: "" // Thêm imageUrl vào fallback
         }];
         userAnswers = Array(questions.length).fill(null);
 
@@ -231,13 +234,40 @@ function initQuiz() {
 function showQuestion(index) {
     currentQuestionIndex = index;
     const question = questions[index];
+    console.log("Câu hỏi hiện tại:", question); // Debug
 
     // Cập nhật chỉ số câu hỏi
     currentQuestionEl.textContent = index + 1;
 
     // Hiển thị nội dung câu hỏi
-    questionText.textContent = question.question;
+    // questionText.textContent = question.question;
+    questionText.innerHTML = '';
 
+    // Tạo phần tử cho câu hỏi
+    const questionContent = document.createElement('div');
+
+    // Thêm văn bản câu hỏi
+    const textElement = document.createElement('p');
+    textElement.textContent = question.question;
+    questionContent.appendChild(textElement);
+
+    // Thêm hình ảnh nếu có
+    if (question.imageUrl && question.imageUrl.trim() !== '') {
+        const imgElement = document.createElement('img');
+        imgElement.src = question.imageUrl;
+        imgElement.alt = 'Hình minh họa câu hỏi';
+        imgElement.classList.add('question-image');
+
+        // Thêm xử lý lỗi chi tiết hơn
+        imgElement.onerror = function() {
+            console.error('Không thể tải hình ảnh:', question.imageUrl);
+            this.parentNode.replaceChild(createImageErrorElement(), this);
+        };
+
+        questionContent.appendChild(imgElement);
+    }
+    // THÊM PHẦN NÀY: Gán nội dung vào DOM
+    questionText.appendChild(questionContent);
     // Tạo các lựa chọn
     optionsContainer.innerHTML = '';
     const options = ['A', 'B', 'C', 'D'];
@@ -287,6 +317,14 @@ function showQuestion(index) {
 
     // Cập nhật trạng thái câu hỏi trong grid
     updateQuestionGrid();
+}
+
+// Hàm tạo phần tử thông báo lỗi hình ảnh
+function createImageErrorElement() {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'image-error';
+    errorDiv.innerHTML = '<p>⚠️ Không thể tải hình ảnh</p>';
+    return errorDiv;
 }
 
 // Chọn đáp án
