@@ -1,0 +1,13 @@
+{
+    "folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../cv_lethanhtuan"
+		}
+	],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "cv_lethanhtuan"
+    }
+}
