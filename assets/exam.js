@@ -8,8 +8,12 @@ let currentQuestionIndex = 0;
 let userAnswers = [];
 let answeredQuestions = 0;
 let userInfo = {};
+let allQuestions = []; // Lưu trữ tất cả 600 câu hỏi
+let selectedExamType = '';
+let examDuration = 0; // Thời gian làm bài (phút)
+let timeLeft = 0; // Thời gian còn lại (giây)
+let timerInterval = null; // Interval cho bộ đếm thời gian
 
-// DOM Elements (giữ nguyên)
 // DOM Elements
 const infoFormContainer = document.getElementById('info-form-container');
 const quizContainer = document.getElementById('quiz-container');
@@ -29,17 +33,9 @@ const resultContainer = document.getElementById('result-container');
 const scoreEl = document.getElementById('score');
 const resultMessage = document.getElementById('result-message');
 const restartBtn = document.getElementById('restart-btn');
-
-// Hiển thị form thông tin người dùng
-infoFormContainer.classList.remove('hidden');
-quizContainer.classList.add('hidden');
-
-// Hiển thị thông báo gửi thành công
-successMessage.classList.remove('show');
-
-// Hiển thị kết quả
-resultContainer.style.display = 'none';
-
+const examTypeContainer = document.getElementById('exam-type-container');
+const timerContainer = document.getElementById('timer-container');
+const timerElement = document.getElementById('timer');
 
 // Thêm biến toàn cục để kiểm soát trạng thái
 let formSubmitted = false;
@@ -81,28 +77,23 @@ async function fetchQuestions() {
         let data = await response.json();
         console.log("Dữ liệu nhận được:", data); // Debug
 
-        // THÊM PHẦN CHUYỂN ĐỔI LINK GOOGLE DRIVE
+        // Lưu toàn bộ 600 câu
         if (Array.isArray(data)) {
-            data = data.map(q => ({
+            allQuestions = data.map(q => ({
                 ...q,
                 imageUrl: convertToDirectLink(q.imageUrl)
             }));
+        } else {
+            throw new Error('Dữ liệu không hợp lệ');
         }
 
         if (data.error) {
             throw new Error(data.error);
         }
 
-        if (!Array.isArray(data) || data.length === 0) {
-            throw new Error('Dữ liệu không hợp lệ hoặc không có câu hỏi');
-        }
-
-        questions = data;
-        userAnswers = Array(questions.length).fill(null);
-
-        // CHỈ hiển thị quiz nếu đã submit form
-        if (formSubmitted) {
-            startQuiz();
+        // Nếu không có câu hỏi, ném lỗi
+        if (allQuestions.length === 0) {
+            throw new Error('Không có câu hỏi nào được tải');
         }
 
     } catch (error) {
@@ -110,42 +101,47 @@ async function fetchQuestions() {
         const errorMessage = `LỖI: ${error.message}. Vui lòng tải lại trang.`;
         alert(errorMessage);
 
-        questions = [{
-            question: "Hà Nội là thủ đô của quốc gia nào?",
-            options: ["Việt Nam", "Lào", "Campuchia", "Thái Lan"],
+        // Tạo dữ liệu mẫu để test
+        allQuestions = [{
+            question: "Phần của đường bộ được sử dụng cho các phương tiện giao thông qua lại là gì?",
+            options: [
+                "Phần mặt đường và lề đường",
+                "Phần đường xe chạy",
+                "Phần đường xe cơ giới"
+            ],
+            correctAnswer: 1,
+            imageUrl: ""
+        }, {
+            question: "Khi điều khiển xe chạy trên đường, người lái xe phải mang theo các loại giấy tờ gì?",
+            options: [
+                "Giấy phép lái xe, đăng ký xe, giấy chứng nhận bảo hiểm trách nhiệm dân sự của chủ xe cơ giới",
+                "Giấy phép lái xe phù hợp với loại xe đó, đăng ký xe, giấy chứng nhận kiểm định kỹ thuật và bảo vệ môi trường (nếu có)",
+                "Tất cả các giấy tờ trên"
+            ],
+            correctAnswer: 2,
+            imageUrl: ""
+        }, {
+            question: "Trên đường có nhiều làn đường, khi điều khiển phương tiện ở tốc độ chậm bạn phải đi ở làn đường nào?",
+            options: [
+                "Đi ở làn bên phải trong cùng",
+                "Đi ở làn phía bên trái",
+                "Đi ở làn giữa"
+            ],
             correctAnswer: 0,
             imageUrl: ""
         }];
-        userAnswers = Array(questions.length).fill(null);
-
-        if (formSubmitted) {
-            startQuiz();
-        }
     }
 }
 
-
-
-
-
-
-// Xử lý submit form
-function handleFormSubmit(e) {
-    e.preventDefault();
-
-    userInfo = {
-        name: document.getElementById('name').value,
-        phone: document.getElementById('phone').value,
-        address: document.getElementById('address').value,
-        email: document.getElementById('email').value || '',
-        timestamp: new Date().toISOString()
-    };
-
-    sendDataToGoogleSheets(userInfo);
+// Hàm hiển thị chọn bộ đề
+function showExamTypeSelection() {
+    infoFormContainer.classList.add('hidden');
+    successMessage.classList.remove('show');
+    examTypeContainer.classList.remove('hidden');
+    timerContainer.classList.add('hidden');
+    quizContainer.classList.add('hidden');
+    resultContainer.style.display = 'none';
 }
-//-------------------------------------------------------------------------------------------------------------------------------------//
-// URL Google Apps Script (thay bằng URL của bạn)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8755k-eccdi8ehjHWe0G_tGvIR_D2QL5o09PaF6xNIGYRDQBBux9EInBs4ecHofY39g/exec";
 
 // Gửi dữ liệu đến Google Sheets
 function sendDataToGoogleSheets(data) {
@@ -165,23 +161,11 @@ function sendDataToGoogleSheets(data) {
             method: 'POST',
             body: formData
         })
-        // .then(response => {
-        //     if (response.ok) {
-        //         // Chuyển sang bài trắc nghiệm sau 1.5 giây
-        //         setTimeout(() => {
-        //             startQuiz();
-        //         }, 2000);
-        //     } else {
-        //         alert('Có lỗi xảy ra khi gửi thông tin. Vui lòng thử lại.');
-        //     }
-        // })
         .then(response => {
             if (response.ok) {
                 setTimeout(() => {
-                    // KIỂM TRA LẠI ĐIỀU KIỆN
-                    if (formSubmitted && questions.length > 0) {
-                        startQuiz();
-                    }
+                    // Sau khi gửi thông tin thành công, hiển thị màn hình chọn đề
+                    showExamTypeSelection();
                 }, 2000);
             } else {
                 alert('Có lỗi xảy ra khi gửi thông tin. Vui lòng thử lại.');
@@ -192,26 +176,94 @@ function sendDataToGoogleSheets(data) {
             alert('Có lỗi xảy ra khi gửi thông tin. Vui lòng thử lại.');
         });
 }
-// Bắt đầu bài trắc nghiệm
-function startQuiz() {
-    console.log("Số câu hỏi đã tải:", questions.length);
-    console.log("Câu hỏi đầu tiên:", questions[0]);
 
-    // ĐẢM BẢO ẩn form thông tin và hiển thị quiz
-    infoFormContainer.classList.add('hidden');
+// Hàm chọn bộ đề
+function selectExamType(type, time) {
+    selectedExamType = type;
+    examDuration = parseInt(time);
+    let numQuestions = 0;
+
+    switch (type) {
+        case 'B':
+            numQuestions = 30;
+            break;
+        case 'C':
+            numQuestions = 35;
+            break;
+        case 'C1':
+            numQuestions = 40;
+            break;
+    }
+
+    // Lấy ngẫu nhiên số câu hỏi theo loại đề
+    questions = getRandomQuestions(allQuestions, numQuestions);
+    userAnswers = Array(questions.length).fill(null);
+    answeredQuestions = 0;
+    currentQuestionIndex = 0;
+
+    // Thiết lập thời gian
+    timeLeft = examDuration * 60; // Chuyển sang giây
+
+    // Ẩn phần chọn bộ đề, hiển thị quiz và timer
+    examTypeContainer.classList.add('hidden');
+    timerContainer.classList.remove('hidden');
     quizContainer.classList.remove('hidden');
     resultContainer.style.display = 'none';
 
-
-    // Khởi tạo phần trắc nghiệm
+    // Khởi tạo bài thi
     initQuiz();
+    startTimer();
 }
 
-// Khởi tạo phần trắc nghiệm
+// Hàm bắt đầu đếm thời gian
+function startTimer() {
+    // Cập nhật hiển thị thời gian ban đầu
+    updateTimerDisplay();
+
+    // Bắt đầu đếm ngược
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+
+        // Kiểm tra nếu sắp hết giờ (dưới 1 phút)
+        if (timeLeft <= 60 && timeLeft > 0) {
+            timerElement.classList.add('warning');
+        }
+
+        // Kiểm tra nếu hết giờ
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            alert('Hết giờ làm bài! Hệ thống sẽ tự động nộp bài của bạn.');
+            showResults();
+        }
+    }, 1000);
+}
+
+// Hàm cập nhật hiển thị thời gian
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Hàm lấy câu hỏi ngẫu nhiên
+function getRandomQuestions(questionsArray, num) {
+    const shuffled = [...questionsArray].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, num);
+}
+
+// Bắt đầu bài trắc nghiệm (sau khi đã chọn đề)
 function initQuiz() {
+    console.log("Số câu hỏi trong đề:", questions.length);
+    console.log("Câu hỏi đầu tiên:", questions[0]);
+
+    // Cập nhật tiêu đề
+    document.getElementById('exam-title').textContent = `Đề ${selectedExamType} - ${questions.length} câu`;
+
     totalQuestionsEl.textContent = questions.length;
 
-    // Tạo grid câu hỏi
+    // Tạo grid câu hỏi (xóa cũ trước)
+    questionsGrid.innerHTML = '';
     questions.forEach((_, index) => {
         const questionNumber = document.createElement('div');
         questionNumber.className = 'question-number';
@@ -256,7 +308,7 @@ function showQuestion(index) {
     textElement.textContent = question.question;
     questionContent.appendChild(textElement);
 
-    // Thêm hình ảnh nếu có - SỬA LỖI Ở ĐÂY
+    // Thêm hình ảnh nếu có
     if (question.imageUrl && question.imageUrl.trim() !== '') {
         const imgElement = document.createElement('img');
         imgElement.src = question.imageUrl;
@@ -271,11 +323,12 @@ function showQuestion(index) {
             this.parentNode.replaceChild(errorElement, this);
         };
 
-        questionContent.appendChild(imgElement); // THÊM DÒNG NÀY ĐỂ HIỂN THỊ ẢNH
+        questionContent.appendChild(imgElement);
     }
 
     // Gán nội dung vào DOM
     questionText.appendChild(questionContent);
+
     // Tạo các lựa chọn
     optionsContainer.innerHTML = '';
     const options = ['A', 'B', 'C', 'D'];
@@ -328,13 +381,13 @@ function showQuestion(index) {
 }
 
 // Hàm tạo phần tử thông báo lỗi hình ảnh
-function createImageErrorElement() {
+function createImageErrorElement(src) {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'image-error';
     errorDiv.innerHTML = `
-        <p>⚠️ Không thể tải hình ảnh</p>
-        <p><small>URL: ${src}</small></p>
-    `;
+                <p>⚠️ Không thể tải hình ảnh</p>
+                <p><small>URL: ${src}</small></p>
+            `;
     return errorDiv;
 }
 
@@ -351,6 +404,13 @@ function selectOption(optionIndex) {
 
     // Cập nhật tiến độ
     updateProgress();
+
+    // Kiểm tra nếu đã hoàn thành tất cả câu hỏi
+    if (answeredQuestions === questions.length) {
+        setTimeout(() => {
+            showResults();
+        }, 1000);
+    }
 }
 
 // Hiển thị phản hồi
@@ -375,15 +435,6 @@ function showFeedback(index) {
                     <p>Đáp án đúng là <strong>${correctOption}</strong>: ${question.options[question.correctAnswer]}</p>
                 `;
     }
-
-    // // Tự động chuyển đến câu tiếp theo sau 2 giây (nếu chưa phải câu cuối)
-    // if (currentQuestionIndex < questions.length - 1) {
-    //     setTimeout(() => {
-    //         if (currentQuestionIndex === index) { // Đảm bảo vẫn đang ở cùng câu hỏi
-    //             goToQuestion(currentQuestionIndex + 1);
-    //         }
-    //     }, 2000);
-    // }
 }
 
 // Chuyển đến câu hỏi
@@ -394,7 +445,9 @@ function goToQuestion(index) {
 
     // Kiểm tra nếu đã hoàn thành tất cả câu hỏi
     if (answeredQuestions === questions.length) {
-        showResults();
+        setTimeout(() => {
+            showResults();
+        }, 1000);
     }
 }
 
@@ -430,6 +483,11 @@ function updateProgress() {
 
 // Hiển thị kết quả
 function showResults() {
+    // Dừng timer nếu đang chạy
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
     // Tính điểm
     let score = 0;
     userAnswers.forEach((answer, index) => {
@@ -440,15 +498,18 @@ function showResults() {
 
     // Hiển thị điểm
     scoreEl.textContent = score;
+    document.getElementById('total-score').textContent = questions.length;
 
     // Thông điệp kết quả
     let message = '';
+    const passThreshold = selectedExamType === 'B' ? 26 :
+        selectedExamType === 'C' ? 32 :
+        selectedExamType === 'C1' ? 36 : 0;
+
     if (score === questions.length) {
         message = 'Xuất sắc! Bạn đã trả lời đúng tất cả các câu hỏi.';
-    } else if (score >= questions.length * 0.8) {
-        message = 'Rất tốt! Kiến thức của bạn thật đáng ngưỡng mộ.';
-    } else if (score >= questions.length * 0.6) {
-        message = 'Khá tốt! Bạn có kiến thức khá vững.';
+    } else if (score >= passThreshold) {
+        message = 'Chúc mừng! Bạn đã đạt yêu cầu.';
     } else {
         message = 'Cố gắng hơn nữa nhé! Hãy ôn tập lại kiến thức.';
     }
@@ -466,6 +527,11 @@ function restartQuiz() {
     userAnswers = Array(questions.length).fill(null);
     answeredQuestions = 0;
 
+    // Reset thời gian
+    timeLeft = examDuration * 60;
+    timerElement.classList.remove('warning');
+    updateTimerDisplay();
+
     // Đặt lại giao diện
     document.querySelector('.content').style.display = 'flex';
     resultContainer.style.display = 'none';
@@ -475,12 +541,33 @@ function restartQuiz() {
 
     // Hiển thị lại câu hỏi đầu tiên
     showQuestion(currentQuestionIndex);
+
+    // Khởi động lại timer
+    startTimer();
 }
+
+// Thêm event listeners cho nút chọn đề
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.exam-type-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const type = this.dataset.type;
+            const time = this.dataset.time;
+            selectExamType(type, time);
+        });
+    });
+});
+
+// Dừng timer khi trang đóng
+window.addEventListener('beforeunload', function() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
+});
 
 // Khởi chạy ứng dụng khi trang được tải
 window.onload = init;
 
-// HÀM CHUYỂN ĐỔI LINK ẢNH - BẢN SỬA MỚI
+// HÀM CHUYỂN ĐỔI LINK ẢNH
 function convertToDirectLink(shareableLink) {
     if (!shareableLink || shareableLink.trim() === '') return '';
 

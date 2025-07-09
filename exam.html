@@ -9,7 +9,6 @@
     <meta name="keywords" content="thi bằng lái xe, 600 câu hỏi sát hạch, luyện thi lái xe, mẹo thi lý thuyết">
     <meta name="author" content="600 Câu Hỏi Sát Hạch Lái Xe 2025, Taylaimoi.com, taylaimoi2266">
     <link rel="icon" type="image/x-icon" href="image/favicon-16x16.png">
-    <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/style_part.css">
 
 </head>
@@ -21,9 +20,10 @@
             <div class="logo">
                 <a href="index.html">
                     <img src="image/logo.png" alt="Logo Taylaimoi.com" class="logo-img"></a>
+                </a>
             </div>
             <h2 style="color: brown;">Thông tin của bạn</h2>
-            <p class="description">Vui lòng cung cấp thông tin cá nhân trước khi bắt đầu bài trắc nghiệm</p>
+            <p class="description">Vui lòng cung cấp đầy đủ các thông tin của bạn trước khi bắt đầu làm bài</p>
         </header>
 
         <div class="success-message" id="success-message">
@@ -56,11 +56,41 @@
         </form>
     </div>
 
-    <!-- Phần trắc nghiệm (ban đầu ẩn) -->
+    <!-- Phần chọn loại đề thi -->
+    <div class="exam-type-container hidden" id="exam-type-container">
+        <header>
+            <h2 style="color: brown;">Chọn loại đề thi</h2>
+            <p class="description">Vui lòng chọn một trong các loại đề thi dưới đây</p>
+        </header>
+
+        <div class="exam-types">
+            <button class="exam-type-btn" data-type="B" data-time="20">
+                <span class="exam-title">Đề B</span>
+                <span class="exam-details">30 câu - 20 phút</span>
+            </button>
+            <button class="exam-type-btn" data-type="C" data-time="22">
+                <span class="exam-title">Đề C</span>
+                <span class="exam-details">35 câu - 22 phút</span>
+            </button>
+            <button class="exam-type-btn" data-type="C1" data-time="24">
+                <span class="exam-title">Đề C1</span>
+                <span class="exam-details">40 câu - 24 phút</span>
+            </button>
+        </div>
+    </div>
+
+
+
+    <!-- Phần trắc nghiệm -->
     <div class="container hidden" id="quiz-container">
         <header>
-            <h1>Ôn luyện đề theo chương</h1>
+            <h1 id="exam-title">Ôn luyện đề theo chương</h1>
             <p class="description">Chọn đáp án và xem kết quả ngay lập tức. Di chuyển giữa các câu hỏi bằng cách sử dụng nút điều hướng hoặc chọn câu hỏi từ danh sách.</p>
+            <!-- Hiển thị thời gian -->
+            <div class="timer-container hidden" id="timer-container">
+                <div class="timer" id="timer">20:00</div>
+                <div class="timer-label">Thời gian còn lại</div>
+            </div>
         </header>
 
         <div class="content">
@@ -105,12 +135,12 @@
         <div class="result-container" id="result-container">
             <h2 class="result-title">Kết quả trắc nghiệm</h2>
             <p>Bạn đã hoàn thành bài trắc nghiệm!</p>
-            <div class="score">Điểm: <span id="score">0</span>/<span>30</span></div>
+            <div class="score">Điểm: <span id="score">0</span>/<span id="total-score">0</span></div>
             <p id="result-message"></p>
             <button class="restart-btn" id="restart-btn">Làm lại bài trắc nghiệm</button>
         </div>
     </div>
 </body>
-<script src="assets/examb2.js"></script>
+<script src="assets/exam.js"></script>
 
 </html>
