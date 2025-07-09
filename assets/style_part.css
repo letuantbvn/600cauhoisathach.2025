@@ -318,6 +318,19 @@
      margin-top: 20px;
  }
  
+ #btn-home {
+     background: #B30000;
+     color: white;
+     padding: 12px 25px;
+     border: none;
+     border-radius: 8px;
+     font-size: 1.1rem;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     text-decoration: none;
+ }
+ 
  .btn-start:hover {
      background: #FF8080;
      transform: translateY(-2px);
