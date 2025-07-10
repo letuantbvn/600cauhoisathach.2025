@@ -263,7 +263,7 @@
  .navigation {
      display: flex;
      gap: 10px;
-     justify-content: center;
+     justify-content: space-between;
      margin-top: 20px;
  }
  
@@ -280,13 +280,13 @@
  .btn-prev {
      background: #7f8c8d;
      color: white;
-     width: auto;
+     width: 100%;
  }
  
  .btn-next {
      background: #B30000;
      color: white;
-     width: auto;
+     width: 100%;
  }
  
  button:disabled {
