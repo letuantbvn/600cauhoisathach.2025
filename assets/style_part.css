@@ -386,6 +386,10 @@
          width: 100%;
          text-align: center;
      }
+     .navigation {
+         justify-content: space-between;
+         width: 100%;
+     }
  }
  /* ======== RESULTS SECTION ======== */
  
