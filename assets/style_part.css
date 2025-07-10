@@ -59,6 +59,10 @@
      margin: 0 auto;
  }
  
+ .title {
+     font-size: 2rem;
+ }
+ 
  .sidebar-title {
      font-size: 1.2rem;
      margin-bottom: 15px;
