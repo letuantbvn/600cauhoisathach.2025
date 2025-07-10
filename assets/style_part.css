@@ -262,10 +262,9 @@
  
  .navigation {
      display: flex;
-     justify-content: space-between;
-     margin-top: 30px;
-     padding-top: 20px;
-     border-top: 1px solid #eee;
+     gap: 10px;
+     justify-content: center;
+     margin-top: 20px;
  }
  
  button {
@@ -281,11 +280,13 @@
  .btn-prev {
      background: #7f8c8d;
      color: white;
+     width: auto;
  }
  
  .btn-next {
      background: #B30000;
      color: white;
+     width: auto;
  }
  
  button:disabled {
@@ -318,19 +319,6 @@
      margin-top: 20px;
  }
  
- #btn-home {
-     background: #B30000;
-     color: white;
-     padding: 12px 25px;
-     border: none;
-     border-radius: 8px;
-     font-size: 1.1rem;
-     font-weight: 600;
-     cursor: pointer;
-     transition: all 0.3s ease;
-     text-decoration: none;
- }
- 
  .btn-start:hover {
      background: #FF8080;
      transform: translateY(-2px);
@@ -344,7 +332,7 @@
  .restart-btn {
      background: #2ecc71;
      color: white;
-     padding: 15px 40px;
+     padding: 10px;
      font-size: 1.1rem;
      margin-top: 20px;
  }
@@ -352,6 +340,52 @@
  .restart-btn:hover {
      background: #27ae60;
      transform: scale(1.05);
+ }
+ 
+ .button-group {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 10px;
+     justify-content: center;
+     margin-top: 20px;
+ }
+ 
+ .btn {
+     padding: 12px 20px;
+     font-size: 16px;
+     border: none;
+     border-radius: 6px;
+     color: white;
+     cursor: pointer;
+     transition: background 0.3s ease;
+     text-decoration: none;
+ }
+ /* Style từng nút */
+ 
+ .retry {
+     background-color: #2863a7;
+     /* xanh lá */
+ }
+ 
+ .retry:hover {
+     background-color: #214e88;
+ }
+ 
+ .home {
+     background-color: #B30000;
+     /* đỏ */
+ }
+ 
+ .home:hover {
+     background-color: #e93042;
+ }
+ /* Responsive: màn nhỏ thì full width */
+ 
+ @media (max-width: 600px) {
+     .btn {
+         width: 100%;
+         text-align: center;
+     }
  }
  /* ======== RESULTS SECTION ======== */
  
@@ -504,8 +538,11 @@
      }
      .btn-prev,
      .btn-next {
-         padding: 8px 15px;
+         padding: 12px 12px;
          font-size: 0.9rem;
+         width: 100%;
+         text-align: center;
+         flex-direction: column;
      }
      .question-image {
          max-height: 200px;
@@ -608,4 +645,11 @@
      height: 60px;
      width: auto;
      object-fit: contain;
+ }
+ 
+ .sub-text {
+     text-align: center;
+     margin-top: 20px;
+     font-size: 1rem;
+     color: #7f8c8d
  }

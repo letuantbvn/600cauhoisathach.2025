@@ -40,21 +40,97 @@ const timerElement = document.getElementById('timer');
 // Thêm biến toàn cục để kiểm soát trạng thái
 let formSubmitted = false;
 
+// Biến lưu dữ liệu form
+let savedFormData = JSON.parse(localStorage.getItem('userFormData')) || {};
+
+// Hàm kiểm tra dữ liệu
+function validateName(name) {
+    // Cho phép chữ cái, dấu cách, dấu nháy đơn, dấu gạch ngang, dấu chấm
+    const regex = /^[\p{L}\s.'-]+$/u;
+    return regex.test(name);
+}
+
+function validatePhone(phone) {
+    return /^\d{10}$/.test(phone);
+}
+
+function validateEmail(email) {
+    if (!email) return true; // Email không bắt buộc
+    return /@/.test(email);
+}
+
 // Khởi tạo ứng dụng
 async function init() {
+    // Điền dữ liệu đã lưu
+    document.getElementById('name').value = savedFormData.name || '';
+    document.getElementById('phone').value = savedFormData.phone || '';
+    document.getElementById('address').value = savedFormData.address || '';
+    document.getElementById('email').value = savedFormData.email || '';
+
     // Thiết lập sự kiện cho form thông tin
     infoForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        formSubmitted = true; // Đánh dấu đã submit form
+
+        // Lấy và kiểm tra dữ liệu
+        const nameInput = document.getElementById('name').value.trim();
+        const phoneInput = document.getElementById('phone').value.trim();
+        const addressInput = document.getElementById('address').value.trim();
+        const emailInput = document.getElementById('email').value.trim();
+
+        // Kiểm tra hợp lệ
+        let isValid = true;
+        let errorMessage = '';
+
+        if (!nameInput) {
+            isValid = false;
+            errorMessage = 'Vui lòng nhập họ và tên';
+        } else if (!validateName(nameInput)) {
+            isValid = false;
+            errorMessage = 'Họ và tên chỉ được chứa chữ cái và khoảng trắng';
+        }
+
+        if (isValid && !phoneInput) {
+            isValid = false;
+            errorMessage = 'Vui lòng nhập số điện thoại';
+        } else if (isValid && !validatePhone(phoneInput)) {
+            isValid = false;
+            errorMessage = 'Số điện thoại phải gồm 10 chữ số';
+        }
+
+        if (isValid && !addressInput) {
+            isValid = false;
+            errorMessage = 'Vui lòng nhập địa chỉ';
+        }
+
+        if (isValid && emailInput && !validateEmail(emailInput)) {
+            isValid = false;
+            errorMessage = 'Email không hợp lệ. Vui lòng nhập email đúng định dạng (ví dụ: example@email.com)';
+        }
+
+        if (!isValid) {
+            alert(errorMessage);
+            return;
+        }
+
+        // Lưu dữ liệu vào localStorage
+        savedFormData = {
+            name: nameInput,
+            phone: phoneInput,
+            address: addressInput,
+            email: emailInput
+        };
+        localStorage.setItem('userFormData', JSON.stringify(savedFormData));
 
         userInfo = {
-            name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            address: document.getElementById('address').value,
-            email: document.getElementById('email').value || '',
+            name: nameInput,
+            phone: phoneInput,
+            address: addressInput,
+            email: emailInput || '',
             timestamp: new Date().toISOString()
         };
 
+        // Đánh dấu đã submit form
+        formSubmitted = true;
         sendDataToGoogleSheets(userInfo);
     });
 
@@ -564,9 +640,6 @@ window.addEventListener('beforeunload', function() {
     }
 });
 
-// Khởi chạy ứng dụng khi trang được tải
-window.onload = init;
-
 // HÀM CHUYỂN ĐỔI LINK ẢNH
 function convertToDirectLink(shareableLink) {
     if (!shareableLink || shareableLink.trim() === '') return '';
@@ -590,3 +663,6 @@ function convertToDirectLink(shareableLink) {
     // Xử lý các link ảnh trực tiếp khác
     return shareableLink;
 }
+
+// Khởi chạy ứng dụng khi trang được tải
+window.onload = init;
