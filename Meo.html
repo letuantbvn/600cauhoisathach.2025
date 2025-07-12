@@ -39,7 +39,7 @@
         
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 10px;
             margin-top: 15px;
         }
@@ -62,28 +62,47 @@
             height: auto;
             object-fit: cover;
         }
+        /* Màn hình rất lớn: 6 cột */
         
-        @media (max-width: 576px) {
+        @media (min-width: 1400px) {
             .gallery {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(6, 1fr);
             }
         }
+        /* Màn hình lớn: 5 cột */
         
-        @media (max-width: 768px) {
+        @media (max-width: 1399px) and (min-width: 1200px) {
             .gallery {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(5, 1fr);
             }
         }
+        /* Màn hình trung bình: 4 cột */
         
-        @media (max-width: 992px) {
+        @media (max-width: 1199px) and (min-width: 992px) {
             .gallery {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
+        /* Màn hình nhỏ: 3 cột */
         
-        @media (max-width: 1200px) {
+        @media (max-width: 991px) and (min-width: 768px) {
             .gallery {
-                grid-template-columns: repeat(5, 1fr);
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        /* Màn hình rất nhỏ: 2 cột */
+        
+        @media (max-width: 767px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        /* Điều chỉnh cho điện thoại nhỏ */
+        
+        @media (max-width: 380px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
         }
         
@@ -295,7 +314,7 @@
             <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
             <li><a href="Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
             <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
-            <li><a href="Galery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
+            <li><a href="Gallery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
         </ul>
         <!-- <h2 class="text-center text-primary mb-4">Bộ ảnh ôn thi lý thuyết & thực hành</h2> -->

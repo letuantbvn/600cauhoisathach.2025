@@ -51,6 +51,17 @@
     </script>
     <!--End of Tawk.to Script-->
 
+    <!-- Chat Zalo -->
+    <div id="zalo-chat-btn" class="zalo-chat-btn">
+        <img src="image/icon_zalo.svg" alt="Chat Zalo">
+        <span>Chat với tôi</span>
+    </div>
+    <script>
+        document.getElementById('zalo-chat-btn').addEventListener('click', function() {
+            window.open('https://zalo.me/0904639896', '_blank');
+        });
+    </script>
+
     <header class="top-bar modern-marquee">
         <div class="marquee-content">
             <p>Mọi thông tin cần tìm hiểu về dịch vụ dạy lái xe trên công nghệ giả lập và bổ túc tay lái mới xin quý khách vui lòng liên hệ hotline: 09.8888.2266.
@@ -78,7 +89,7 @@
             <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
             <li><a href="Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
             <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
-            <li><a href="Galery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
+            <li><a href="Gallery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
         </ul>
         <section class="intro">
@@ -250,10 +261,67 @@
             </div>
         </section>
 
+        <!--Hình ảnh tiêu biểu-->
+        <!-- Carousel Hình Ảnh Tiêu Biểu -->
+        <h3 class="section-title">HÌNH ẢNH TIÊU BIỂU</h3>
+        <div class="carousel-container">
+            <div class="carousel">
+                <!-- Các slide sẽ được thêm bằng JavaScript -->
+            </div>
+
+            <div class="carousel-controls">
+                <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div class="carousel-indicators">
+                <!-- Indicators sẽ được thêm bằng JavaScript -->
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="Gallery.html" target="_blank" class="btn-outline">➜ Xem toàn bộ thư viện ảnh</a>
+        </div>
+
+
         <section class="contact-section">
             <a href="tel:0989465167" class="call-button" title="Gọi ngay"><i class="fas fa-phone"></i></a>
         </section>
+
     </main>
+    <section class="partners-section">
+        <div class="partners-container">
+            <h2 class="partners-title">ĐỐI TÁC TAYLAIMOI.COM</h2>
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <!-- Row 1 -->
+                    <div class="partner-logo">
+                        <img src="image/Logo/FPT-logo.png" alt="Partner 1">
+                    </div>
+
+                    <div class="partner-logo">
+                        <img src="image/Logo/taylaimoi-logo.png" alt="Partner 3">
+                    </div>
+
+                    <div class="partner-logo">
+                        <img src="image/Logo/Vinfast-logo.png" alt="Partner 2">
+                    </div>
+
+                    <div class="partner-logo">
+                        <img src="image/Logo/FPT-logo.png" alt="Partner 1">
+                    </div>
+
+                    <div class="partner-logo">
+                        <img src="image/Logo/taylaimoi-logo.png" alt="Partner 3">
+                    </div>
+
+                    <div class="partner-logo">
+                        <img src="image/Logo/Vinfast-logo.png" alt="Partner 2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer id="footer">
         <div class="footer-content">
@@ -354,6 +422,108 @@
         // Hiển thị thông báo khi người dùng nhấp vào nút gọi điện
         document.querySelector('.call-button').addEventListener('click', function() {
             alert('Bạn đã nhấp vào nút gọi điện!');
+        });
+    </script>
+
+    <!-- Thêm script cho carousel -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Danh sách hình ảnh tiêu biểu
+            const featuredImages = [{
+                src: "image/Gallery/img (1).webp",
+                alt: "Trung tâm đào tạo lái xe Taylaimoi.com",
+                caption: "Không gian học tập hiện đại tại Taylaimoi.com"
+            }, {
+                src: "image/Gallery/img (2).webp",
+                alt: "Thực hành lái xe",
+                caption: "Học viên đang thực hành lái xe với giáo viên"
+            }, {
+                src: "image/Gallery/img (3).webp",
+                alt: "Mô phỏng tình huống giao thông",
+                caption: "Mô phỏng các tình huống giao thông thực tế"
+            }, {
+                src: "image/Gallery/img (4).webp",
+                alt: "Giờ học lý thuyết",
+                caption: "Giờ học lý thuyết với giáo viên giàu kinh nghiệm"
+            }, {
+                src: "image/Gallery/img (5).webp",
+                alt: "Lễ tốt nghiệp",
+                caption: "Lễ trao bằng tốt nghiệp cho học viên xuất sắc"
+            }, {
+                src: "image/Gallery/img (6).webp",
+                alt: "Học viên thực hành",
+                caption: "Học viên thực hành trên xe tập lái"
+            }, {
+                src: "image/Gallery/img (7).webp",
+                alt: "Mô hình giảng dạy",
+                caption: "Mô hình giảng dạy trực quan, dễ hiểu"
+            }];
+
+            const carousel = document.querySelector('.carousel');
+            const indicatorsContainer = document.querySelector('.carousel-indicators');
+            let currentIndex = 0;
+
+            // Tạo các slide và indicators
+            featuredImages.forEach((image, index) => {
+                // Tạo slide
+                const slide = document.createElement('div');
+                slide.className = 'carousel-item';
+                slide.style.backgroundImage = `url('${image.src}')`;
+
+                const caption = document.createElement('div');
+                caption.className = 'carousel-caption';
+                caption.textContent = image.caption;
+
+                slide.appendChild(caption);
+                carousel.appendChild(slide);
+
+                // Tạo indicator
+                const indicator = document.createElement('div');
+                indicator.className = 'carousel-indicator';
+                if (index === 0) indicator.classList.add('active');
+                indicator.dataset.index = index;
+
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+
+                indicatorsContainer.appendChild(indicator);
+            });
+
+            // Xử lý nút điều hướng
+            document.querySelector('.prev-btn').addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+            });
+
+            document.querySelector('.next-btn').addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+            });
+
+            // Hàm chuyển đến slide cụ thể
+            function goToSlide(index) {
+                // Xử lý chỉ số khi vượt quá giới hạn
+                if (index < 0) {
+                    index = featuredImages.length - 1;
+                } else if (index >= featuredImages.length) {
+                    index = 0;
+                }
+
+                // Cập nhật vị trí carousel
+                carousel.style.transform = `translateX(-${index * 100}%)`;
+
+                // Cập nhật indicator active
+                document.querySelectorAll('.carousel-indicator').forEach(ind => {
+                    ind.classList.remove('active');
+                });
+                document.querySelector(`.carousel-indicator[data-index="${index}"]`).classList.add('active');
+
+                currentIndex = index;
+            }
+
+            // Tự động chuyển slide
+            setInterval(() => {
+                goToSlide(currentIndex + 1);
+            }, 5000);
         });
     </script>
 </body>
