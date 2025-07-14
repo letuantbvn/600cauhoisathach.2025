@@ -136,22 +136,132 @@
             </div>
         </section>
     </main>
+
+
+    <!-- Thêm audio element start-->
     <!-- Thêm nút điều khiển âm thanh -->
-    <div class="music-control" id="musicControl">
-        <i class="fas fa-volume-up"></i>
+    <div class="music-controls">
+        <div class="playlist-container" id="playlistContainer">
+            <div class="playlist-title">
+                <i class="fas fa-music"></i> Danh sách nhạc
+            </div>
+            <div class="song-item active" data-song="0">
+                <i class="fas fa-play"></i> Beethoven Virus
+                <span class="loading-indicator" id="loading1" style="display: none;"></span>
+            </div>
+            <div class="song-item" data-song="1">
+                <i class="fas fa-play"></i> Beethoven Fur Elise
+                <span class="loading-indicator" id="loading2" style="display: none;"></span>
+            </div>
+            <div class="song-item" data-song="2">
+                <i class="fas fa-play"></i> Beethoven Moonlight Sonata
+                <span class="loading-indicator" id="loading3" style="display: none;"></span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+
+        <div class="music-toggle" id="musicToggle">
+            <i class="fas fa-volume-up"></i>
+        </div>
     </div>
 
-    <!-- Thêm audio element -->
-    <audio id="backgroundMusic" loop>
-        <source src="assets/music/Beethoven_Fur_Elise_full.mp3" type="audio/mpeg">
-        Trình duyệt của bạn không hỗ trợ phát nhạc.
-    </audio>
+    <!-- Không cần thẻ audio vì chúng ta tạo bằng JavaScript -->
+
     <script>
         // Xử lý âm thanh nền
         document.addEventListener('DOMContentLoaded', function() {
-            const music = document.getElementById('backgroundMusic');
-            const musicControl = document.getElementById('musicControl');
-            const icon = musicControl.querySelector('i');
+            // Danh sách bài hát
+            const songs = [{
+                title: 'Beethoven Virus',
+                url: 'assets/music/Beethoven_Virus.mp3'
+            }, {
+                title: 'Beethoven Fur Elise',
+                url: 'assets/music/Beethoven_Fur_Elise.mp3'
+            }, {
+                title: 'Beethoven Moonlight Sonata',
+                url: 'assets/music/Beethoven_Moonlight_Sonata.mp3'
+            }];
+
+            // Tạo các đối tượng Audio
+            const audioPlayers = [];
+            let currentPlayerIndex = 0;
+            let isPlaying = false;
+
+            const musicToggle = document.getElementById('musicToggle');
+            const playlistContainer = document.getElementById('playlistContainer');
+            const songItems = document.querySelectorAll('.song-item');
+            const progressBar = document.getElementById('progressBar');
+            const icon = musicToggle.querySelector('i');
+
+            // Tạo các đối tượng Audio và tải trước
+            songs.forEach((song, index) => {
+                const audio = new Audio();
+                audio.src = song.url;
+                audio.preload = 'auto'; // Tải trước
+                audio.load(); // Bắt đầu tải
+
+                // Hiển thị indicator tải
+                const loadingIndicator = document.getElementById(`loading${index+1}`);
+                loadingIndicator.style.display = 'inline-block';
+
+                // Xử lý khi tải xong
+                audio.addEventListener('canplaythrough', function() {
+                    loadingIndicator.style.display = 'none';
+                });
+
+                // Xử lý khi có lỗi
+                audio.addEventListener('error', function() {
+                    loadingIndicator.style.display = 'none';
+                    console.error(`Lỗi tải bài hát: ${song.title}`);
+                });
+
+                audioPlayers.push(audio);
+            });
+
+            // Cập nhật thanh tiến trình
+            function updateProgressBar() {
+                if (isPlaying) {
+                    const audio = audioPlayers[currentPlayerIndex];
+                    const progress = (audio.currentTime / audio.duration) * 100;
+                    progressBar.style.width = `${progress}%`;
+                }
+            }
+
+            // Xử lý khi bài hát kết thúc
+            audioPlayers.forEach(audio => {
+                audio.addEventListener('ended', function() {
+                    // Chuyển sang bài tiếp theo
+                    currentPlayerIndex = (currentPlayerIndex + 1) % audioPlayers.length;
+                    playCurrentSong();
+                });
+
+                audio.addEventListener('timeupdate', updateProgressBar);
+            });
+
+            // Phát bài hát hiện tại
+            function playCurrentSong() {
+                // Cập nhật giao diện
+                songItems.forEach((item, index) => {
+                    if (index === currentPlayerIndex) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+
+                // Phát nhạc
+                audioPlayers.forEach(audio => audio.pause());
+                audioPlayers[currentPlayerIndex].currentTime = 0;
+                audioPlayers[currentPlayerIndex].play()
+                    .then(() => {
+                        isPlaying = true;
+                        musicToggle.classList.add('music-playing');
+                        icon.className = 'fas fa-volume-up';
+                    })
+                    .catch(e => console.log("Phát nhạc lỗi:", e));
+            }
 
             // Kiểm tra xem người dùng đã tương tác với trang chưa
             let userInteracted = false;
@@ -160,40 +270,53 @@
                 if (!userInteracted) {
                     userInteracted = true;
                     // Thử phát nhạc khi người dùng click lần đầu
-                    music.play().catch(e => console.log("Auto-play prevented:", e));
+                    playCurrentSong();
                 }
             });
 
             // Xử lý nút điều khiển âm thanh
-            musicControl.addEventListener('click', function() {
-                if (music.paused) {
-                    music.play();
-                    icon.className = 'fas fa-volume-up';
-                    musicControl.classList.add('music-playing');
-                } else {
-                    music.pause();
+            musicToggle.addEventListener('click', function() {
+                if (isPlaying) {
+                    audioPlayers[currentPlayerIndex].pause();
+                    isPlaying = false;
+                    musicToggle.classList.remove('music-playing');
                     icon.className = 'fas fa-volume-mute';
-                    musicControl.classList.remove('music-playing');
+                } else {
+                    playCurrentSong();
                 }
+            });
+
+            // Xử lý chọn bài hát
+            songItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    if (index !== currentPlayerIndex) {
+                        currentPlayerIndex = index;
+                        playCurrentSong();
+
+                        // Ẩn danh sách sau khi chọn
+                        setTimeout(() => {
+                            playlistContainer.classList.remove('show');
+                        }, 1000);
+                    }
+                });
+            });
+
+            // Hiển thị/ẩn danh sách nhạc khi nhấn vào nút chính
+            musicToggle.addEventListener('dblclick', function() {
+                playlistContainer.classList.toggle('show');
             });
 
             // Tự động phát nhạc sau khi trang tải (nếu trình duyệt cho phép)
             setTimeout(() => {
                 if (!userInteracted) {
-                    music.play().then(() => {
-                        musicControl.classList.add('music-playing');
-                    }).catch(e => {
-                        console.log("Auto-play prevented on load:", e);
-                        // Hiển thị thông báo nếu cần
-                    });
+                    playCurrentSong();
                 }
             }, 2000);
         });
     </script>
+
     <!-- Thêm audio element end-->
-    <div class="scroll-to-top">
-        <a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
-    </div>
+
     <!-- Footer -->
     <footer id="footer">
         <div class="footer-content">

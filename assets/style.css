@@ -1471,10 +1471,18 @@ iframe {
 
 /* Thêm style cho nút điều khiển âm thanh */
 
-.music-control {
+.music-controls {
     position: fixed;
-    bottom: 160px;
+    bottom: 180px;
     right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.music-toggle {
     width: 50px;
     height: 50px;
     background-color: #b30000;
@@ -1484,18 +1492,84 @@ iframe {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    z-index: 10000;
-    box-shadow: 0 0 15px rgba(172, 12, 12, 0.5);
+    box-shadow: 0 0 15px rgba(179, 0, 0, 0.5);
     transition: all 0.3s;
 }
 
-.music-control:hover {
+.music-toggle:hover {
     transform: scale(1.1);
     background-color: #d30007;
 }
 
-.music-control i {
+.music-toggle i {
     font-size: 24px;
+}
+
+.playlist-container {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0;
+    width: 200px;
+}
+
+.playlist-container.show {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.playlist-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #b30000;
+    text-align: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.song-item {
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.song-item:hover {
+    background-color: #f8f8f8;
+}
+
+.song-item.active {
+    background-color: #ffe9e9;
+    color: #b30000;
+    font-weight: bold;
+}
+
+.song-item i {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.progress-container {
+    width: 100%;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: #b30000;
+    width: 0%;
+    transition: width 0.1s linear;
 }
 
 
@@ -1517,58 +1591,26 @@ iframe {
     animation: pulse 1.5s infinite;
 }
 
-
-/* Responsive cho nút điều khiển âm thanh */
-
-@media (max-width: 768px) {
-    .music-control {
-        bottom: 140px;
-        right: 10px;
-        width: 40px;
-        height: 40px;
-    }
-    .music-control i {
-        font-size: 20px;
-    }
+.music-controls .fa-music {
+    margin-right: 8px;
 }
 
-
-/* .scroll-to-top {
-    position: fixed;
-    bottom: 100px;
-    left: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: #ffffff;
-    color: #b30000;
-    border-radius: 50% !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 10000;
-    box-shadow: 0 0 15px rgba(247, 148, 148, 0.5);
-    transition: all 0.3s;
+.loading-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(179, 0, 0, 0.3);
+    border-top: 2px solid #b30000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 8px;
 }
 
-.scroll-to-top:hover {
-    transform: scale(1.1);
-    background-color: #ffe9e9;
-}
-
-
-/* Responsive cho nút cuộn lên trên */
-
-@media (max-width: 768px) {
-    .scroll-to-top {
-        bottom: 100px;
-        left: 20px;
-        width: 40px;
-        height: 40px;
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
     }
-    .scroll-to-top i {
-        font-size: 20px;
+    100% {
+        transform: rotate(360deg);
     }
 }
-
-*/
