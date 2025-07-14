@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video - Taylaimoi.com</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* Additional styles for video page */
+        
+        .video-page {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .video-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #b30000 0%, #1A2F51 100%);
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .video-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .video-header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(179, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+        
+        .play-icon i {
+            color: white;
+            font-size: 24px;
+            margin-left: 5px;
+        }
+        
+        .video-card:hover .play-icon {
+            background: #b30000;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1A2F51;
+            min-height: 60px;
+        }
+        
+        .video-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 0.85rem;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .video-player {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .video-player.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .video-container {
+            width: 90%;
+            max-width: 1000px;
+            position: relative;
+        }
+        
+        .video-frame {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(179, 0, 0, 0.5);
+        }
+        
+        .video-frame iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .close-video {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-video:hover {
+            color: #b30000;
+        }
+        
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #b30000;
+            color: white;
+            border-color: #b30000;
+        }
+        /* Responsive styles */
+        
+        @media (max-width: 992px) {
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .video-header h1 {
+                font-size: 2rem;
+            }
+            .video-header p {
+                font-size: 1rem;
+            }
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .category-filter {
+                gap: 10px;
+            }
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .video-header {
+                padding: 15px;
+            }
+            .video-header h1 {
+                font-size: 1.7rem;
+            }
+            .video-thumbnail {
+                height: 180px;
+            }
+            .video-info {
+                padding: 15px;
+            }
+            .video-title {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loading">
+            <img src="image/logo.png" alt="Logo Taylaimoi.com" class="logo-img">
+            <p>Đang tải dữ liệu, vui lòng chờ...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Top bar with marquee -->
+    <header class="top-bar modern-marquee">
+        <div class="marquee-content">
+            <p>Mọi thông tin cần tìm hiểu về dịch vụ dạy lái xe trên công nghệ giả lập và bổ túc tay lái mới xin quý khách vui lòng liên hệ hotline: 09.8888.2266.
+                <span class="blink">💥 Taylaimoi.com - 120mophong.com 💥</span>
+                <span>Xin chân thành cảm ơn! "Phía trước tay lái là cuộc sống của bạn và mọi người, phía sau tay lái là gia đình của bạn" 💥120mophong.com & Taylaimoi.com 💥</span></p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="image/logo.png" alt="Logo Taylaimoi.com" class="logo-img">
+                </a>
+            </div>
+            <div class="contact">
+                <span><i class="fa-solid fa-phone" style="color: #b30000;"></i> Thầy Tuấn - Tiếp nhận đăng ký hồ sơ: <a href="tel:0989465167">0989.465.167</a></span>
+                <span><i class="fa-solid fa-square-phone-flip" style="color: #b30000"></i> Hotline Taylaimoi.com: <a href="tel:0988882266">09.8888.2266</a></span>
+                <span><i class="fa-solid fa-house" style="color: #b30000"></i> Thư CSKH: <a href="mailto:Taylaimoi226@gmail.com">Taylaimoi2266@gmail.com</a> </span>
+                <span><i class="fa-solid fa-envelope-open-text" style="color: #b30000"></i> Địa chỉ:<b> 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</b></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Menu -->
+    <main class="container">
+        <ul class="main-menu">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+            <li><a href="Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
+            <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
+            <li><a href="Gallery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
+            <li><a href="Video.html" class="active"><i class="fa-solid fa-video"></i> Video</a></li>
+            <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
+        </ul>
+    </main>
+
+    <!-- Video Page Content -->
+    <section class="video-page">
+        <div class="video-header">
+            <h1><i class="fas fa-video"></i> VIDEO HƯỚNG DẪN LÁI XE</h1>
+            <p>Xem các video hướng dẫn lái xe chi tiết từ các chuyên gia hàng đầu của Taylaimoi.com. Học cách thực hành lái xe an toàn và hiệu quả.</p>
+        </div>
+
+        <div class="category-filter">
+            <button class="filter-btn active" data-category="all">Tất cả</button>
+            <button class="filter-btn" data-category="theory">Lý thuyết</button>
+            <button class="filter-btn" data-category="practice">Thực hành</button>
+            <button class="filter-btn" data-category="tips">Mẹo thi</button>
+            <button class="filter-btn" data-category="safety">An toàn</button>
+        </div>
+
+        <div class="video-grid">
+            <!-- Video 1 -->
+            <div class="video-card" data-category="practice">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/Kh0ZXVpW0r4/maxresdefault.jpg" alt="Hướng dẫn lái xe số sàn cơ bản">
+                    <div class="play-icon" data-video="0fNAC9D0LKM">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Hướng dẫn lái xe số sàn cơ bản cho người mới bắt đầu</h3>
+                    <p class="video-description">Video hướng dẫn chi tiết các thao tác lái xe số sàn cơ bản, cách vào số, nhả côn, phối hợp chân côn và chân ga.</p>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> 15:30</span>
+                        <span><i class="far fa-calendar"></i> 10/05/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="video-card" data-category="theory">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/7X8II6J-6mI/maxresdefault.jpg" alt="Mẹo thi lý thuyết 600 câu">
+                    <div class="play-icon" data-video="7X8II6J-6mI">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Mẹo thi lý thuyết 600 câu dễ nhớ, đạt điểm cao</h3>
+                    <p class="video-description">Tổng hợp các mẹo thi lý thuyết 600 câu dễ nhớ nhất, giúp bạn ôn thi hiệu quả và đạt điểm cao trong kỳ thi sát hạch.</p>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> 22:45</span>
+                        <span><i class="far fa-calendar"></i> 28/04/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card" data-category="practice">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/8HqF9a7vD5Y/maxresdefault.jpg" alt="Kỹ thuật lùi xe và đỗ xe">
+                    <div class="play-icon" data-video="8HqF9a7vD5Y">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Kỹ thuật lùi xe và đỗ xe an toàn, chính xác</h3>
+                    <p class="video-description">Hướng dẫn chi tiết các kỹ thuật lùi xe, đỗ xe song song, vuông góc và chéo một cách an toàn và chính xác.</p>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> 18:20</span>
+                        <span><i class="far fa-calendar"></i> 15/04/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="video-card" data-category="safety">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/Kh0ZXVpW0r4/maxresdefault.jpg" alt="Xử lý tình huống nguy hiểm">
+                    <div class="play-icon" data-video="Kh0ZXVpW0r4">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Cách xử lý các tình huống nguy hiểm khi lái xe</h3>
+                    <p class="video-description">Hướng dẫn cách xử lý các tình huống nguy hiểm như mất phanh, nổ lốp, trơn trượt khi lái xe để đảm bảo an toàn.</p>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> 25:10</span>
+                        <span><i class="far fa-calendar"></i> 05/04/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 5 -->
+            <div class="video-card" data-category="tips">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/Kh0ZXVpW0r4/maxresdefault.jpg" alt="Mẹo thi sa hình">
+                    <div class="play-icon" data-video="Kh0ZXVpW0r4">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Mẹo thi sa hình hạng B đạt điểm tuyệt đối</h3>
+                    <p class="video-description">Bí quyết và mẹo thi sa hình hạng B giúp bạn vượt qua 11 bài thi sa hình một cách dễ dàng và đạt điểm tuyệt đối.</p>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> 30:15</span>
+                        <span><i class="far fa-calendar"></i> 22/03/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 6 -->
+            <div class="video-card" data-category="safety">
+                <div class="video-thumbnail">
+                    <img src="https://img.youtube.com/vi/Kh0ZXVpW0r4/maxresdefault.jpg" alt="Lái xe ban đêm an toàn">
+                    <div class="play-icon" data-video="Kh0ZXVpW0r4">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Kinh nghiệm lái xe ban đêm an toàn</h3>
+                    <p class="video-description">Hướng dẫn lái xe ban đêm an toàn, cách sử dụng đèn pha/cốt đúng cách, xử lý tình huống khi lái xe trong điều kiện thiếu sáng.</p>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> 12:40</span>
+                        <span><i class="far fa-calendar"></i> 10/03/2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Player -->
+        <div class="video-player" id="videoPlayer">
+            <div class="video-container">
+                <div class="close-video" id="closeVideo">
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="video-frame" id="videoFrame">
+                    <!-- YouTube iframe will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <div class="partners-container">
+            <h2 class="partners-title">ĐỐI TÁC TAYLAIMOI.COM</h2>
+            <div class="marquee-container">
+                <div class="marquee-track">
+                    <div class="partner-logo">
+                        <img src="image/Logo/FPT-logo.png" alt="Partner 1">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="image/Logo/taylaimoi-logo.png" alt="Partner 3">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="image/Logo/Vinfast-logo.png" alt="Partner 2">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="image/Logo/FPT-logo.png" alt="Partner 1">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="image/Logo/taylaimoi-logo.png" alt="Partner 3">
+                    </div>
+                    <div class="partner-logo">
+                        <img src="image/Logo/Vinfast-logo.png" alt="Partner 2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-content">
+            <p><strong>www.Taylaimoi.com</strong></p>
+            <p>Địa chỉ: 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</p>
+            <a href="https://www.facebook.com/taylaimoi2266" class="fb-button" target="_blank" title="Chat Facebook" style="color:white; padding: 10px; font-size: 14px;">
+                <img src="image/icons8_facebook.svg" style="width: 24px; height: 24px" alt="Chat Facebook"> Facebook Taylaimoi
+            </a>
+            <a href="https://zalo.me/0989465167" class="zalo-button" target="_blank" title="Chat Zalo" style="color:white ;padding: 10px; font-size: 14px;">
+                <img src="image/icons8_zalo.svg" style="width: 24px; height: 24px; " alt="Chat Zalo"> Zalo Tiếp nhận hồ sơ
+            </a>
+            <a href="https://www.tiktok.com/@kenhtaylaimoi.com" class="youtube-button" target="_blank" title="Xem Video" style="color:white ;padding: 10px; font-size: 14px;">
+                <img src="image/icons8_tiktok.svg" style="width: 24px; height: 24px;" alt="Xem Video">Tiktok Taylaimoi
+            </a>
+            <p>Hotline: 09.8888.2266 | Email: Taylaimoi2266@gmail.com</p>
+            <div class="sub-text"> (©) Bản quyền của thương hiệu Taylaimoi.com | Thiết kế bởi letuantbvn </div>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        setTimeout(() => {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) preloader.style.display = 'none';
+        }, 2000);
+
+        // Video Player Functionality
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoFrame = document.getElementById('videoFrame');
+        const closeVideo = document.getElementById('closeVideo');
+        const playIcons = document.querySelectorAll('.play-icon');
+
+        // Open video player
+        playIcons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                const videoId = this.getAttribute('data-video');
+                videoFrame.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                videoPlayer.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close video player
+        closeVideo.addEventListener('click', function() {
+            videoPlayer.classList.remove('active');
+            videoFrame.innerHTML = '';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close video when clicking outside
+        videoPlayer.addEventListener('click', function(e) {
+            if (e.target === videoPlayer) {
+                videoPlayer.classList.remove('active');
+                videoFrame.innerHTML = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Category Filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const videoCards = document.querySelectorAll('.video-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                const category = this.getAttribute('data-category');
+
+                // Show/hide videos based on category
+                videoCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

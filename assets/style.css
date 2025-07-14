@@ -280,15 +280,46 @@ main.container {
 /* Footer */
 
 footer {
-    background-color: #222;
+    background-color: #1A2F51;
     color: white;
-    padding: 20px;
+    padding: 40px 20px;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 footer p {
-    margin: 5px 0;
+    margin: 10px 0;
+}
+
+.footer-content a {
+    display: inline-block;
+    margin: 15px 10px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-content a:hover {
+    background: #b30000;
+    transform: translateY(-3px);
+}
+
+.footer-content img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.sub-text {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
 
 
@@ -596,7 +627,6 @@ iframe {
     color: white;
     border: #ffcbcd 1px solid;
     shadow: 0 0 10px rgba(255, 39, 39, 0.6);
-    box-shadow: inset 0 0 10px rgba(255, 39, 39, 0.6);
 }
 
 
@@ -1225,7 +1255,7 @@ iframe {
 .section-title {
     text-align: center;
     color: #b30000;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin: 30px 0 15px;
     position: relative;
     padding-bottom: 10px;
@@ -1247,9 +1277,8 @@ iframe {
 
 .partners-section {
     background: #f0f0f0;
-    padding: 50px 0;
+    padding: 30px 0;
     width: 100%;
-    margin: 20px 0;
     overflow: hidden;
 }
 
@@ -1262,7 +1291,7 @@ iframe {
 .partners-title {
     text-align: center;
     color: #b30000;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     margin-bottom: 40px;
     position: relative;
     font-weight: 700;
@@ -1515,11 +1544,17 @@ iframe {
     transition: max-height 0.4s ease, opacity 0.3s ease;
     opacity: 0;
     width: 200px;
+    transition: all 0.4s ease;
+    transform-origin: top right;
+    visibility: hidden;
+    transform: translateY(10px);
 }
 
 .playlist-container.show {
     max-height: 300px;
     opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .playlist-title {
@@ -1660,4 +1695,21 @@ iframe {
     .playlist-container {
         width: 150px;
     }
+}
+
+.playlist-toggle-button {
+    font-weight: bold;
+    color: #b30000;
+    background: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s;
+    bottom: 1200px;
+    right: 10px;
+}
+
+.playlist-toggle-button:hover {
+    background: #ffe9e9;
 }

@@ -99,6 +99,7 @@
             <li><a href="Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
             <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
             <li><a href="Gallery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
+            <li><a href="Video.html"><i class="fa-solid fa-video"></i> Video</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
         </ul>
         <section class="stats-section">
@@ -166,8 +167,6 @@
             <i class="fas fa-volume-up"></i>
         </div>
     </div>
-
-    <!-- Không cần thẻ audio vì chúng ta tạo bằng JavaScript -->
 
     <script>
         // Xử lý âm thanh nền
@@ -244,23 +243,44 @@
             function playCurrentSong() {
                 // Cập nhật giao diện
                 songItems.forEach((item, index) => {
-                    if (index === currentPlayerIndex) {
-                        item.classList.add('active');
-                    } else {
-                        item.classList.remove('active');
-                    }
+                    item.classList.toggle('active', index === currentPlayerIndex);
                 });
 
-                // Phát nhạc
-                audioPlayers.forEach(audio => audio.pause());
-                audioPlayers[currentPlayerIndex].currentTime = 0;
-                audioPlayers[currentPlayerIndex].play()
-                    .then(() => {
-                        isPlaying = true;
-                        musicToggle.classList.add('music-playing');
-                        icon.className = 'fas fa-volume-up';
-                    })
-                    .catch(e => console.log("Phát nhạc lỗi:", e));
+                // Dừng tất cả bài khác
+                audioPlayers.forEach(audio => {
+                    audio.pause();
+                    audio.volume = 0; // Reset âm lượng
+                });
+
+                const audio = audioPlayers[currentPlayerIndex];
+                audio.currentTime = 0;
+                audio.volume = 0; // Bắt đầu từ âm lượng nhỏ
+
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicToggle.classList.add('music-playing');
+                    icon.className = 'fas fa-volume-up';
+
+                    fadeInVolume(audio, 1, 3000); // Tăng âm lượng từ 0 → 1 trong 3 giây
+
+                }).catch(e => console.log("Phát nhạc lỗi:", e));
+            }
+            // Hàm tăng âm lượng từ 0 đến 1
+            function fadeInVolume(audio, targetVolume = 1, duration = 3000) {
+                const steps = 30;
+                const stepTime = duration / steps;
+                const volumeStep = targetVolume / steps;
+                let currentStep = 0;
+
+                const interval = setInterval(() => {
+                    if (currentStep >= steps || audio.volume >= targetVolume) {
+                        clearInterval(interval);
+                        audio.volume = targetVolume;
+                        return;
+                    }
+                    audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+                    currentStep++;
+                }, stepTime);
             }
 
             // Kiểm tra xem người dùng đã tương tác với trang chưa
@@ -314,7 +334,6 @@
             }, 2000);
         });
     </script>
-
     <!-- Thêm audio element end-->
 
     <!-- Footer -->
@@ -322,16 +341,17 @@
         <div class="footer-content">
             <p><strong>www.Taylaimoi.com</strong></p>
             <p>Địa chỉ: 143 Trần Phú, Văn Quán, Hà Đông, Hà Nội</p>
-            <a href="https://www.facebook.com/taylaimoi2266" class="fb-button" target="_blank" title="Chat Facebook" style="color:white; padding: 10px; font-size: 14px;">
-                <img src="image/icons8_facebook.svg" style="width: 24px; height: 24px" alt="Chat Facebook"> Facebook Taylaimoi
+            <a href="https://www.facebook.com/taylaimoi2266" class="fb-button" target="_blank" title="Chat Facebook">
+                <img src="image/icons8_facebook.svg" alt="Chat Facebook"> Facebook Taylaimoi
             </a>
-            <a href="https://zalo.me/0989465167" class="zalo-button" target="_blank" title="Chat Zalo" style="color:white ;padding: 10px; font-size: 14px;">
-                <img src="image/icons8_zalo.svg" style="width: 24px; height: 24px; " alt="Chat Zalo"> Zalo Tiếp nhận hồ sơ
+            <a href="https://zalo.me/0904639896" class="zalo-button" target="_blank" title="Chat Zalo">
+                <img src="image/icons8_zalo.svg" alt="Chat Zalo"> Zalo Tiếp nhận hồ sơ
             </a>
-            <a href="https://www.tiktok.com/@kenhtaylaimoi.com" class="youtube-button" target="_blank" title="Xem Video" style="color:white ;padding: 10px; font-size: 14px;">
-                <img src="image/icons8_tiktok.svg" style="width: 24px; height: 24px;" alt="Xem Video">Tiktok Taylaimoi
+            <a href="https://www.tiktok.com/@kenhtaylaimoi.com" class="youtube-button" target="_blank" title="Xem Video">
+                <img src="image/icons8_tiktok.svg" alt="Xem Video"> Tiktok Taylaimoi
             </a>
             <p>Hotline: 09.8888.2266 | Email: Taylaimoi2266@gmail.com</p>
+            <div class="sub-text"> (©) Bản quyền của thương hiệu Taylaimoi.com | Thiết kế bởi letuantbvn </div>
         </div>
     </footer>
 
