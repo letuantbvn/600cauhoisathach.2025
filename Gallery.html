@@ -24,6 +24,16 @@
 </head>
 
 <body>
+    <!-- Chat Zalo -->
+    <div id="zalo-chat-btn" class="zalo-chat-btn">
+        <img src="image/icon_zalo.svg" alt="Chat Zalo">
+        <span>Chat với tôi</span>
+    </div>
+    <script>
+        document.getElementById('zalo-chat-btn').addEventListener('click', function() {
+            window.open('https://zalo.me/0904639896', '_blank');
+        });
+    </script>
     <section>
         <div class="preloader">
             <div class="loading">
@@ -126,6 +136,65 @@
             </div>
         </section>
     </main>
+    <!-- Thêm nút điều khiển âm thanh -->
+    <div class="music-control" id="musicControl">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
+    <!-- Thêm audio element -->
+    <audio id="backgroundMusic" loop>
+        <source src="assets/music/Beethoven_Fur_Elise_full.mp3" type="audio/mpeg">
+        Trình duyệt của bạn không hỗ trợ phát nhạc.
+    </audio>
+    <script>
+        // Xử lý âm thanh nền
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('backgroundMusic');
+            const musicControl = document.getElementById('musicControl');
+            const icon = musicControl.querySelector('i');
+
+            // Kiểm tra xem người dùng đã tương tác với trang chưa
+            let userInteracted = false;
+
+            document.addEventListener('click', function() {
+                if (!userInteracted) {
+                    userInteracted = true;
+                    // Thử phát nhạc khi người dùng click lần đầu
+                    music.play().catch(e => console.log("Auto-play prevented:", e));
+                }
+            });
+
+            // Xử lý nút điều khiển âm thanh
+            musicControl.addEventListener('click', function() {
+                if (music.paused) {
+                    music.play();
+                    icon.className = 'fas fa-volume-up';
+                    musicControl.classList.add('music-playing');
+                } else {
+                    music.pause();
+                    icon.className = 'fas fa-volume-mute';
+                    musicControl.classList.remove('music-playing');
+                }
+            });
+
+            // Tự động phát nhạc sau khi trang tải (nếu trình duyệt cho phép)
+            setTimeout(() => {
+                if (!userInteracted) {
+                    music.play().then(() => {
+                        musicControl.classList.add('music-playing');
+                    }).catch(e => {
+                        console.log("Auto-play prevented on load:", e);
+                        // Hiển thị thông báo nếu cần
+                    });
+                }
+            }, 2000);
+        });
+    </script>
+    <!-- Thêm audio element end-->
+    <div class="scroll-to-top">
+        <a href="#top"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+    <!-- Footer -->
     <footer id="footer">
         <div class="footer-content">
             <p><strong>www.Taylaimoi.com</strong></p>

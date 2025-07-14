@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
+    <!-- Thêm Font Awesome cho icon âm thanh -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 </head>
 
 <body>
@@ -263,7 +266,7 @@
 
         <!--Hình ảnh tiêu biểu-->
         <!-- Carousel Hình Ảnh Tiêu Biểu -->
-        <h3 class="section-title">THƯƠNG HIỆU TAYLAIMOI.COM</h3>
+        <h2 class="section-title"><span style="color: #1A2F51;">THƯƠNG HIỆU</span> <br> TAYLAIMOI.COM</h2>
         <div class="carousel-container">
             <div class="carousel">
                 <!-- Các slide sẽ được thêm bằng JavaScript -->
@@ -322,6 +325,63 @@
             </div>
         </div>
     </section>
+
+    <!-- Thêm nút điều khiển âm thanh -->
+    <div class="music-control" id="musicControl">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
+    <!-- Thêm audio element -->
+    <audio id="backgroundMusic" loop>
+        <source src="assets/music/Beethoven_Fur_Elise_full.mp3" type="audio/mpeg">
+        Trình duyệt của bạn không hỗ trợ phát nhạc.
+    </audio>
+    <script>
+        // Xử lý âm thanh nền
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('backgroundMusic');
+            const musicControl = document.getElementById('musicControl');
+            const icon = musicControl.querySelector('i');
+
+            // Kiểm tra xem người dùng đã tương tác với trang chưa
+            let userInteracted = false;
+
+            document.addEventListener('click', function() {
+                if (!userInteracted) {
+                    userInteracted = true;
+                    // Thử phát nhạc khi người dùng click lần đầu
+                    music.play().catch(e => console.log("Auto-play prevented:", e));
+                }
+            });
+
+            // Xử lý nút điều khiển âm thanh
+            musicControl.addEventListener('click', function() {
+                if (music.paused) {
+                    music.play();
+                    icon.className = 'fas fa-volume-up';
+                    musicControl.classList.add('music-playing');
+                } else {
+                    music.pause();
+                    icon.className = 'fas fa-volume-mute';
+                    musicControl.classList.remove('music-playing');
+                }
+            });
+
+            // Tự động phát nhạc sau khi trang tải (nếu trình duyệt cho phép)
+            setTimeout(() => {
+                if (!userInteracted) {
+                    music.play().then(() => {
+                        musicControl.classList.add('music-playing');
+                    }).catch(e => {
+                        console.log("Auto-play prevented on load:", e);
+                        // Hiển thị thông báo nếu cần
+                    });
+                }
+            }, 2000);
+        });
+    </script>
+
+
 
     <footer id="footer">
         <div class="footer-content">
@@ -438,7 +498,7 @@
                 alt: "FPT và Taylaimoi.com",
                 caption: "Hợp tác với các đơn vị tập đoàn hàng đầu Việt Nam"
             }, {
-                src: "image/Gallery/img (3).webp",
+                src: "image/Gallery/img (3.1).webp",
                 alt: "Nhà sáng lập gặp học viên",
                 caption: "Nhà sáng lập cùng gặp mặt học viên người nổi tiếng tại Việt Nam"
             }, {
@@ -466,9 +526,13 @@
                 alt: "Khai trương văn phòng mới",
                 caption: "Khai trương văn phòng mới của Taylaimoi.com"
             }, {
-                src: "image/Gallery/img (10).webp",
+                src: "image/Gallery/img (10.1).webp",
                 alt: "Khai trương văn phòng tại Chương Mỹ",
                 caption: "Đội ngũ giáo viên khai trương văn phòng tại Chương Mỹ"
+            }, {
+                src: "image/Gallery/img (31).webp",
+                alt: "Đội ngũ giáo viên dự khai trương văn phòng tại Chương Mỹ",
+                caption: "Đội ngũ giáo viên dự khai trương văn phòng tại Chương Mỹ"
             }];
 
             const carousel = document.querySelector('.carousel');

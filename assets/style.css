@@ -13,7 +13,7 @@ body {
     font-family: "Segoe UI", sans-serif;
     line-height: 1.6;
     background-color: #f9f9f9;
-    color: #333;
+    color: #1A2F51;
 }
 
 .container {
@@ -1427,7 +1427,7 @@ iframe {
 
 .zalo-chat-btn {
     position: fixed;
-    bottom: 110px;
+    bottom: 100px;
     right: 20px;
     background: #b30000;
     color: white;
@@ -1467,3 +1467,108 @@ iframe {
         height: 16px;
     }
 }
+
+
+/* Thêm style cho nút điều khiển âm thanh */
+
+.music-control {
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #b30000;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 0 15px rgba(172, 12, 12, 0.5);
+    transition: all 0.3s;
+}
+
+.music-control:hover {
+    transform: scale(1.1);
+    background-color: #d30007;
+}
+
+.music-control i {
+    font-size: 24px;
+}
+
+
+/* Animation cho nút nhạc khi đang phát */
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.music-playing {
+    animation: pulse 1.5s infinite;
+}
+
+
+/* Responsive cho nút điều khiển âm thanh */
+
+@media (max-width: 768px) {
+    .music-control {
+        bottom: 140px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    .music-control i {
+        font-size: 20px;
+    }
+}
+
+
+/* .scroll-to-top {
+    position: fixed;
+    bottom: 100px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    color: #b30000;
+    border-radius: 50% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 0 15px rgba(247, 148, 148, 0.5);
+    transition: all 0.3s;
+}
+
+.scroll-to-top:hover {
+    transform: scale(1.1);
+    background-color: #ffe9e9;
+}
+
+
+/* Responsive cho nút cuộn lên trên */
+
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 100px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+    }
+    .scroll-to-top i {
+        font-size: 20px;
+    }
+}
+
+*/
