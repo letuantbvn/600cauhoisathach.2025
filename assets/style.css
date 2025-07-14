@@ -1458,7 +1458,7 @@ iframe {
 @media (max-width: 768px) {
     .zalo-chat-btn {
         bottom: 90px;
-        right: 10px;
+        right: 12px;
         padding: 8px 12px;
         font-size: 14px;
     }
@@ -1473,7 +1473,7 @@ iframe {
 
 .music-controls {
     position: fixed;
-    bottom: 180px;
+    bottom: 160px;
     right: 20px;
     z-index: 10000;
     display: flex;
@@ -1492,7 +1492,7 @@ iframe {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 15px rgba(179, 0, 0, 0.5);
+    box-shadow: 0 0 15px rgba(224, 71, 71, 0.5);
     transition: all 0.3s;
 }
 
@@ -1612,5 +1612,52 @@ iframe {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+
+/* Error message */
+
+.error-message {
+    color: #b30000;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffe9e9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(179, 0, 0, 0.2);
+}
+
+
+/* Responsive adjustments for music controls */
+
+@media (max-width: 768px) {
+    .music-controls {
+        bottom: 140px;
+        right: 12px;
+        font-size: 14px;
+    }
+    .music-toggle {
+        width: 44px;
+        height: 44px;
+    }
+    .playlist-container {
+        width: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .music-controls {
+        bottom: 140px;
+        right: 12px;
+        font-size: 14px;
+    }
+    .music-toggle {
+        width: 44px;
+        height: 44px;
+    }
+    .playlist-container {
+        width: 150px;
     }
 }

@@ -431,23 +431,45 @@
             function playCurrentSong() {
                 // Cập nhật giao diện
                 songItems.forEach((item, index) => {
-                    if (index === currentPlayerIndex) {
-                        item.classList.add('active');
-                    } else {
-                        item.classList.remove('active');
-                    }
+                    item.classList.toggle('active', index === currentPlayerIndex);
                 });
 
-                // Phát nhạc
-                audioPlayers.forEach(audio => audio.pause());
-                audioPlayers[currentPlayerIndex].currentTime = 0;
-                audioPlayers[currentPlayerIndex].play()
-                    .then(() => {
-                        isPlaying = true;
-                        musicToggle.classList.add('music-playing');
-                        icon.className = 'fas fa-volume-up';
-                    })
-                    .catch(e => console.log("Phát nhạc lỗi:", e));
+                // Dừng tất cả bài khác
+                audioPlayers.forEach(audio => {
+                    audio.pause();
+                    audio.volume = 0; // Reset âm lượng
+                });
+
+                const audio = audioPlayers[currentPlayerIndex];
+                audio.currentTime = 0;
+                audio.volume = 0; // Bắt đầu từ âm lượng nhỏ
+
+                audio.play().then(() => {
+                    isPlaying = true;
+                    musicToggle.classList.add('music-playing');
+                    icon.className = 'fas fa-volume-up';
+
+                    fadeInVolume(audio, 1, 3000); // Tăng âm lượng từ 0 → 1 trong 3 giây
+
+                }).catch(e => console.log("Phát nhạc lỗi:", e));
+            }
+
+            // Hàm tăng âm lượng từ 0 đến 1
+            function fadeInVolume(audio, targetVolume = 1, duration = 3000) {
+                const steps = 30;
+                const stepTime = duration / steps;
+                const volumeStep = targetVolume / steps;
+                let currentStep = 0;
+
+                const interval = setInterval(() => {
+                    if (currentStep >= steps || audio.volume >= targetVolume) {
+                        clearInterval(interval);
+                        audio.volume = targetVolume;
+                        return;
+                    }
+                    audio.volume = Math.min(audio.volume + volumeStep, targetVolume);
+                    currentStep++;
+                }, stepTime);
             }
 
             // Kiểm tra xem người dùng đã tương tác với trang chưa
@@ -593,12 +615,12 @@
             event.returnValue = '';
         });
     </script> -->
-    <script>
+    <!-- <script>
         // Hiển thị thông báo khi người dùng tải lại trang
         window.addEventListener('load', function() {
             alert('Chào mừng bạn đến với 600 Câu Hỏi Sát Hạch Lái Xe 2025 - Taylaimoi.com!');
         });
-    </script>
+    </script> -->
     <script>
         // Hiển thị thông báo khi người dùng nhấp vào nút gọi điện
         document.querySelector('.call-button').addEventListener('click', function() {
