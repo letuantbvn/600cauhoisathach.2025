@@ -654,3 +654,45 @@
      width: auto;
      object-fit: contain;
  }
+ /* CSS mới cho nút học viên taylaimoi
+ 
+ .skip-info-container {
+     text-align: center;
+     padding-top: 24px;
+     border-top: 1px solid #eee;
+ }
+ 
+ .skip-text {
+     color: #666;
+     margin-bottom: 12px;
+     font-size: 15px;
+ }
+ 
+ .btn-skip-info {
+     color: #1A2F51;
+     border: none;
+     border-radius: 5px;
+     padding: 12px 24px;
+     width: 100%;
+     font-size: 16px;
+     cursor: pointer;
+     transition: background-color 0.3s;
+     font-weight: 600;
+ }
+ 
+ .btn-skip-info:hover {
+     background-color: #1A2F51;
+     color: white;
+ }
+ 
+ .btn-skip-info:active {
+     transform: scale(0.98);
+ } */
+ 
+ .sub-text {
+     text-align: center;
+     padding-top: 20px;
+     border-top: 1px solid rgba(255, 255, 255, 0.2);
+     font-size: 1rem;
+     opacity: 0.8;
+ }

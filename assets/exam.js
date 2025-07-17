@@ -59,6 +59,10 @@ function validateEmail(email) {
     return /@/.test(email);
 }
 
+
+// // Biến toàn cục để kiểm tra đã tải câu hỏi chưa
+// let questionsLoaded = false;
+
 // Khởi tạo ứng dụng
 async function init() {
     // Điền dữ liệu đã lưu
@@ -139,6 +143,7 @@ async function init() {
 
     // Load questions từ Google Sheets
     await fetchQuestions();
+    // questionsLoaded = true;
 }
 
 async function fetchQuestions() {
@@ -663,6 +668,22 @@ function convertToDirectLink(shareableLink) {
     // Xử lý các link ảnh trực tiếp khác
     return shareableLink;
 }
+
+
+// // Xử lý sự kiện khi nhấn nút "Học viên taylaimoi"
+// document.getElementById('skip-info-btn').addEventListener('click', async function() {
+//     // Kiểm tra nếu chưa tải câu hỏi thì tải lại
+//     if (!questionsLoaded) {
+//         await fetchQuestions();
+//         questionsLoaded = true;
+//     }
+
+//     // Ẩn form nhập thông tin
+//     document.getElementById('info-form-container').classList.add('hidden');
+
+//     // Hiển thị phần chọn đề thi
+//     document.getElementById('exam-type-container').classList.remove('hidden');
+// });
 
 // Khởi chạy ứng dụng khi trang được tải
 window.onload = init;
