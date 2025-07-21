@@ -1791,7 +1791,7 @@ iframe {
         border-radius: 0;
         box-shadow: none;
     }
-.pdf-header{
+.pdf-header h1{
 font-size: 16px;
 text-align: left;
 }
