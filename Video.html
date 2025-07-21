@@ -267,14 +267,6 @@
 </head>
 
 <body>
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="loading">
-            <img src="image/logo.png" alt="Logo Taylaimoi.com" class="logo-img">
-            <p>Đang tải dữ liệu, vui lòng chờ...</p>
-            <div class="spinner"></div>
-        </div>
-    </div>
 
     <!-- Top bar with marquee -->
     <header class="top-bar modern-marquee">
@@ -303,16 +295,17 @@
     </nav>
 
     <!-- Main Menu -->
-    <main class="container">
-        <ul class="main-menu">
+    <div class="container py-4">
+        <ul class="main-menu" id="mainMenu">
             <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
             <li><a href="Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
+            <li><a href="Sahinh.html"><i class="fa-solid fa-image"></i> 11 Bài sa hình</a></li>
             <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
             <li><a href="Gallery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
-            <li><a href="Video.html" class="active"><i class="fa-solid fa-video"></i> Video</a></li>
+            <li><a href="Video.html"><i class="fa-solid fa-video"></i> Video</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
         </ul>
-    </main>
+    </div>
 
     <!-- Video Page Content -->
     <section class="video-page">
@@ -502,12 +495,6 @@
     </footer>
 
     <script>
-        // Preloader
-        setTimeout(() => {
-            const preloader = document.querySelector('.preloader');
-            if (preloader) preloader.style.display = 'none';
-        }, 2000);
-
         // Video Player Functionality
         const videoPlayer = document.getElementById('videoPlayer');
         const videoFrame = document.getElementById('videoFrame');

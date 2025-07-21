@@ -606,9 +606,9 @@ iframe {
     align-items: center;
     gap: 24px;
     margin: 20px 0;
-    padding: 12px 12px;
+    padding: 16px 16px;
     flex-wrap: wrap;
-    border-radius: 40px;
+    border-radius: 16px;
     background-color: #f0f0f0;
 }
 
@@ -936,7 +936,7 @@ iframe {
     color: white;
     padding: 40px 0;
     text-align: center;
-    margin: 40px 0;
+    margin: 20px 0;
     border-radius: 4px;
 }
 
@@ -1712,4 +1712,81 @@ iframe {
 
 .playlist-toggle-button:hover {
     background: #ffe9e9;
+}
+
+
+/* PDF Fullscreen Responsive */
+
+.pdf-header {
+    font-size: larger;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.pdf-header h1 {
+    color: #b30000;
+    margin: 0;
+    font-size: 2rem;
+}
+
+.pdf-header p {
+    color: #464646;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 5px 0;
+    font-style: italic;
+}
+
+.pdf-fullscreen {
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 0;
+}
+
+
+/* PDF iframe */
+
+.pdf-fullscreen iframe {
+    width: 90vw;
+    height: 80vh;
+    border: none;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+    background: #fff;
+    border-radius: 8px;
+    transition: width 0.3s, height 0.3s;
+}
+
+
+/* Responsive for tablets */
+
+@media (max-width: 900px) {
+    .pdf-fullscreen iframe {
+        width: 98vw;
+        height: 65vh;
+    }
+}
+
+
+/* Responsive for mobile */
+
+@media (max-width: 600px) {
+    .pdf-fullscreen {
+        min-height: 50vh;
+        padding: 0;
+    }
+    .pdf-fullscreen iframe {
+        width: 100vw;
+        height: 60vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
 }
