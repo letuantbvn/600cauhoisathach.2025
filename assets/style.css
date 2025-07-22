@@ -1,6 +1,3 @@
-/* style.css */
-
-
 /* Reset cơ bản */
 
 * {
@@ -158,6 +155,8 @@ main.container {
 .tab.active {
     background-color: #b30000;
     color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 
@@ -245,19 +244,39 @@ main.container {
 
 .other-section {
     margin-top: 40px;
+    padding: 20px;
+    background-color: #fdfdfd;
+    border-radius: 12px;
 }
 
 .other-section h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 32px;
+    font-weight: bolder;
+    margin-bottom: 24px;
+    margin-top: 16px;
+    color: #b30000;
+    text-align: left;
 }
 
-.box {
-    border: 1px solid #ccc;
-    padding: 16px 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    background: white;
+.other-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.other-grid .box {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.other-grid .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .btn-outline {
@@ -269,11 +288,25 @@ main.container {
     text-decoration: none;
     border-radius: 6px;
     font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 .btn-outline:hover {
     background-color: #b30000;
     color: white;
+}
+
+
+/* Responsive: 1 cột khi <768px */
+
+@media (max-width: 768px) {
+    .other-grid {
+        grid-template-columns: 1fr;
+    }
+    .other-section h3 {
+        font-size: 20px;
+        text-align: center;
+    }
 }
 
 
@@ -336,6 +369,15 @@ footer p {
     .practice-btn {
         width: 90%;
         max-width: 300px;
+    }
+    .sub-text {
+        font-size: 14px;
+        text-align: center;
+        padding: 10px;
+    }
+    .footer-content a {
+        margin: 10px 5px;
+        padding: 8px 12px;
     }
 }
 
@@ -923,7 +965,7 @@ iframe {
     }
     .navbar .container {
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: left;
     }
 }
@@ -1719,80 +1761,215 @@ iframe {
 
 /* PDF Fullscreen Responsive */
 
+
+/* PDF Section */
+
 .pdf-header {
-    font-size: larger;
     text-align: center;
-    padding: 10px;
-    margin: 10px;
-    font-weight: bold;
-    font-size: 24px;
+    padding: 30px 0 20px;
 }
 
 .pdf-header h1 {
+    font-size: 32px;
     color: #b30000;
-    margin: 0;
-    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .pdf-header p {
-    color: #464646;
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 5px 0;
-    font-style: italic;
+    font-size: 18px;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
-.pdf-fullscreen {
+
+/* PDF Viewer */
+
+.pdf-viewer-container {
     width: 100%;
-    min-height: 70vh;
+    background-color: #eeebeb;
+    padding: 10px;
+    border-radius: 12px;
+    border: #e1e3e4 2px solid;
+    overflow: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #f0f0f0;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 0;
+    max-height: 90vh;
+}
+
+.pdf-viewer-container canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 
-/* PDF iframe */
+/* Control Buttons */
 
-.pdf-fullscreen iframe {
-    width: 90vw;
-    height: 80vh;
+.pdf-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.control-btn {
+    background: #ffffff;
+    color: #b30000;
     border: none;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
-    background: #fff;
-    border-radius: 8px;
-    transition: width 0.3s, height 0.3s;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(80, 80, 80, 0.2);
+}
+
+.control-btn:hover {
+    background: #b30000;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.control-btn:disabled {
+    background: #e7e7e7;
+    color: #666;
+    border: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.fullscreen-btn {
+    background: var(--secondary-color);
+    border-radius: 30px;
+    padding: 10px 22px;
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.fullscreen-btn:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.page-info {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1A2F51;
+    padding: 8px 8px;
+    min-width: 90px;
+    text-align: center;
 }
 
 
-/* Responsive for tablets */
+/* Responsive */
 
-@media (max-width: 900px) {
-    .pdf-fullscreen iframe {
-        width: 98vw;
-        height: 65vh;
+@media (max-width: 1024px) {
+    .pdf-header h1 {
+        font-size: 24px;
+        color: #b30000;
+        text-align: center;
+    }
+    .pdf-header p {
+        font-size: 16px;
+        max-width: 90%;
+        font-weight: 500;
+        font-style: italic;
+        text-align: left;
+    }
+    .fullscreen-btn {
+        font-size: 14px;
+        padding: 8px 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pdf-viewer-container {
+        padding: 10px;
+        max-height: 60vh;
+    }
+    .control-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+    }
+    .fullscreen-btn {
+        font-size: 13px;
+        padding: 6px 14px;
+    }
+    .page-info {
+        font-size: 15px;
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pdf-controls {
+        gap: 8px;
+    }
+    .control-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
+    .fullscreen-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    .page-info {
+        font-size: 14px;
     }
 }
 
 
-/* Responsive for mobile */
+/* Back-to-top button */
 
-@media (max-width: 600px) {
-    .pdf-fullscreen {
-        min-height: 50vh;
-        padding: 0;
-    }
-    .pdf-fullscreen iframe {
-        width: 100vw;
-        height: 60vh;
-        border-radius: 0;
-        box-shadow: none;
-    }
-.pdf-header h1{
-font-size: 16px;
-text-align: left;
+.back-to-top a {
+    text-decoration: none;
+    color: #1A2F51;
+    background-color: #ffffff;
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%
 }
+
+.back-to-top a:hover {
+    background-color: #b30000;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(255, 39,
+}
+
+@media screen and (max-width: 768px) {
+    .back-to-top a {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+        line-height: 40px;
+    }
 }

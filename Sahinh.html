@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hướng dẫn 11 Bài sa hình</title>
+    <title>11 BÀI THI SA HÌNH HẠNG B,C1</title>
     <meta name="description" content="600 Câu Hỏi Sát Hạch Lái Xe 2025 - Ôn thi lý thuyết bằng lái xe hạng B, C1,C, D,D1,D2 với bộ đề chuẩn của Bộ Công An">
     <meta name="keywords" content="thi bằng lái xe, 600 câu hỏi sát hạch, luyện thi lái xe, mẹo thi lý thuyết,sa hình lái xe, ôn thi lái xe, học lái xe, bằng lái xe hạng B,C,D">
     <meta name="author" content="600 Câu Hỏi Sát Hạch Lái Xe 2025, Taylaimoi.com, taylaimoi2266, Tài liệu học lái xe, Hướng dẫn thi bằng lái xe, Mẹo thi lý thuyết lái xe">
@@ -15,7 +15,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <!-- Thêm Font Awesome cho icon âm thanh -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <style>
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        span a {
+            color: #b30000;
+            font-weight: normal;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,11 +56,14 @@
             window.open('https://zalo.me/0904639896', '_blank');
         });
     </script>
+    <!-- End Chat Zalo -->
+
+    <div id="top"></div>
 
     <header class="top-bar modern-marquee">
         <div class="marquee-content">
             <p>Mọi thông tin cần tìm hiểu về dịch vụ dạy lái xe trên công nghệ giả lập và bổ túc tay lái mới xin quý khách vui lòng liên hệ hotline: 09.8888.2266.
-                <span class="blink">💥 Taylaimoi.com - 120mophong.com 💥</span>
+                <span class="blink">💥Taylaimoi.com - 120mophong.com 💥</span>
                 <span>Xin chân thành cảm ơn! "Phía trước tay lái là cuộc sống của bạn và mọi người, phía sau tay lái là gia đình của bạn" 💥120mophong.com & Taylaimoi.com 💥</span></p>
             <!-- <p>Thông tin hỗ trợ: <strong>0988882266</strong> | Email: Taylaimoi226@gmail.com</p> -->
     </header>
@@ -79,29 +93,57 @@
             <li><a href="Video.html"><i class="fa-solid fa-video"></i> Video</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
         </ul>
+
+        <!-- PDF Viewer Section -->
         <div class="pdf-header">
-            <h1>11 BÀI THI SA HÌNH</h1>
-            <div class="pdf-text">
-            <p> Dành cho bài thi lái xe ô tô áp dụng cho các hạng B,C1</p>
-            </div>
+            <h1>11 BÀI THI SA HÌNH HẠNG B,C1</h1>
+            <p>Hãy cùng ôn tập và chuẩn bị tốt nhất cho kỳ thi sát hạch lái xe của bạn!</p>
         </div>
-        <main class="pdf-fullscreen">
-            <iframe src="assets/huongdan.pdf" id="pdfViewer" allowfullscreen></iframe>
-        </main>
+
+        <div class="pdf-viewer-container">
+            <canvas id="pdfCanvas"></canvas>
+        </div>
+
+        <div class="pdf-controls">
+            <button class="control-btn" id="prevPage" title="Trang trước"><i class="fas fa-chevron-left"></i></button>
+            <div class="page-info">
+                Trang: <span id="currentPage">1</span>/<span id="totalPages">--</span>
+            </div>
+            <button class="control-btn" id="nextPage" title="Trang sau"><i class="fas fa-chevron-right"></i></button>
+            <button class="control-btn" id="zoomIn" title="Phóng to"><i class="fas fa-search-plus"></i></button>
+            <button class="control-btn" id="zoomOut" title="Thu nhỏ"><i class="fas fa-search-minus"></i></button>
+            <button class="control-btn" id="downloadPdf" title="Tải xuống PDF"><i class="fas fa-download"></i></button>
+            <button class="control-btn" id="fullscreenBtn" title="Toàn màn hình"><i class="fas fa-expand"></i></button>
+        </div>
+
 
         <div class="other-section">
             <h3>DANH MỤC KHÁC</h3>
-            <div class="box">
-                <p><strong>Ôn tập 120 tình huống mô phỏng</strong></p>
-                <p>Số câu: 120 | Phiên bản: Mới nhất</p>
-                <a href="https://120mophong.com/" target="_blank" class="btn-outline">➜ Tham khảo ngay</a>
-            </div>
-            <div class="box">
-                <p><strong>Mẹo thi lý thuyết</strong></p>
-                <p>Số câu: 600 | Phiên bản: Mới nhất</p>
-                <a href="Meo.html" target="_blank" class="btn-outline">➜ Tham khảo ngay</a>
+            <div class="other-grid">
+                <div class="box">
+                    <p><strong>Ôn tập đề thi lý thuyết 600 câu</strong></p>
+                    <p>Số câu: 600 | Phiên bản: Mới nhất</p>
+                    <a href="exam.html" target="_blank" class="btn-outline">➜ Tham khảo ngay</a>
+                </div>
+                <div class="box">
+                    <p><strong>Ôn tập 120 tình huống mô phỏng</strong></p>
+                    <p>Số câu: 120 | Phiên bản: Mới nhất</p>
+                    <a href="https://120mophong.com/" target="_blank" class="btn-outline">➜ Tham khảo ngay</a>
+                </div>
+                <div class="box">
+                    <p><strong>Mẹo thi lý thuyết</strong></p>
+                    <p>Số câu: 600 | Phiên bản: Mới nhất</p>
+                    <a href="Meo.html" target="_blank" class="btn-outline">➜ Tham khảo ngay</a>
+                </div>
+                <div class="box">
+                    <p><strong>Thư viện ảnh</strong></p>
+                    <p>Số ảnh: 1000+ | Phiên bản: Mới nhất</p>
+                    <a href="Gallery.html" target="_blank" class="btn-outline">➜ Tham khảo ngay</a>
+                </div>
             </div>
         </div>
+
+
     </section>
 
 
@@ -121,14 +163,248 @@
             <a href="https://www.tiktok.com/@kenhtaylaimoi.com" class="youtube-button" target="_blank" title="Xem Video">
                 <img src="image/icons8_tiktok.svg" alt="Xem Video"> Tiktok Taylaimoi
             </a>
+            <a href="https://www.youtube.com/@taylaimoi" class="youtube-button" target="_blank" title="Xem Video">
+                <img src="image/icons8_youtube.svg" alt="Xem Video"> Youtube Taylaimoi
+            </a>
             <p>Hotline: 09.8888.2266 | Email: Taylaimoi2266@gmail.com</p>
             <div class="sub-text"> (©) Bản quyền của thương hiệu Taylaimoi.com | Thiết kế bởi letuantbvn </div>
-        </div>
+            <!-- Back to Top Button -->
+            <div class="back-to-top">
+                <a href="#top" title="Trở về đầu trang"><i class="fas fa-arrow-up"></i></a>
+            </div>
     </footer>
 
     <section class="contact-section">
         <a href="tel:0989465167" class="call-button" title="Gọi ngay"><i class="fas fa-phone"></i></a>
     </section>
+    <!-- <script>
+        // PDF Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const currentPage = document.getElementById('currentPage');
+            const totalPages = document.getElementById('totalPages');
+            const pdfViewer = document.getElementById('pdfViewer');
+            const container = document.querySelector('.pdf-viewer-container');
+
+            let pageNum = 1;
+            const totalPageCount = 10; // Tổng số trang PDF
+
+            // Cập nhật số trang ban đầu
+            totalPages.textContent = totalPageCount;
+            updateButtonState();
+
+            // Chuyển trang
+            function goToPage(page) {
+                if (page < 1) page = 1;
+                if (page > totalPageCount) page = totalPageCount;
+
+                pageNum = page;
+                currentPage.textContent = pageNum;
+
+                // Trong thực tế, đây là nơi bạn sẽ chuyển trang PDF
+                // Đối với demo, chúng ta chỉ cập nhật giao diện
+                updateButtonState();
+            }
+
+            // Cập nhật trạng thái nút
+            function updateButtonState() {
+                prevBtn.disabled = pageNum === 1;
+                nextBtn.disabled = pageNum === totalPageCount;
+            }
+
+            // Sự kiện nút
+            prevBtn.addEventListener('click', () => goToPage(pageNum - 1));
+            nextBtn.addEventListener('click', () => goToPage(pageNum + 1));
+
+            // Toàn màn hình
+            fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.mozRequestFullScreen) {
+                    container.mozRequestFullScreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+
+                // Đổi icon khi vào chế độ toàn màn hình
+                const isFullscreen = document.fullscreenElement ||
+                    document.webkitFullscreenElement ||
+                    document.mozFullScreenElement ||
+                    document.msFullscreenElement;
+
+                if (isFullscreen) {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i> Thu nhỏ';
+                } else {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i> Toàn màn hình';
+                }
+            });
+
+            // Khởi tạo
+            goToPage(1);
+        });
+    </script> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const url = 'assets/huongdan.pdf';
+            const canvas = document.getElementById('pdfCanvas');
+            const ctx = canvas.getContext('2d');
+
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            const currentPage = document.getElementById('currentPage');
+            const totalPages = document.getElementById('totalPages');
+            const zoomInBtn = document.getElementById('zoomIn');
+            const zoomOutBtn = document.getElementById('zoomOut');
+            const downloadBtn = document.getElementById('downloadPdf');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const container = document.querySelector('.pdf-viewer-container');
+
+            let pdfDoc = null;
+            let pageNum = 1;
+            let totalPageCount = 0;
+            let isRendering = false;
+            let pageRenderingQueue = null;
+            let scale = 1.0;
+
+            function renderPage(num) {
+                isRendering = true;
+                pdfDoc.getPage(num).then((page) => {
+                    const unscaledViewport = page.getViewport({
+                        scale: 1
+                    });
+                    const containerWidth = container.clientWidth;
+                    const baseScale = containerWidth / unscaledViewport.width;
+
+                    const effectiveScale = baseScale * scale;
+
+                    const scaledViewport = page.getViewport({
+                        scale: effectiveScale
+                    });
+
+
+
+                    canvas.height = scaledViewport.height;
+                    canvas.width = scaledViewport.width;
+
+                    const renderContext = {
+                        canvasContext: ctx,
+                        viewport: scaledViewport
+                    };
+
+                    const renderTask = page.render(renderContext);
+
+                    renderTask.promise.then(() => {
+                        isRendering = false;
+                        if (pageRenderingQueue !== null) {
+                            renderPage(pageRenderingQueue);
+                            pageRenderingQueue = null;
+                        }
+                    });
+
+                    currentPage.textContent = pageNum;
+                    updateButtonState();
+                });
+            }
+
+            function queueRenderPage(num) {
+                if (isRendering) {
+                    pageRenderingQueue = num;
+                } else {
+                    renderPage(num);
+                }
+            }
+
+            function updateButtonState() {
+                prevBtn.disabled = (pageNum <= 1);
+                nextBtn.disabled = (pageNum >= totalPageCount);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (pageNum > 1) {
+                    pageNum--;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (pageNum < totalPageCount) {
+                    pageNum++;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            zoomInBtn.addEventListener('click', () => {
+                scale += 0.2;
+                queueRenderPage(pageNum);
+            });
+
+            zoomOutBtn.addEventListener('click', () => {
+                if (scale > 0.4) {
+                    scale -= 0.2;
+                    queueRenderPage(pageNum);
+                }
+            });
+            downloadBtn.addEventListener('click', () => {
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = '11_bai_sa_hinh.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    container.requestFullscreen().then(() => {
+                        fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                    });
+                } else {
+                    document.exitFullscreen().then(() => {
+                        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                    });
+                }
+            });
+
+            document.addEventListener('fullscreenchange', () => {
+                if (document.fullscreenElement) {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                }
+            });
+
+
+            pdfjsLib.getDocument(url).promise.then((pdfDoc_) => {
+                pdfDoc = pdfDoc_;
+                totalPageCount = pdfDoc.numPages;
+                totalPages.textContent = totalPageCount;
+                renderPage(pageNum);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (document.fullscreenElement) {
+                    if (e.key === 'ArrowRight') {
+                        if (pageNum < totalPageCount) {
+                            pageNum++;
+                            queueRenderPage(pageNum);
+                        }
+                    } else if (e.key === 'ArrowLeft') {
+                        if (pageNum > 1) {
+                            pageNum--;
+                            queueRenderPage(pageNum);
+                        }
+                    }
+                }
+            });
+
+        });
+    </script>
+
+
 </body>
 
 </html>

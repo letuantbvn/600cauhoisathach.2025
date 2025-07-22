@@ -267,7 +267,32 @@
 </head>
 
 <body>
-
+    <!-- Chat Zalo -->
+    <div id="zalo-chat-btn" class="zalo-chat-btn">
+        <img src="image/icon_zalo.svg" alt="Chat Zalo">
+        <span>Chat với tôi</span>
+    </div>
+    <script>
+        document.getElementById('zalo-chat-btn').addEventListener('click', function() {
+            window.open('https://zalo.me/0904639896', '_blank');
+        });
+    </script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/6042e2c71c1c2a130d6584a2/1f02kbn2q';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <div id="top"></div>
     <!-- Top bar with marquee -->
     <header class="top-bar modern-marquee">
         <div class="marquee-content">
@@ -489,10 +514,20 @@
             <a href="https://www.tiktok.com/@kenhtaylaimoi.com" class="youtube-button" target="_blank" title="Xem Video" style="color:white ;padding: 10px; font-size: 14px;">
                 <img src="image/icons8_tiktok.svg" style="width: 24px; height: 24px;" alt="Xem Video">Tiktok Taylaimoi
             </a>
+            <a href="https://www.youtube.com/@taylaimoi" class="youtube-button" target="_blank" title="Xem Video">
+                <img src="image/icons8_youtube.svg" alt="Xem Video"> Youtube Taylaimoi
+            </a>
             <p>Hotline: 09.8888.2266 | Email: Taylaimoi2266@gmail.com</p>
             <div class="sub-text"> (©) Bản quyền của thương hiệu Taylaimoi.com | Thiết kế bởi letuantbvn </div>
+            <!-- Back to Top Button -->
+            <div class="back-to-top">
+                <a href="#top" title="Trở về đầu trang"><i class="fas fa-arrow-up"></i></a>
+            </div>
         </div>
     </footer>
+    <section class="contact-section">
+        <a href="tel:0989465167" class="call-button" title="Gọi ngay"><i class="fas fa-phone"></i></a>
+    </section>
 
     <script>
         // Video Player Functionality
