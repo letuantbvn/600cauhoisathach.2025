@@ -1949,6 +1949,14 @@ iframe {
         font-size: 15px;
         min-width: 80px;
     }
+    .fullscreen-controls {
+        flex-direction: row !important;
+        bottom: 20px;
+        top: auto;
+        left: 0;
+        right: 0;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1987,8 +1995,7 @@ iframe {
 .back-to-top a:hover {
     background-color: #b30000;
     color: white;
-    transform: scale(1.1);
-    box-shadow: 0 4px 10px rgba(255, 39,
+    box-shadow: 0 4px 10px rgba(255, 39, 39, 0.3);
 }
 
 @media screen and (max-width: 768px) {

@@ -102,7 +102,14 @@
 
         <div class="pdf-viewer-container">
             <canvas id="pdfCanvas"></canvas>
+            <!-- <div class="fullscreen-controls" id="fullscreenControls">
+                <button id="fullscreenZoomIn"><i class="fas fa-search-plus"></i></button>
+                <button id="fullscreenZoomOut"><i class="fas fa-search-minus"></i></button>
+                <button id="fullscreenExit"><i class="fas fa-times"></i></button>
+            </div> -->
             <div class="fullscreen-controls" id="fullscreenControls">
+                <button id="fullscreenPrev"><i class="fas fa-chevron-left"></i></button>
+                <button id="fullscreenNext"><i class="fas fa-chevron-right"></i></button>
                 <button id="fullscreenZoomIn"><i class="fas fa-search-plus"></i></button>
                 <button id="fullscreenZoomOut"><i class="fas fa-search-minus"></i></button>
                 <button id="fullscreenExit"><i class="fas fa-times"></i></button>
@@ -252,9 +259,9 @@
             goToPage(1);
         });
     </script> -->
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const url = 'assets/huongdan.pdf';
+            const url = 'assets/11sahinh36.pdf';
             const canvas = document.getElementById('pdfCanvas');
             const ctx = canvas.getContext('2d');
 
@@ -437,7 +444,213 @@
             });
 
         });
+    </script> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const url = 'assets/11sahinh36.pdf';
+            const canvas = document.getElementById('pdfCanvas');
+            const ctx = canvas.getContext('2d');
+
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            const currentPage = document.getElementById('currentPage');
+            const totalPages = document.getElementById('totalPages');
+            const zoomInBtn = document.getElementById('zoomIn');
+            const zoomOutBtn = document.getElementById('zoomOut');
+            const downloadBtn = document.getElementById('downloadPdf');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const container = document.querySelector('.pdf-viewer-container');
+
+            const fullscreenControls = document.getElementById('fullscreenControls');
+            const fullscreenZoomIn = document.getElementById('fullscreenZoomIn');
+            const fullscreenZoomOut = document.getElementById('fullscreenZoomOut');
+            const fullscreenExit = document.getElementById('fullscreenExit');
+            const fullscreenPrev = document.getElementById('fullscreenPrev');
+            const fullscreenNext = document.getElementById('fullscreenNext');
+
+            let pdfDoc = null;
+            let pageNum = 1;
+            let totalPageCount = 0;
+            let isRendering = false;
+            let pageRenderingQueue = null;
+            let baseScale = null; // Biến lưu trữ baseScale
+            // Biến lưu trữ tỷ lệ người dùng
+            let userScale = 1;
+            // Hàm tính toán baseScale dựa trên kích thước của viewport
+            let firstLoadDone = false;
+
+            function calculateBaseScale(viewportWidth) {
+                const containerWidth = container.clientWidth;
+                return containerWidth / viewportWidth;
+            }
+
+            function renderPage(num) {
+                isRendering = true;
+
+                pdfDoc.getPage(num).then((page) => {
+                    const unscaledViewport = page.getViewport({
+                        scale: 1
+                    });
+
+                    // Chỉ tính baseScale lần đầu tiên load
+                    if (!firstLoadDone || baseScale === null) {
+                        const containerWidth = container.clientWidth;
+                        baseScale = containerWidth / unscaledViewport.width;
+                        firstLoadDone = true;
+                    }
+
+                    const finalScale = baseScale * userScale;
+                    const viewport = page.getViewport({
+                        scale: finalScale
+                    });
+
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    const renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+
+                    const renderTask = page.render(renderContext);
+
+                    renderTask.promise.then(() => {
+                        isRendering = false;
+                        if (pageRenderingQueue !== null) {
+                            renderPage(pageRenderingQueue);
+                            pageRenderingQueue = null;
+                        }
+                    });
+
+                    currentPage.textContent = pageNum;
+                    updateButtonState();
+                });
+            }
+
+
+
+            function queueRenderPage(num) {
+                if (isRendering) {
+                    pageRenderingQueue = num;
+                } else {
+                    renderPage(num);
+                }
+            }
+
+            function updateButtonState() {
+                prevBtn.disabled = (pageNum <= 1);
+                nextBtn.disabled = (pageNum >= totalPageCount);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                if (pageNum > 1) {
+                    pageNum--;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (pageNum < totalPageCount) {
+                    pageNum++;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            zoomInBtn.addEventListener('click', () => {
+                userScale += 0.2;
+                queueRenderPage(pageNum);
+            });
+
+            zoomOutBtn.addEventListener('click', () => {
+                if (userScale > 0.4) {
+                    userScale -= 0.2;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            fullscreenZoomIn.addEventListener('click', () => {
+                userScale += 0.2;
+                queueRenderPage(pageNum);
+            });
+
+            fullscreenZoomOut.addEventListener('click', () => {
+                if (userScale > 0.4) {
+                    userScale -= 0.2;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            fullscreenExit.addEventListener('click', () => {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            });
+
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    container.requestFullscreen();
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+
+
+            document.addEventListener('fullscreenchange', () => {
+                const isFullscreen = !!document.fullscreenElement;
+                fullscreenControls.style.display = isFullscreen ? 'flex' : 'none';
+                baseScale = null;
+                firstLoadDone = false;
+                queueRenderPage(pageNum);
+            });
+            window.addEventListener('resize', () => {
+                baseScale = null; // Reset baseScale khi resize
+                firstLoadDone = false;
+                queueRenderPage(pageNum); // Rerender khi cửa sổ thay đổi kích thước
+            });
+
+            downloadBtn.addEventListener('click', () => {
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = '11_bai_sa_hinh.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            fullscreenPrev.addEventListener('click', () => {
+                if (pageNum > 1) {
+                    pageNum--;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            fullscreenNext.addEventListener('click', () => {
+                if (pageNum < totalPageCount) {
+                    pageNum++;
+                    queueRenderPage(pageNum);
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (document.fullscreenElement) {
+                    if (e.key === 'ArrowRight' && pageNum < totalPageCount) {
+                        pageNum++;
+                        queueRenderPage(pageNum);
+                    } else if (e.key === 'ArrowLeft' && pageNum > 1) {
+                        pageNum--;
+                        queueRenderPage(pageNum);
+                    }
+                }
+            });
+
+            pdfjsLib.getDocument(url).promise.then((pdfDoc_) => {
+                pdfDoc = pdfDoc_;
+                totalPageCount = pdfDoc.numPages;
+                totalPages.textContent = totalPageCount;
+                renderPage(pageNum);
+            });
+        });
     </script>
+
 
 
 </body>
