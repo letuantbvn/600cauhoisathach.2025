@@ -949,7 +949,7 @@ iframe {
 
 @media (max-width: 768px) {
     .navbar {
-        padding: 10px 0;
+        padding: 12px 20px;
     }
     .navbar .container {
         flex-direction: column;
