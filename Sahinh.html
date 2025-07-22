@@ -102,6 +102,11 @@
 
         <div class="pdf-viewer-container">
             <canvas id="pdfCanvas"></canvas>
+            <div class="fullscreen-controls" id="fullscreenControls">
+                <button id="fullscreenZoomIn"><i class="fas fa-search-plus"></i></button>
+                <button id="fullscreenZoomOut"><i class="fas fa-search-minus"></i></button>
+                <button id="fullscreenExit"><i class="fas fa-times"></i></button>
+            </div>
         </div>
 
         <div class="pdf-controls">
@@ -263,6 +268,11 @@
             const fullscreenBtn = document.getElementById('fullscreenBtn');
             const container = document.querySelector('.pdf-viewer-container');
 
+            const fullscreenControls = document.getElementById('fullscreenControls');
+            const fullscreenZoomIn = document.getElementById('fullscreenZoomIn');
+            const fullscreenZoomOut = document.getElementById('fullscreenZoomOut');
+            const fullscreenExit = document.getElementById('fullscreenExit');
+
             let pdfDoc = null;
             let pageNum = 1;
             let totalPageCount = 0;
@@ -376,7 +386,32 @@
                     fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
                 }
             });
+            // Bắt sự kiện khi fullscreen thay đổi
+            document.addEventListener('fullscreenchange', () => {
+                const isFullscreen = !!document.fullscreenElement;
+                fullscreenControls.style.display = isFullscreen ? 'flex' : 'none';
+            });
 
+            // Nút Zoom In trong fullscreen
+            fullscreenZoomIn.addEventListener('click', () => {
+                scale += 0.2;
+                queueRenderPage(pageNum);
+            });
+
+            // Nút Zoom Out trong fullscreen
+            fullscreenZoomOut.addEventListener('click', () => {
+                if (scale > 0.4) {
+                    scale -= 0.2;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            // Nút Thoát toàn màn hình
+            fullscreenExit.addEventListener('click', () => {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+            });
 
             pdfjsLib.getDocument(url).promise.then((pdfDoc_) => {
                 pdfDoc = pdfDoc_;
