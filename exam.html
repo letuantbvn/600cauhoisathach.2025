@@ -108,7 +108,9 @@
     <div class="container hidden" id="quiz-container">
         <header>
             <h2 id="exam-title">Ôn luyện đề theo chương</h2>
-            <p class="description">Chọn đáp án và xem kết quả ngay lập tức. Di chuyển giữa các câu hỏi bằng cách sử dụng nút điều hướng hoặc chọn câu hỏi từ danh sách.</p>
+            <p class="description">Chọn đáp án và xem kết quả ngay lập tức. Di chuyển giữa các câu hỏi bằng cách sử dụng nút điều hướng hoặc chọn câu hỏi từ danh sách.
+                <span>Với các câu có hình ảnh, có thể bấm vào hình ảnh để xem phóng to</span>
+            </p>
             <!-- Hiển thị thời gian -->
             <div class="timer-container hidden" id="timer-container">
                 <div class="timer" id="timer">20:00</div>
@@ -145,6 +147,19 @@
                     <button class="btn-prev" id="prev-btn" disabled>← Câu trước</button>
                     <button class="btn-next" id="next-btn">Câu tiếp theo →</button>
                 </div>
+                <button class="btn-submit" id="submit-btn" style="display: none;">Nộp bài</button>
+
+                <!-- Thêm modal xác nhận trước khi nộp bài -->
+                <div id="submit-confirm-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <h3>Xác nhận nộp bài</h3>
+                        <p>Bạn có chắc chắn muốn nộp bài không?</p>
+                        <div class="modal-buttons">
+                            <button id="confirm-submit">Có, nộp bài</button>
+                            <button id="cancel-submit">Hủy</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="progress-container">
                     <div class="progress-bar">
@@ -153,6 +168,11 @@
                     <div class="progress-text">Tiến độ: <span id="progress-text">0%</span></div>
                 </div>
             </div>
+        </div>
+
+        <div id="image-overlay" class="hidden">
+            <span class="close-btn">&times;</span>
+            <img id="overlay-image" src="" alt="Hình ảnh phóng to">
         </div>
 
         <div class="result-container" id="result-container">

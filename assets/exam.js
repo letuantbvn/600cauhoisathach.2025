@@ -36,6 +36,12 @@ const restartBtn = document.getElementById('restart-btn');
 const examTypeContainer = document.getElementById('exam-type-container');
 const timerContainer = document.getElementById('timer-container');
 const timerElement = document.getElementById('timer');
+// Thêm biến toàn cục
+const submitBtn = document.getElementById('submit-btn');
+const submitConfirmModal = document.getElementById('submit-confirm-modal');
+const confirmSubmitBtn = document.getElementById('confirm-submit');
+const cancelSubmitBtn = document.getElementById('cancel-submit');
+
 
 // Thêm biến toàn cục để kiểm soát trạng thái
 let formSubmitted = false;
@@ -364,10 +370,92 @@ function initQuiz() {
     // Cập nhật tiến độ
     updateProgress();
 
-    // Thêm sự kiện cho nút điều hướng
-    prevBtn.addEventListener('click', () => goToQuestion(currentQuestionIndex - 1));
-    nextBtn.addEventListener('click', () => goToQuestion(currentQuestionIndex + 1));
+    // Sửa sự kiện cho nút điều hướng
+    prevBtn.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            goToQuestion(currentQuestionIndex - 1);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentQuestionIndex < questions.length - 1) {
+            goToQuestion(currentQuestionIndex + 1);
+        } else {
+            // Nếu là câu cuối, cho phép nộp bài
+            showResults();
+        }
+    });
+    // Thay bằng:
+    submitBtn.addEventListener('click', function() {
+        // Kiểm tra nếu chưa trả lời câu nào
+        if (answeredQuestions === 0) {
+            alert('Bạn chưa trả lời câu hỏi nào. Vui lòng trả lời ít nhất một câu trước khi nộp bài.');
+            return;
+        }
+
+        // Hiển thị modal xác nhận
+        submitConfirmModal.classList.remove('hidden');
+    });
+
+
+
+    // Thêm sự kiện phím tắt
+    document.addEventListener('keydown', handleKeyNavigation);
+    submitBtn.addEventListener('click', function() {
+        // Kiểm tra nếu chưa trả lời câu nào
+        if (answeredQuestions === 0) {
+            alert('Bạn chưa trả lời câu hỏi nào. Vui lòng trả lời ít nhất một câu trước khi nộp bài.');
+            return;
+        }
+
+        // Hiển thị modal xác nhận
+        submitConfirmModal.classList.remove('hidden');
+    });
+
+    confirmSubmitBtn.addEventListener('click', function() {
+        submitConfirmModal.classList.add('hidden');
+        showResults();
+    });
+
+    cancelSubmitBtn.addEventListener('click', function() {
+        submitConfirmModal.classList.add('hidden');
+    });
 }
+
+// Hàm xử lý điều hướng bằng bàn phím
+function handleKeyNavigation(e) {
+    if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
+        goToQuestion(currentQuestionIndex - 1);
+    } else if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+        if (currentQuestionIndex < questions.length - 1) {
+            goToQuestion(currentQuestionIndex + 1);
+        } else {
+            showResults();
+        }
+    }
+}
+
+// Thêm các hàm này vào exam.js
+function openImageOverlay(src) {
+    const overlay = document.getElementById('image-overlay');
+    const overlayImg = document.getElementById('overlay-image');
+
+    overlayImg.src = src;
+    overlay.style.display = 'flex';
+
+    // Ngăn scroll khi overlay mở
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageOverlay() {
+    const overlay = document.getElementById('image-overlay');
+    overlay.style.display = 'none';
+
+    // Khôi phục scroll
+    document.body.style.overflow = '';
+}
+
+
 
 // Hiển thị câu hỏi
 function showQuestion(index) {
@@ -396,6 +484,11 @@ function showQuestion(index) {
         imgElement.crossOrigin = "anonymous";
         imgElement.alt = 'Hình minh họa câu hỏi';
         imgElement.classList.add('question-image');
+
+        // Thêm sự kiện click để phóng to
+        imgElement.addEventListener('click', () => {
+            openImageOverlay(question.imageUrl);
+        });
 
         // Thêm xử lý lỗi chi tiết
         imgElement.onerror = function() {
@@ -459,6 +552,7 @@ function showQuestion(index) {
 
     // Cập nhật trạng thái câu hỏi trong grid
     updateQuestionGrid();
+
 }
 
 // Hàm tạo phần tử thông báo lỗi hình ảnh
@@ -485,13 +579,18 @@ function selectOption(optionIndex) {
 
     // Cập nhật tiến độ
     updateProgress();
-
-    // Kiểm tra nếu đã hoàn thành tất cả câu hỏi
-    if (answeredQuestions === questions.length) {
-        setTimeout(() => {
-            showResults();
-        }, 1000);
+    // Hiển thị nút nộp bài khi có ít nhất 1 câu trả lời
+    if (answeredQuestions > 0) {
+        submitBtn.style.display = 'block';
     }
+    // // Kiểm tra nếu đã hoàn thành tất cả câu hỏi
+    // if (answeredQuestions === questions.length) {
+    //     setTimeout(() => {
+    //         showResults();
+    //     }, 1000);
+    // }
+    // Sau khi chọn đáp án, kích hoạt nút tiếp theo
+    updateNavigationButtons();
 }
 
 // Hiển thị phản hồi
@@ -521,21 +620,29 @@ function showFeedback(index) {
 // Chuyển đến câu hỏi
 function goToQuestion(index) {
     if (index >= 0 && index < questions.length) {
+        currentQuestionIndex = index;
         showQuestion(index);
     }
 
-    // Kiểm tra nếu đã hoàn thành tất cả câu hỏi
-    if (answeredQuestions === questions.length) {
-        setTimeout(() => {
-            showResults();
-        }, 1000);
-    }
+    // Cập nhật trạng thái nút ngay lập tức
+    updateNavigationButtons();
 }
+
 
 // Cập nhật nút điều hướng
 function updateNavigationButtons() {
     prevBtn.disabled = currentQuestionIndex === 0;
     nextBtn.disabled = currentQuestionIndex === questions.length - 1;
+
+    // Cập nhật trạng thái nút dựa trên câu trả lời
+    if (userAnswers[currentQuestionIndex] !== null) {
+        nextBtn.disabled = false;
+    }
+    // Luôn bật nút nộp bài
+    submitBtn.disabled = false;
+
+    // Hiển thị nút nộp bài khi có câu trả lời
+    submitBtn.style.display = answeredQuestions > 0 ? 'block' : 'none';
 }
 
 // Cập nhật grid câu hỏi
@@ -564,6 +671,11 @@ function updateProgress() {
 
 // Hiển thị kết quả
 function showResults() {
+    // Kiểm tra nếu chưa trả lời câu nào
+    if (answeredQuestions === 0) {
+        alert('Vui lòng trả lời ít nhất 1 câu hỏi trước khi nộp bài');
+        return;
+    }
     // Dừng timer nếu đang chạy
     if (timerInterval) {
         clearInterval(timerInterval);
@@ -625,6 +737,8 @@ function restartQuiz() {
 
     // Khởi động lại timer
     startTimer();
+    // Ẩn nút nộp bài
+    submitBtn.style.display = 'none';
 }
 
 // Thêm event listeners cho nút chọn đề
@@ -636,7 +750,155 @@ document.addEventListener('DOMContentLoaded', () => {
             selectExamType(type, time);
         });
     });
+    // Thêm sự kiện cho nút đóng
+    document.querySelector('.close-btn').addEventListener('click', closeImageOverlay);
+
+    // Đóng khi nhấn vào overlay (ngoài ảnh)
+    document.getElementById('image-overlay').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeImageOverlay();
+        }
+    });
+
+    // Đóng khi nhấn phím ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !document.getElementById('image-overlay').classList.contains('hidden')) {
+            closeImageOverlay();
+        }
+    });
 });
+
+
+// Hàm mở ảnh phóng to với chức năng zoom
+function openImageOverlay(src) {
+    const overlay = document.getElementById('image-overlay');
+    const overlayImg = document.getElementById('overlay-image');
+
+    overlayImg.src = src;
+    overlay.style.display = 'flex';
+
+    // Xóa class zoom nếu có
+    overlayImg.classList.remove('zoomed');
+    overlayImg.style.transform = 'scale(1)';
+
+    // Ngăn scroll khi overlay mở
+    document.body.style.overflow = 'hidden';
+
+    // Thêm nút điều khiển zoom
+    const zoomControls = document.createElement('div');
+    zoomControls.className = 'zoom-controls';
+    zoomControls.innerHTML = `
+        <div class="zoom-btn" id="zoom-in">+</div>
+        <div class="zoom-btn" id="zoom-out">-</div>
+        <div class="zoom-btn" id="zoom-reset">↺</div>
+    `;
+    overlay.appendChild(zoomControls);
+
+    // Xử lý sự kiện zoom
+    document.getElementById('zoom-in').addEventListener('click', () => zoomImage(0.5));
+    document.getElementById('zoom-out').addEventListener('click', () => zoomImage(-0.5));
+    document.getElementById('zoom-reset').addEventListener('click', resetZoom);
+
+    // Cho phép kéo ảnh khi zoom
+    let isDragging = false;
+    let startX, startY, scrollLeft, scrollTop;
+
+    overlayImg.addEventListener('mousedown', (e) => {
+        if (overlayImg.classList.contains('zoomed')) {
+            isDragging = true;
+            startX = e.pageX - overlayImg.offsetLeft;
+            startY = e.pageY - overlayImg.offsetTop;
+            scrollLeft = overlay.scrollLeft;
+            scrollTop = overlay.scrollTop;
+            overlayImg.style.cursor = 'grabbing';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        if (overlayImg.classList.contains('zoomed')) {
+            overlayImg.style.cursor = 'move';
+        }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging || !overlayImg.classList.contains('zoomed')) return;
+        e.preventDefault();
+        const x = e.pageX - overlayImg.offsetLeft;
+        const y = e.pageY - overlayImg.offsetTop;
+        const walkX = (x - startX) * 2;
+        const walkY = (y - startY) * 2;
+        overlay.scrollLeft = scrollLeft - walkX;
+        overlay.scrollTop = scrollTop - walkY;
+    });
+
+    // Cho phép zoom bằng chuột
+    overlayImg.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (e.deltaY < 0) {
+            zoomImage(0.5);
+        } else {
+            zoomImage(-0.5);
+        }
+    });
+}
+
+// Hàm zoom ảnh (phiên bản đã sửa)
+function zoomImage(zoomFactor) {
+    const overlayImg = document.getElementById('overlay-image');
+
+    // Lấy tỉ lệ zoom hiện tại một cách chính xác
+    let currentScale = 1;
+    if (overlayImg.style.transform) {
+        const match = overlayImg.style.transform.match(/scale\(([\d.]+)\)/);
+        if (match && match[1]) {
+            currentScale = parseFloat(match[1]);
+        }
+    }
+
+    // Tính toán tỉ lệ zoom mới
+    let newScale = currentScale + zoomFactor;
+
+    // Giới hạn mức zoom (1x - 3x)
+    if (newScale < 1) newScale = 1;
+    if (newScale > 3) newScale = 3;
+
+    // Áp dụng zoom mới
+    overlayImg.style.transform = `scale(${newScale})`;
+    overlayImg.style.cursor = 'move';
+
+    // Thêm class zoomed nếu zoom > 1x
+    if (newScale > 1) {
+        overlayImg.classList.add('zoomed');
+    } else {
+        overlayImg.classList.remove('zoomed');
+    }
+}
+
+// Hàm reset zoom
+function resetZoom() {
+    const overlayImg = document.getElementById('overlay-image');
+    overlayImg.style.transform = 'scale(1)';
+    overlayImg.classList.remove('zoomed');
+    overlayImg.style.cursor = 'zoom-in';
+}
+
+// Hàm đóng overlay
+function closeImageOverlay() {
+    const overlay = document.getElementById('image-overlay');
+    overlay.style.display = 'none';
+
+    // Xóa các nút điều khiển zoom
+    const zoomControls = document.querySelector('.zoom-controls');
+    if (zoomControls) zoomControls.remove();
+
+    // Khôi phục scroll
+    document.body.style.overflow = '';
+}
+
+
+
+
 
 // Dừng timer khi trang đóng
 window.addEventListener('beforeunload', function() {
@@ -668,6 +930,8 @@ function convertToDirectLink(shareableLink) {
     // Xử lý các link ảnh trực tiếp khác
     return shareableLink;
 }
+
+
 
 
 // // Xử lý sự kiện khi nhấn nút "Học viên taylaimoi"

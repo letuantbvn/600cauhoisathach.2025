@@ -162,15 +162,30 @@
  
  .question-image {
      max-width: 100%;
-     max-height: 300px;
+     max-height: 500px;
+     /* Tăng kích thước tối đa */
      height: auto;
-     display: block;
      margin: 15px auto;
      border: 1px solid #ddd;
-     border-radius: 4px;
-     padding: 5px;
+     border-radius: 6px;
+     /* Bo tròn hơn */
+     padding: 8px;
+     /* Tăng padding */
      background-color: white;
      object-fit: contain;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+     /* Thêm bóng đổ */
+     cursor: zoom-in;
+     /* Hiển thị biểu tượng phóng to */
+     transition: all 0.3s ease;
+     /* Hiệu ứng mượt mà */
+ }
+ 
+ .question-image:hover {
+     transform: scale(1.02);
+     /* Hiệu ứng phóng nhẹ khi hover */
+     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+     /* Tăng bóng khi hover */
  }
  
  .image-error {
@@ -269,6 +284,8 @@
      gap: 10px;
      justify-content: space-between;
      margin-top: 20px;
+     flex-wrap: wrap;
+     margin-bottom: 20px;
  }
  
  button {
@@ -321,6 +338,13 @@
      display: block;
      width: 100%;
      margin-top: 20px;
+ }
+ 
+ .btn-prev,
+ .btn-next,
+ #submit-btn {
+     flex: 1;
+     min-width: 120px;
  }
  
  .btn-start:hover {
@@ -520,7 +544,8 @@
          margin-bottom: 10px;
      }
      .question-image {
-         max-height: 250px;
+         max-height: 400px;
+         /* Giảm nhẹ cho màn hình tablet */
      }
  }
  
@@ -553,7 +578,9 @@
          flex-direction: column;
      }
      .question-image {
-         max-height: 200px;
+         max-height: 300px;
+         /* Giảm hơn cho mobile */
+         padding: 5px;
      }
      .exam-type-btn {
          font-size: 1rem;
@@ -695,4 +722,186 @@
      border-top: 1px solid rgba(255, 255, 255, 0.2);
      font-size: 1rem;
      opacity: 0.8;
+ }
+ /* Css câu có hình ảnh*/
+ 
+ #image-overlay {
+     display: flex;
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.9);
+     justify-content: center;
+     align-items: center;
+     z-index: 1000;
+ }
+ 
+ #image-overlay.hidden {
+     display: none;
+ }
+ 
+ #image-overlay img {
+     max-width: 90%;
+     max-height: 90%;
+     border: 2px solid white;
+     border-radius: 5px;
+     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+ }
+ 
+ .close-btn {
+     position: absolute;
+     top: 20px;
+     right: 30px;
+     color: white;
+     font-size: 40px;
+     cursor: pointer;
+     transition: color 0.3s;
+ }
+ 
+ .close-btn:hover {
+     color: #FF8080;
+ }
+ /* Thêm các style mới cho tính năng zoom */
+ 
+ #overlay-image {
+     max-width: 90%;
+     max-height: 90%;
+     border: 2px solid white;
+     border-radius: 5px;
+     box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+     cursor: zoom-in;
+     /* Hiển thị cursor zoom-in */
+     transition: transform 0.3s ease;
+     /* Hiệu ứng zoom mượt mà */
+     transform-origin: center center;
+     /* Điểm bắt đầu zoom */
+ }
+ 
+ .zoomed {
+     cursor: move !important;
+     /* Khi zoom thì cursor thành move */
+     transform: scale(1.5);
+     /* Mức zoom mặc định */
+ }
+ 
+ .zoom-controls {
+     position: absolute;
+     bottom: 20px;
+     left: 50%;
+     transform: translateX(-50%);
+     display: flex;
+     gap: 15px;
+     z-index: 1001;
+ }
+ 
+ .zoom-btn {
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     background: rgba(255, 255, 255, 0.7);
+     color: #333;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 24px;
+     cursor: pointer;
+     transition: all 0.3s ease;
+ }
+ 
+ .zoom-btn:hover {
+     background: rgba(255, 255, 255, 0.9);
+     transform: scale(1.1);
+ }
+ /* Thêm style cho nút khi disabled */
+ 
+ .btn-prev:disabled,
+ .btn-next:disabled {
+     opacity: 0.5;
+     cursor: not-allowed;
+     transform: none !important;
+ }
+ /* Thêm style cho nút nộp bài */
+ 
+ #submit-btn {
+     background: #2ecc71;
+     color: white;
+     padding: 12px 25px;
+     border: none;
+     border-radius: 8px;
+     font-size: 1rem;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     display: none;
+     /* Ẩn mặc định */
+     width: 100%;
+ }
+ 
+ #submit-btn:hover:not(:disabled) {
+     background: #27ae60;
+     transform: translateY(-2px);
+ }
+ /* Responsive cho nút nộp bài */
+ 
+ @media (max-width: 768px) {
+     .navigation {
+         flex-direction: column;
+     }
+ }
+ /* Modal xác nhận nộp bài */
+ 
+ .modal {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.7);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     z-index: 2000;
+ }
+ /* Đảm bảo modal hiển thị trên mọi thứ */
+ 
+ .modal.hidden {
+     display: none;
+ }
+ 
+ .modal-content {
+     background-color: white;
+     padding: 30px;
+     border-radius: 10px;
+     max-width: 500px;
+     width: 90%;
+     text-align: center;
+     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+ }
+ 
+ .modal-buttons {
+     display: flex;
+     justify-content: center;
+     gap: 15px;
+     margin-top: 20px;
+ }
+ 
+ .modal-buttons button {
+     padding: 10px 20px;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     font-size: 16px;
+     font-weight: 600;
+ }
+ 
+ #confirm-submit {
+     background: #2ecc71;
+     color: white;
+ }
+ 
+ #cancel-submit {
+     background: #e74c3c;
+     color: white;
  }
