@@ -711,6 +711,18 @@ function showResults() {
     // Hiển thị màn hình kết quả
     document.querySelector('.content').style.display = 'none';
     resultContainer.style.display = 'block';
+
+    // Hiển thị nút tải PDF
+    const downloadBtn = document.getElementById('download-pdf');
+    downloadBtn.style.display = 'inline-block';
+
+    // Gắn sự kiện Tải PDF (gắn tại đây để đảm bảo userInfo đã có)
+    downloadBtn.addEventListener('click', function() {
+        const pdf = generatePDF();
+        if (pdf) {
+            pdf.save(`ket-qua-thi-bang-lai-${selectedExamType}-${userInfo.name}.pdf`);
+        }
+    });
 }
 
 // Khởi động lại bài trắc nghiệm
@@ -931,8 +943,150 @@ function convertToDirectLink(shareableLink) {
     return shareableLink;
 }
 
+// Hàm tạo PDF
+// function generatePDF() {
+//     // Khởi tạo jsPDF
+//     const { jsPDF } = window.jspdf;
+//     const doc = new jsPDF();
+
+//     // 🔒 Kiểm tra dữ liệu quan trọng
+//     if (!userInfo || !userInfo.name || !selectedExamType || !Array.isArray(questions)) {
+//         alert("Không đủ thông tin để tạo PDF. Vui lòng hoàn tất bài thi trước.");
+//         return null;
+//     }
+
+//     // Thêm thông tin người dùng
+//     doc.setFontSize(16);
+//     doc.setTextColor(40, 40, 40);
+//     doc.text(`KẾT QUẢ BÀI THI LÝ THUYẾT LÁI XE HẠNG ${selectedExamType}`, 105, 20, { align: 'center' });
+
+//     doc.setFontSize(12);
+//     doc.text(`Họ tên: ${userInfo.name}`, 20, 30);
+//     doc.text(`SĐT: ${userInfo.phone}`, 20, 38);
+//     doc.text(`Thời gian làm bài: ${new Date(userInfo.timestamp).toLocaleString()}`, 20, 46);
+
+//     // Tính điểm
+//     let score = 0;
+//     userAnswers.forEach((answer, index) => {
+//         if (answer === questions[index].correctAnswer) {
+//             score++;
+//         }
+//     });
+
+//     // Thêm kết quả
+//     doc.setFontSize(14);
+//     doc.setTextColor(179, 0, 0);
+//     doc.text(`Điểm: ${score}/${questions.length}`, 105, 60, { align: 'center' });
+
+//     // Thêm chi tiết câu hỏi
+//     doc.setFontSize(12);
+//     doc.setTextColor(40, 40, 40);
+//     let yPosition = 80;
+
+//     questions.forEach((question, index) => {
+//         // Kiểm tra nếu cần sang trang mới
+//         if (yPosition > 250) {
+//             doc.addPage();
+//             yPosition = 20;
+//         }
+
+//         // Thêm câu hỏi
+//         doc.setFont('helvetica', 'bold');
+//         doc.text(`Câu ${index + 1}: ${question.question}`, 20, yPosition);
+//         yPosition += 8;
+
+//         // Thêm các lựa chọn
+//         doc.setFont('helvetica', 'normal');
+//         const options = ['A', 'B', 'C', 'D'];
+//         question.options.forEach((option, i) => {
+//             let optionText = `${options[i]}. ${option}`;
+
+//             // Đánh dấu đáp án đúng và đáp án người dùng chọn
+//             if (i === question.correctAnswer) {
+//                 optionText += " (Đáp án đúng)";
+//             }
+//             if (userAnswers[index] === i) {
+//                 optionText += " (Bạn chọn)";
+//             }
+
+//             doc.text(optionText, 25, yPosition);
+//             yPosition += 8;
+//         });
+
+//         // Thêm khoảng cách giữa các câu
+//         yPosition += 8;
+//     });
+
+//     return doc;
+// }
 
 
+// Hàm tạo PDF
+function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Dùng font Roboto đã nhúng
+    doc.setFont("Roboto", "normal");
+
+    if (!userInfo || !userInfo.name || !selectedExamType || !Array.isArray(questions)) {
+        alert("Không đủ thông tin để tạo PDF. Vui lòng hoàn tất bài thi trước.");
+        return null;
+    }
+
+    doc.setFontSize(16);
+    doc.setTextColor(40, 40, 40);
+    doc.text(`KẾT QUẢ BÀI THI LÝ THUYẾT LÁI XE HẠNG ${selectedExamType}`, 105, 20, { align: 'center' });
+
+    doc.setFontSize(12);
+    doc.text(`Họ tên: ${userInfo.name}`, 20, 30);
+    doc.text(`SĐT: ${userInfo.phone}`, 20, 38);
+    doc.text(`Thời gian làm bài: ${new Date(userInfo.timestamp).toLocaleString()}`, 20, 46);
+
+    let score = 0;
+    userAnswers.forEach((answer, index) => {
+        if (answer === questions[index].correctAnswer) score++;
+    });
+
+    doc.setFontSize(14);
+    doc.setTextColor(179, 0, 0);
+    doc.text(`Điểm: ${score}/${questions.length}`, 105, 60, { align: 'center' });
+
+    doc.setFontSize(12);
+    doc.setTextColor(40, 40, 40);
+    let yPosition = 80;
+
+    questions.forEach((question, index) => {
+        if (yPosition > 250) {
+            doc.addPage();
+            doc.setFont("Roboto", "normal");
+            yPosition = 20;
+        }
+
+        // Câu hỏi xuống dòng nếu dài
+        doc.setFont("Roboto", "bold");
+        const qText = doc.splitTextToSize(`Câu ${index + 1}: ${question.question}`, 170);
+        doc.text(qText, 20, yPosition);
+        yPosition += qText.length * 8;
+
+        // Các lựa chọn
+        doc.setFont("Roboto", "normal");
+        const options = ['A', 'B', 'C', 'D'];
+        question.options.forEach((option, i) => {
+            let optionText = `${options[i]}. ${option}`;
+            if (i === question.correctAnswer) optionText += " (Đáp án đúng)";
+            if (userAnswers[index] === i) optionText += " (Bạn chọn)";
+
+            const wrappedOption = doc.splitTextToSize(optionText, 165);
+            doc.text(wrappedOption, 25, yPosition);
+            yPosition += wrappedOption.length * 8;
+        });
+
+        yPosition += 8;
+    });
+
+    return doc;
+}
 
 // // Xử lý sự kiện khi nhấn nút "Học viên taylaimoi"
 // document.getElementById('skip-info-btn').addEventListener('click', async function() {

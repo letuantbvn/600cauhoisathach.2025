@@ -905,3 +905,13 @@
      background: #e74c3c;
      color: white;
  }
+ /* Thêm style cho nút tải PDF */
+ 
+ .pdf {
+     background-color: #e74c3c;
+     /* màu đỏ */
+ }
+ 
+ .pdf:hover {
+     background-color: #c0392b;
+ }
