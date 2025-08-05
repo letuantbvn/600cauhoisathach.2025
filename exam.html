@@ -125,96 +125,102 @@
                 <span class="exam-title">Hạng C1</span>
                 <span class="exam-details">40 câu - 24 phút</span>
             </button>
+            <button class="exam-down-btn">
+             <a href="https://drive.google.com/uc?export=download&id=1ASep35cgPzHeP_zMDQuqmcDrgu8FZ2A5" style="text-decoration: none; color: #ffffff;"><i class="fa-solid fa-download"></i> Tải xuống bộ gốc 600 câu hỏi sát hạch lái xe cơ giới đường bộ của Bộ Công An</a>
+            </button>
+
         </div>
-        <div class="sub-text"> (©) Bản quyền từ Taylaimoi.com</div>
-    </div>
+        <div class="sub-text"> (©) Bản quyền từ Taylaimoi.com
+
+        </div>
 
 
 
-    <!-- Phần trắc nghiệm -->
-    <div class="container hidden" id="quiz-container">
-        <header>
-            <h2 id="exam-title">Ôn luyện đề theo chương</h2>
-            <p class="description">Chọn đáp án và xem kết quả ngay lập tức. Di chuyển giữa các câu hỏi bằng cách sử dụng nút điều hướng hoặc chọn câu hỏi từ danh sách.
-                <span>Với các câu có hình ảnh, có thể bấm vào hình ảnh để xem phóng to</span>
-            </p>
-            <!-- Hiển thị thời gian -->
-            <div class="timer-container hidden" id="timer-container">
-                <div class="timer" id="timer">20:00</div>
-                <div class="timer-label">Thời gian còn lại</div>
-            </div>
-        </header>
 
-        <div class="content">
-            <div class="questions-sidebar">
-                <div class="sidebar-title">Danh sách câu hỏi</div>
-                <div class="questions-grid" id="questions-grid">
-                    <!-- Câu hỏi sẽ được tạo bằng JavaScript -->
+        <!-- Phần trắc nghiệm -->
+        <div class="container hidden" id="quiz-container">
+            <header>
+                <h2 id="exam-title">Ôn luyện đề theo chương</h2>
+                <p class="description">Chọn đáp án và xem kết quả ngay lập tức. Di chuyển giữa các câu hỏi bằng cách sử dụng nút điều hướng hoặc chọn câu hỏi từ danh sách.
+                    <span>Với các câu có hình ảnh, có thể bấm vào hình ảnh để xem phóng to</span>
+                </p>
+                <!-- Hiển thị thời gian -->
+                <div class="timer-container hidden" id="timer-container">
+                    <div class="timer" id="timer">20:00</div>
+                    <div class="timer-label">Thời gian còn lại</div>
                 </div>
-            </div>
+            </header>
 
-            <div class="question-container">
-                <div class="question-header">
-                    <div class="question-title">Câu hỏi <span id="current-question">1</span>/<span id="total-questions">30</span></div>
+            <div class="content">
+                <div class="questions-sidebar">
+                    <div class="sidebar-title">Danh sách câu hỏi</div>
+                    <div class="questions-grid" id="questions-grid">
+                        <!-- Câu hỏi sẽ được tạo bằng JavaScript -->
+                    </div>
                 </div>
 
-                <div class="question-text" id="question-text">
-                    <!-- Nội dung câu hỏi sẽ được thêm bằng JavaScript -->
-                </div>
+                <div class="question-container">
+                    <div class="question-header">
+                        <div class="question-title">Câu hỏi <span id="current-question">1</span>/<span id="total-questions">30</span></div>
+                    </div>
 
-                <div class="options-container" id="options-container">
-                    <!-- Các lựa chọn sẽ được thêm bằng JavaScript -->
-                </div>
+                    <div class="question-text" id="question-text">
+                        <!-- Nội dung câu hỏi sẽ được thêm bằng JavaScript -->
+                    </div>
 
-                <div class="feedback" id="feedback">
-                    <!-- Phản hồi sẽ được thêm bằng JavaScript -->
-                </div>
+                    <div class="options-container" id="options-container">
+                        <!-- Các lựa chọn sẽ được thêm bằng JavaScript -->
+                    </div>
 
-                <div class="navigation">
-                    <button class="btn-prev" id="prev-btn" disabled>← Câu trước</button>
-                    <button class="btn-next" id="next-btn">Câu tiếp theo →</button>
-                </div>
-                <button class="btn-submit" id="submit-btn" style="display: none;">Nộp bài</button>
+                    <div class="feedback" id="feedback">
+                        <!-- Phản hồi sẽ được thêm bằng JavaScript -->
+                    </div>
 
-                <!-- Thêm modal xác nhận trước khi nộp bài -->
-                <div id="submit-confirm-modal" class="modal hidden">
-                    <div class="modal-content">
-                        <h3>Xác nhận nộp bài</h3>
-                        <p>Bạn có chắc chắn muốn nộp bài không?</p>
-                        <div class="modal-buttons">
-                            <button id="confirm-submit">Có, nộp bài</button>
-                            <button id="cancel-submit">Hủy</button>
+                    <div class="navigation">
+                        <button class="btn-prev" id="prev-btn" disabled>← Câu trước</button>
+                        <button class="btn-next" id="next-btn">Câu tiếp theo →</button>
+                    </div>
+                    <button class="btn-submit" id="submit-btn" style="display: none;">Nộp bài</button>
+
+                    <!-- Thêm modal xác nhận trước khi nộp bài -->
+                    <div id="submit-confirm-modal" class="modal hidden">
+                        <div class="modal-content">
+                            <h3>Xác nhận nộp bài</h3>
+                            <p>Bạn có chắc chắn muốn nộp bài không?</p>
+                            <div class="modal-buttons">
+                                <button id="confirm-submit">Có, nộp bài</button>
+                                <button id="cancel-submit">Hủy</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="progress-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="progress-bar"></div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="progress-bar"></div>
+                        </div>
+                        <div class="progress-text">Tiến độ: <span id="progress-text">0%</span></div>
                     </div>
-                    <div class="progress-text">Tiến độ: <span id="progress-text">0%</span></div>
                 </div>
             </div>
-        </div>
 
-        <div id="image-overlay" class="hidden">
-            <span class="close-btn">&times;</span>
-            <img id="overlay-image" src="" alt="Hình ảnh phóng to">
-        </div>
-
-        <div class="result-container" id="result-container">
-            <h2 class="result-title">Kết quả trắc nghiệm</h2>
-            <p>Bạn đã hoàn thành bài trắc nghiệm!</p>
-            <div class="score">Điểm: <span id="score">0</span>/<span id="total-score">0</span></div>
-            <p id="result-message"></p>
-            <div class="button-group">
-                <button class="btn retry" id="restart-btn">Làm lại bài trắc nghiệm</button>
-                <button class="btn pdf" id="download-pdf">Tải kết quả PDF</button>
-                <a class="btn home" href="index.html" id="btn-home"> Về trang chủ</a>
+            <div id="image-overlay" class="hidden">
+                <span class="close-btn">&times;</span>
+                <img id="overlay-image" src="" alt="Hình ảnh phóng to">
             </div>
+
+            <div class="result-container" id="result-container">
+                <h2 class="result-title">Kết quả trắc nghiệm</h2>
+                <p>Bạn đã hoàn thành bài trắc nghiệm!</p>
+                <div class="score">Điểm: <span id="score">0</span>/<span id="total-score">0</span></div>
+                <p id="result-message"></p>
+                <div class="button-group">
+                    <button class="btn retry" id="restart-btn">Làm lại bài trắc nghiệm</button>
+                    <button class="btn pdf" id="download-pdf">Tải kết quả PDF</button>
+                    <a class="btn home" href="index.html" id="btn-home"> Về trang chủ</a>
+                </div>
+            </div>
+            <div class="sub-text"> (©) Bản quyền từ Taylaimoi.com</div>
         </div>
-        <div class="sub-text"> (©) Bản quyền từ Taylaimoi.com</div>
-    </div>
 
 </body>
 <script src="assets/exam.js"></script>
