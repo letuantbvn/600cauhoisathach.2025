@@ -2174,7 +2174,7 @@ iframe {
     grid-template-columns: 1fr;
     gap: 20px;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 24px auto;
 }
 
 .support-form input,
@@ -2387,5 +2387,114 @@ iframe {
     .guide-button-image {
         width: 100px;
         height: 100px;
+    }
+}
+
+
+/*Page giaidap.html* - Css form bảng*/
+
+
+/* CSS đã sửa cho bảng */
+
+.table-from {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-size: 1.1rem;
+    min-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    background: white;
+    overflow: hidden;
+}
+
+
+/* Header bảng */
+
+.table-from thead tr {
+    background: linear-gradient(135deg, #c0392b, #b30000);
+    color: #ffffff;
+    text-align: left;
+}
+
+.table-from th,
+.table-from td {
+    padding: 18px 25px;
+    border-bottom: 1px solid #f3f5f8;
+}
+
+
+/* Body bảng */
+
+.table-from tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table-from tbody tr:nth-of-type(even) {
+    background-color: #f9fafc;
+}
+
+.table-from tbody tr:hover {
+    background-color: #f9fafc;
+}
+
+.table-from tbody tr:last-child {
+    border-bottom: none;
+}
+
+.table-from tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Responsive cho mobile */
+
+@media (max-width: 768px) {
+    .table-from {
+        min-width: unset;
+    }
+    .table-from thead {
+        display: none;
+    }
+    .table-from tr {
+        display: block;
+        margin-bottom: 30px;
+        border: 1px solid #eef0f3;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+    .table-from td {
+        display: block;
+        text-align: right;
+        padding: 15px 15px 15px 50%;
+        position: relative;
+        border-bottom: 1px solid #eaeef5;
+    }
+    .table-from td:last-child {
+        border-bottom: none;
+    }
+    .table-from td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: bold;
+        color: #b30000;
+        width: calc(50% - 15px);
+        text-align: left;
+        font-size: 1rem;
+    }
+}
+
+
+/* Fix cho màn hình nhỏ hơn 480px */
+
+@media (max-width: 480px) {
+    .table-from td {
+        padding-left: 45%;
+    }
+    .table-from td::before {
+        width: calc(45% - 15px);
     }
 }
