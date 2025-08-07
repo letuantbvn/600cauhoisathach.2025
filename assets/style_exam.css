@@ -622,24 +622,6 @@
      transform: translateY(-3px);
  }
  
- .exam-down-btn {
-     padding: 15px;
-     background: #1A2F51;
-     color: white;
-     border: none;
-     border-radius: 8px;
-     font-size: 1.1rem;
-     font-weight: 600;
-     cursor: pointer;
-     transition: all 0.3s ease;
-     text-align: center;
- }
- 
- .exam-down-btn:hover {
-     background: #0d1a33;
-     transform: translateY(-3px);
- }
- 
  .exam-title {
      display: block;
      font-size: 1.2rem;
@@ -922,14 +904,4 @@
  #cancel-submit {
      background: #e74c3c;
      color: white;
- }
- /* Thêm style cho nút tải PDF */
- 
- .pdf {
-     background-color: #e74c3c;
-     /* màu đỏ */
- }
- 
- .pdf:hover {
-     background-color: #c0392b;
  }
