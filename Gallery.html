@@ -58,34 +58,47 @@
                 <span>Xin chân thành cảm ơn! "Phía trước tay lái là cuộc sống của bạn và mọi người, phía sau tay lái là gia đình của bạn" 💥120mophong.com & Taylaimoi.com 💥</span></p>
             <!-- <p>Thông tin hỗ trợ: <strong>0988882266</strong> | Email: Taylaimoi226@gmail.com</p> -->
     </header>
-
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="image/logo.png" alt="Logo Taylaimoi.com" class="logo-img"></a>
-            </div>
-            <div class="contact">
-                <span><i class="fa-solid fa-phone" style="color: #b30000;"></i> Thầy Tuấn - Tiếp nhận đăng ký hồ sơ: <a href="tel:0904639896">0904639896</a></span>
-                <span><i class="fa-solid fa-square-phone-flip"style="color: #b30000"></i> Hotline Taylaimoi.com: <a href="tel:0988882266">09.8888.2266</a></span>
-                <span><i class="fa-solid fa-house" style="color: #b30000"></i>  Thư CSKH: <a href="mailto:Taylaimoi226@gmail.com">Taylaimoi2266@gmail.com</a> </span>
-                <span><i class="fa-solid fa-envelope-open-text" style="color: #b30000"></i> Địa chỉ:<b> 143 Trần Phú, Phường Hà Đông, TP.Hà Nội</b></span>
-            </div>
-        </div>
-    </nav>
     <section class="contact-section">
         <a href="tel:0989465167" class="call-button" title="Gọi ngay"><i class="fas fa-phone"></i></a>
     </section>
 
-    <div class="container py-4">
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="image/logo.png" alt="Logo thương hiệu Taylaimoi.com" class="logo-img">
+                    </a>
+                </div>
+                <div class="menu-toggle" id="menuToggle" style="color: #b30000;">
+                    <i class="fas fa-bars"></i> Danh mục
+                </div>
+            </div>
+            <div class="contact">
+                <span><i class="fa-solid fa-phone" style="color: #b30000;"></i> Thầy Tuấn - Tiếp nhận đăng ký hồ sơ: <a href="tel:0904639896">0904.639.896</a></span>
+                <span><i class="fa-solid fa-square-phone-flip"style="color: #b30000"></i> Hotline Taylaimoi.com: <a href="tel:0988882266">09.8888.2266</a></span>
+                <span><i class="fa-solid fa-house" style="color: #b30000"></i> Thư CSKH: <a href="mailto:Taylaimoi226@gmail.com">Taylaimoi2266@gmail.com</a> </span>
+                <span><i class="fa-solid fa-envelope-open-text" style="color: #b30000"></i> Địa chỉ:<b> 143 Trần Phú, Phường Hà Đông, TP.Hà Nội</b></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 0;">
         <ul class="main-menu" id="mainMenu">
             <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
             <li><a href="Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
-            <li><a href="Sahinh.html"><i class="fa-solid fa-image"></i> 11 Bài sa hình</a></li>
-            <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle"><i class="fa-solid fa-car"></i> Thực hành <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="Sahinh.html"><i class="fa-solid fa-book"></i> 11 Bài sa hình</a></li>
+                    <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
+                </ul>
+            </li>
             <li><a href="Gallery.html"><i class="fa-solid fa-image"></i> Thư viện ảnh</a></li>
             <li><a href="Video.html"><i class="fa-solid fa-video"></i> Video</a></li>
+            <li><a href="Laisomhocduong.html"><i class="fa-solid fa-graduation-cap"></i> Lái sớm học đường</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
+
         </ul>
     </div>
     <main class="container">
@@ -718,7 +731,98 @@
         });
     </script>
 
+    <script>
+        // Xử lý menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const mainMenu = document.getElementById('mainMenu');
+        const body = document.body;
 
+        // Tạo overlay và nút đóng
+        const menuOverlay = document.createElement('div');
+        menuOverlay.className = 'menu-overlay';
+        document.body.appendChild(menuOverlay);
+
+        const menuClose = document.createElement('div');
+        menuClose.className = 'menu-close';
+        menuClose.innerHTML = '<i class="fas fa-times"></i>';
+        document.body.appendChild(menuClose);
+
+        function openMobileMenu() {
+            mainMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            menuClose.style.display = 'block';
+            body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mainMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            menuClose.style.display = 'none';
+            body.style.overflow = '';
+            // Close all dropdowns
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+
+        // Event listeners
+        if (menuToggle) {
+            menuToggle.addEventListener('click', openMobileMenu);
+        }
+
+        if (menuClose) {
+            menuClose.addEventListener('click', closeMobileMenu);
+        }
+
+        // Close menu when clicking on overlay
+        menuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking on link (trừ dropdown toggle)
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 && e.target.closest('.main-menu a') && !e.target.closest('.dropdown-toggle')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu when pressing escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mainMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Xử lý dropdown menu
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdown = this.parentElement;
+                dropdown.classList.toggle('active');
+
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Close dropdown khi click ra ngoài (desktop)
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    </script>
 
 </body>
 
