@@ -955,6 +955,118 @@
                 });
             }
         });
+
+        // Close mobile menu when clicking on link
+        if (window.innerWidth <= 768 && e.target.closest('.main-menu a') && !e.target.closest('.dropdown-toggle')) {
+            mainMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close mobile menu when pressing escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mainMenu.classList.contains('active')) {
+                mainMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+
+
+    <!-- Thêm script cho menu mobile -->
+    <script>
+        // Xử lý menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const mainMenu = document.getElementById('mainMenu');
+        const body = document.body;
+
+        // Tạo overlay và nút đóng
+        const menuOverlay = document.createElement('div');
+        menuOverlay.className = 'menu-overlay';
+        document.body.appendChild(menuOverlay);
+
+        const menuClose = document.createElement('div');
+        menuClose.className = 'menu-close';
+        menuClose.innerHTML = '<i class="fas fa-times"></i>';
+        document.body.appendChild(menuClose);
+
+        function openMobileMenu() {
+            mainMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            menuClose.style.display = 'block';
+            body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mainMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            menuClose.style.display = 'none';
+            body.style.overflow = '';
+            // Close all dropdowns
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+
+        // Event listeners
+        if (menuToggle) {
+            menuToggle.addEventListener('click', openMobileMenu);
+        }
+
+        if (menuClose) {
+            menuClose.addEventListener('click', closeMobileMenu);
+        }
+
+        // Close menu when clicking on overlay
+        menuOverlay.addEventListener('click', closeMobileMenu);
+
+        // Đóng menu khi click ra ngoài menu
+        document.addEventListener('click', function(e) {
+            // Nếu menu đang mở và click ra ngoài menu
+            if (mainMenu.classList.contains('active') &&
+                !mainMenu.contains(e.target) &&
+                !menuToggle.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu when pressing escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mainMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Xử lý dropdown menu
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdown = this.parentElement;
+                dropdown.classList.toggle('active');
+
+                // Close other dropdowns
+                document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Close dropdown khi click ra ngoài (desktop)
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
     </script>
 </body>
 
