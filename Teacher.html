@@ -431,6 +431,11 @@
         document.querySelector('.call-button').addEventListener('click', function() {
             alert('Bạn đã nhấp vào nút gọi điện!');
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.querySelector('input[name="startDate"]').value = today;
+        });
     </script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -741,7 +746,7 @@
             }
         });
 
-        // Review Form Handling - SIMPLIFIED AND FIXED VERSION
+        // Review Form Handling - FIXED FOR GOOGLE SHEETS
         function initializeReviewForm() {
             const form = document.getElementById('reviewForm');
             if (!form) {
@@ -801,28 +806,36 @@
                 }
 
                 try {
-                    // Prepare data for Google Sheets
-                    const formData = new FormData();
-                    formData.append('Họ và tên', name);
-                    formData.append('Số điện thoại', phone);
-                    formData.append('Ngày bắt đầu học', startDate);
-                    formData.append('Hạng bằng', licenseType);
-                    formData.append('Đánh giá sao', rating.toString());
-                    formData.append('Nhận xét', comment);
-                    formData.append('Ngày đánh giá', date);
-                    formData.append('Thời gian', new Date().toISOString());
+                    // FIX: Sử dụng URLSearchParams thay vì FormData
+                    const payload = new URLSearchParams();
+                    // payload.append('Họ và tên', name);
+                    // payload.append('Số điện thoại', phone);
+                    // payload.append('Ngày bắt đầu học', startDate);
+                    // payload.append('Hạng bằng', licenseType);
+                    // payload.append('Đánh giá sao', rating.toString());
+                    // payload.append('Nhận xét', comment);
+                    // payload.append('Ngày đánh giá', date);
+                    payload.append('name', name);
+                    payload.append('phone', phone);
+                    payload.append('startDate', startDate);
+                    payload.append('licenseType', licenseType);
+                    payload.append('rating', rating.toString());
+                    payload.append('comment', comment);
+                    payload.append('date', date);
 
-                    console.log('Sending data to Google Sheets...');
+                    console.log('Sending data to Google Sheets:', payload.toString());
 
-                    // Send to Google Sheets
+                    // FIX: Gửi với Content-Type phù hợp
                     const response = await fetch(scriptURL, {
                         method: 'POST',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                        },
+                        body: payload.toString()
                     });
-
                     console.log('Response status:', response.status);
 
-                    // Add review to local display regardless of server response
+                    // Add review to local display
                     addReview(name, rating, comment, date);
 
                     // Show success modal
@@ -851,7 +864,6 @@
             });
         }
 
-
         // Function to add a new review
         function addReview(name, rating, comment, date) {
             const reviewsList = document.getElementById('reviewsList');
@@ -873,13 +885,13 @@
             }
 
             reviewItem.innerHTML = `
-            <div class="review-header">
-                <div class="reviewer-name">${name}</div>
-                <div class="review-date">${date}</div>
-            </div>
-            <div class="review-stars">${starsHtml}</div>
-            <div class="review-text">${comment}</div>
-        `;
+        <div class="review-header">
+            <div class="reviewer-name">${name}</div>
+            <div class="review-date">${date}</div>
+        </div>
+        <div class="review-stars">${starsHtml}</div>
+        <div class="review-text">${comment}</div>
+    `;
 
             reviewsList.insertBefore(reviewItem, reviewsList.firstChild);
         }

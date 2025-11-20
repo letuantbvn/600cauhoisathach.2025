@@ -2458,8 +2458,8 @@ tr:hover {
     overflow: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
-    max-height: 90vh;
+    align-items: baseline;
+    max-height: 76vh;
 }
 
 .pdf-viewer-container canvas {
