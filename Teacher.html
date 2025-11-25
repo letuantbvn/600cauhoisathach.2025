@@ -223,6 +223,18 @@
                             <div class="gallery-overlay">Bài tập sa hình</div>
                         </div>
                     </div>
+
+                    <!-- Lightbox Modal -->
+                    <div id="lightboxModal" class="lightbox-modal">
+                        <span class="lightbox-close">&times;</span>
+                        <div class="lightbox-nav">
+                            <div class="lightbox-prev">&#10094;</div>
+                            <div class="lightbox-next">&#10095;</div>
+                        </div>
+                        <img class="lightbox-content" id="lightboxImg">
+                        <div class="lightbox-caption" id="lightboxCaption"></div>
+                    </div>
+
                 </div>
             </div>
 
@@ -935,6 +947,110 @@
             }
 
             console.log('All components initialized successfully');
+        });
+    </script>
+
+    <!-- Thêm JavaScript cho Lightbox -->
+    <script>
+        // Lightbox functionality
+        function initializeLightbox() {
+            // Lấy modal
+            var lightboxModal = document.getElementById("lightboxModal");
+            // Lấy ảnh trong modal
+            var lightboxImg = document.getElementById("lightboxImg");
+            // Lấy caption
+            var lightboxCaption = document.getElementById("lightboxCaption");
+            // Lấy nút đóng
+            var lightboxClose = document.querySelector(".lightbox-close");
+            // Lấy nút điều hướng
+            var lightboxPrev = document.querySelector(".lightbox-prev");
+            var lightboxNext = document.querySelector(".lightbox-next");
+
+            // Lấy tất cả các ảnh trong gallery
+            var galleryImages = document.querySelectorAll(".gallery-img");
+            var currentImageIndex = 0;
+            var imagesArray = Array.from(galleryImages);
+
+            // Duyệt qua từng ảnh và gán sự kiện click
+            galleryImages.forEach(function(img, index) {
+                img.addEventListener("click", function() {
+                    currentImageIndex = index;
+                    openLightbox(this.src, this.alt);
+                });
+            });
+
+            // Hàm mở lightbox
+            function openLightbox(src, alt) {
+                lightboxModal.style.display = "block";
+                lightboxImg.src = src;
+                lightboxCaption.innerHTML = alt;
+
+                // Ẩn/hiện nút điều hướng nếu có 1 ảnh
+                if (imagesArray.length <= 1) {
+                    lightboxPrev.style.display = "none";
+                    lightboxNext.style.display = "none";
+                } else {
+                    lightboxPrev.style.display = "flex";
+                    lightboxNext.style.display = "flex";
+                }
+            }
+
+            // Hàm đóng lightbox
+            function closeLightbox() {
+                lightboxModal.style.display = "none";
+            }
+
+            // Hàm hiển thị ảnh tiếp theo
+            function showNextImage() {
+                currentImageIndex = (currentImageIndex + 1) % imagesArray.length;
+                var nextImg = imagesArray[currentImageIndex];
+                lightboxImg.src = nextImg.src;
+                lightboxCaption.innerHTML = nextImg.alt;
+            }
+
+            // Hàm hiển thị ảnh trước đó
+            function showPrevImage() {
+                currentImageIndex = (currentImageIndex - 1 + imagesArray.length) % imagesArray.length;
+                var prevImg = imagesArray[currentImageIndex];
+                lightboxImg.src = prevImg.src;
+                lightboxCaption.innerHTML = prevImg.alt;
+            }
+
+            // Khi click vào nút đóng, đóng modal
+            lightboxClose.addEventListener("click", closeLightbox);
+
+            // Khi click vào nút next
+            lightboxNext.addEventListener("click", showNextImage);
+
+            // Khi click vào nút prev
+            lightboxPrev.addEventListener("click", showPrevImage);
+
+            // Khi click bên ngoài ảnh, cũng đóng modal
+            lightboxModal.addEventListener("click", function(event) {
+                if (event.target === lightboxModal) {
+                    closeLightbox();
+                }
+            });
+
+            // Thêm sự kiện phím để điều hướng
+            document.addEventListener("keydown", function(event) {
+                if (lightboxModal.style.display === "block") {
+                    if (event.key === "Escape") {
+                        closeLightbox();
+                    } else if (event.key === "ArrowRight") {
+                        showNextImage();
+                    } else if (event.key === "ArrowLeft") {
+                        showPrevImage();
+                    }
+                }
+            });
+        }
+
+        // Gọi hàm khởi tạo lightbox khi DOM loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... các code khác ...
+
+            initializeLightbox();
         });
     </script>
 </body>
