@@ -102,6 +102,7 @@
     .carousel-item {
         min-width: 100%;
         position: relative;
+        cursor: pointer;
     }
     
     .carousel-item img {
@@ -109,6 +110,11 @@
         height: 100%;
         object-fit: cover;
         display: block;
+        transition: transform 0.3s ease;
+    }
+    
+    .carousel-item:hover img {
+        transform: scale(1.02);
     }
     
     .carousel-caption {
@@ -176,6 +182,120 @@
         background: var(--primary-color);
         transform: scale(1.2);
     }
+    /* Fullscreen Lightbox Styles */
+    
+    .lightbox-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .lightbox-overlay.active {
+        display: flex;
+    }
+    
+    .lightbox-content {
+        position: relative;
+        width: 90%;
+        height: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .lightbox-img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: 5px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .lightbox-caption {
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 1.2rem;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 5px;
+        margin-top: 15px;
+        max-width: 80%;
+    }
+    
+    .lightbox-controls {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+        padding: 0 20px;
+        z-index: 10001;
+    }
+    
+    .lightbox-btn {
+        background: rgba(179, 0, 0, 0.8);
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .lightbox-btn:hover {
+        background: rgba(179, 0, 0, 1);
+        transform: scale(1.1);
+    }
+    
+    .lightbox-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(179, 0, 0, 0.8);
+        color: white;
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10001;
+        transition: all 0.3s ease;
+    }
+    
+    .lightbox-close:hover {
+        background: rgba(179, 0, 0, 1);
+        transform: scale(1.1);
+    }
+    
+    .lightbox-counter {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        font-size: 1.2rem;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 8px 15px;
+        border-radius: 20px;
+        z-index: 10001;
+    }
     /* Responsive */
     
     @media (max-width: 768px) {
@@ -197,6 +317,24 @@
             gap: 10px;
             text-align: center;
         }
+        .lightbox-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+        .lightbox-close {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            top: 15px;
+            right: 15px;
+        }
+        .lightbox-counter {
+            font-size: 1rem;
+            padding: 6px 12px;
+            top: 15px;
+            left: 15px;
+        }
     }
     
     @media (max-width: 480px) {
@@ -211,10 +349,55 @@
             height: 35px;
             font-size: 1rem;
         }
+        .lightbox-btn {
+            width: 35px;
+            height: 35px;
+            font-size: 1rem;
+        }
+        .lightbox-close {
+            width: 35px;
+            height: 35px;
+            font-size: 1rem;
+        }
+        .lightbox-caption {
+            font-size: 1rem;
+            padding: 15px;
+        }
+    }
+    
+    @media (max-width: 360px) {
+        .lightbox-controls {
+            padding: 0 10px;
+        }
+        .lightbox-btn {
+            width: 30px;
+            height: 30px;
+            font-size: 0.9rem;
+        }
     }
 </style>
 
 <body>
+    <!-- Lightbox Fullscreen -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="lightbox-counter" id="lightboxCounter">1 / 10</div>
+        <div class="lightbox-controls">
+            <button class="lightbox-btn" id="lightboxPrev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="lightbox-btn" id="lightboxNext">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-img" id="lightboxImg">
+        </div>
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
     <!-- Chat Zalo -->
     <div id="zalo-chat-btn" class="zalo-chat-btn">
         <img src="image/icon_zalo.svg" alt="Chat Zalo">
@@ -301,7 +484,7 @@
             </h1>
             <p>
                 Chương trình
-                <Strong style="color: var(--primary-color) ;">“Lái sớm học đường”</Strong> do nhà sáng lập thương hiệu <strong style="color: var(--primary-color);">Tay Lái Mới – Nguyễn Mạnh Hùng</strong> kiến tạo, nhằm trang bị cho học sinh kiến thức và kỹ năng cơ bản về lái xe an toàn từ sớm. Thông qua các hoạt động lý thuyết
+                <Strong style="color: var(--primary-color) ;">"Lái sớm học đường"</Strong> do nhà sáng lập thương hiệu <strong style="color: var(--primary-color);">Tay Lái Mới - Nguyễn Mạnh Hùng</strong> kiến tạo, nhằm trang bị cho học sinh kiến thức và kỹ năng cơ bản về lái xe an toàn từ sớm. Thông qua các hoạt động lý thuyết
                 kết hợp thực hành, học sinh được hướng dẫn về quy tắc giao thông, nhận diện nguy cơ, kỹ năng xử lý tình huống và hình thành ý thức lái xe văn minh, trách nhiệm, góp phần giảm thiểu tai nạn giao thông và xây dựng thế hệ trẻ tự tin trên
                 đường.
             </p>
@@ -311,8 +494,10 @@
                 <i class="fas fa-play-circle"></i> Video Giới Thiệu
             </h2>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/P9q2ho8OdyU" title="Video giới thiệu" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                </iframe>
+                <!-- <iframe src="https://www.youtube.com/embed/P9q2ho8OdyU" title="Video giới thiệu" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                </iframe> -->
+                <iframe src="https://www.youtube.com/embed/videoseries?si=-nDoaEb4waYnIAmZ&amp;list=PLbev_4iENVhe95az_NxBFEQVDxCGzC86E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <div class="video-info">
                 <div class="video-title">CHƯƠNG TRÌNH TUYÊN TRUYỀN PHÁP LUẬT VÀ TRẬT TỰ AN TOÀN GIAO THÔNG
@@ -323,7 +508,154 @@
                 </div>
                 <div class="video-meta">
                     <span><i class="far fa-clock"></i> 09:30</span>
-                    <span><i class="far fa-calendar"></i> 16/11/2023</span>
+                    <span><i class="far fa-calendar"></i> 01/12/2025</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hình ảnh buổi 3 -->
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-images"></i> Trường THPT Tân Yên Số 1 (Tân Yên, Bắc Giang)
+            </h2>
+            <div class="carousel-container" id="carousel3">
+                <div class="carousel">
+                    <div class="carousel-item" data-index="0" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_6.webp" alt="Buổi 3 - Ảnh 1">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="1" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_2.webp" alt="Buổi 3 - Ảnh 2">
+                        <div class="carousel-caption"> </div>
+                    </div>
+                    <div class="carousel-item" data-index="2" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_3.webp" alt="Buổi 3 - Ảnh 3">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="3" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_4.webp" alt="Buổi 3 - Ảnh 4">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="4" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_5.webp" alt="Buổi 3 - Ảnh 5">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="5" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_1.webp" alt="Buổi 3 - Ảnh 6">
+                        <div class="carousel-caption"> </div>
+                    </div>
+                    <div class="carousel-item" data-index="6" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_7.webp" alt="Buổi 3 - Ảnh 7">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="7" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_8.webp" alt="Buổi 3 - Ảnh 8">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="8" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_9.webp" alt="Buổi 3 - Ảnh 9">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="9" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_10.webp" alt="Buổi 3 - Ảnh 10">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="10" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_11.webp" alt="Buổi 3 - Ảnh 11">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="11" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_12.webp" alt="Buổi 3 - Ảnh 12">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="12" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_13.webp" alt="Buổi 3 - Ảnh 13">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="13" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_14.webp" alt="Buổi 3 - Ảnh 14">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="14" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_15.webp" alt="Buổi 3 - Ảnh 15">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="15" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_16.webp" alt="Buổi 3 - Ảnh 16">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="16" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_17.webp" alt="Buổi 3 - Ảnh 17">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="17" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_18.webp" alt="Buổi 3 - Ảnh 18">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="18" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_19.webp" alt="Buổi 3 - Ảnh 19">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="19" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_20.webp" alt="Buổi 3 - Ảnh 20">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="20" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_21.webp" alt="Buổi 3 - Ảnh 21">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="21" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_22.webp" alt="Buổi 3 - Ảnh 22">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="22" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_23.webp" alt="Buổi 3 - Ảnh 23">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="23" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_24.webp" alt="Buổi 3 - Ảnh 24">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="24" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_25.webp" alt="Buổi 3 - Ảnh 25">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="25" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_26.webp" alt="Buổi 3 - Ảnh 26">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="26" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_27.webp" alt="Buổi 3 - Ảnh 27">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="27" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_28.webp" alt="Buổi 3 - Ảnh 28">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="28" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_29.webp" alt="Buổi 3 - Ảnh 29">
+                        <div class="carousel-caption"></div>
+                    </div>
+                    <div class="carousel-item" data-index="29" data-carousel="3">
+                        <img src="image/laisom/Tanyen1/img_Tanyen1_30.webp" alt="Buổi 3 - Ảnh 30">
+                        <div class="carousel-caption"></div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
         </section>
@@ -335,39 +667,38 @@
             </h2>
             <div class="carousel-container" id="carousel1">
                 <div class="carousel">
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="0" data-carousel="1">
                         <img src="image/laisom/Img_laisom1.webp" alt="Buổi 1 - Ảnh 1">
                         <div class="carousel-caption">Tạo đàm cùng thầy cô và học sinh</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="1" data-carousel="1">
                         <img src="image/laisom/Img_laisom2.webp" alt="Buổi 1 - Ảnh 2">
                         <div class="carousel-caption">Giảng viên hướng dẫn phương pháp học</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="2" data-carousel="1">
                         <img src="image/laisom/Img_laisom3.webp" alt="Buổi 1 - Ảnh 3">
                         <div class="carousel-caption">Đội ngũ Taylaimoi.com tham dự chương trình</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="3" data-carousel="1">
                         <img src="image/laisom/Img_laisom4.webp" alt="Buổi 1 - Ảnh 4">
                         <div class="carousel-caption">Đội ngũ Taylaimoi.com tham dự chương trình</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="4" data-carousel="1">
                         <img src="image/laisom/Img_laisom5.webp" alt="Buổi 1 - Ảnh 5">
                         <div class="carousel-caption">Trao đổi thảo luận của thầy và trò trong buổi tuyên truyền</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="5" data-carousel="1">
                         <img src="image/laisom/Img_laisom6.webp" alt="Buổi 1 - Ảnh 6">
                         <div class="carousel-caption">Trao tặng phần quà 500 mũ bảo hiểm từ Tập đoàn Đại Dũng</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="6" data-carousel="1">
                         <img src="image/laisom/Img_laisom7.webp" alt="Buổi 1 - Ảnh 7">
                         <div class="carousel-caption">Chụp ảnh lưu niệm cùng thầy cô và tập đoàn Đại Dũng, Taylaimoi.com</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="7" data-carousel="1">
                         <img src="image/laisom/Img_laisom8.webp" alt="Buổi 1 - Ảnh 8">
                         <div class="carousel-caption">Đại diện nhà trường chụp ảnh lưu niệm cùng thầy cô và tập đoàn Đại Dũng</div>
                     </div>
-
                 </div>
                 <div class="carousel-controls">
                     <button class="carousel-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
@@ -375,6 +706,11 @@
                 </div>
                 <div class="carousel-indicators">
                     <div class="carousel-indicator active"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
                     <div class="carousel-indicator"></div>
                     <div class="carousel-indicator"></div>
                 </div>
@@ -388,43 +724,43 @@
             </h2>
             <div class="carousel-container" id="carousel2">
                 <div class="carousel">
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="0" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img8.webp" alt="Buổi 2 - Ảnh 1">
                         <div class="carousel-caption">Chương trình tuyên truyền an toàn giao thông</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="1" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img2.webp" alt="Buổi 2 - Ảnh 2">
                         <div class="carousel-caption">Học sinh được trải nghiệm học lái công nghệ giả lập trên xe thật </div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="2" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img3.webp" alt="Buổi 2 - Ảnh 3">
                         <div class="carousel-caption">Học sinh hào hứng tham gia chương trình</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="3" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img4.webp" alt="Buổi 2 - Ảnh 4">
                         <div class="carousel-caption">Đội ngũ Taylaimoi.com tham dự chương trình</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="4" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img5.webp" alt="Buổi 2 - Ảnh 5">
                         <div class="carousel-caption">Thầy và trò cũng trao đổi thảo luận về các vấn đề giao thông</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="5" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img6.webp" alt="Buổi 2 - Ảnh 6">
                         <div class="carousel-caption">Đại điện tập đoàn Vinfast trao hoa và quà chúc mừng nhà trường </div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="6" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img7.webp" alt="Buổi 2 - Ảnh 7">
                         <div class="carousel-caption">Đại diện nhà trường nhận chứng nhận về buổi tuyên truyền</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="7" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img1.webp" alt="Buổi 2 - Ảnh 8">
                         <div class="carousel-caption">Đại diện taylaimoi.com hướng dẫn về luật giao thông đường bộ</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="8" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img9.webp" alt="Buổi 2 - Ảnh 9">
                         <div class="carousel-caption">Đội ngũ thầy giáo của taylaimoi.com</div>
                     </div>
-                    <div class="carousel-item">
+                    <div class="carousel-item" data-index="9" data-carousel="2">
                         <img src="image/laisom/Chuongmy/img10.webp" alt="Buổi 2 - Ảnh 10">
                         <div class="carousel-caption">Các bạn học sinh được nhận những phần quà khi tham gia chương trình</div>
                     </div>
@@ -437,14 +773,17 @@
                     <div class="carousel-indicator active"></div>
                     <div class="carousel-indicator"></div>
                     <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
         </section>
-
-
     </div>
-
-
 
     <!-- Partners Section -->
     <section class=" partners-section ">
@@ -478,8 +817,6 @@
         </div>
     </section>
 
-
-
     <!-- Footer -->
     <footer id="footer ">
         <div class="footer-content ">
@@ -508,8 +845,6 @@
     <section class="contact-section ">
         <a href="tel:0989465167 " class="call-button " title="Gọi ngay "><i class="fas fa-phone "></i></a>
     </section>
-
-
 
     <script>
         // Xử lý menu mobile
@@ -605,6 +940,101 @@
     </script>
 
     <script>
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        let currentCarousel = null;
+        let currentItems = [];
+        let currentIndex = 0;
+
+        // Open lightbox
+        function openLightbox(carouselId, index) {
+            const carouselContainer = document.getElementById(`carousel${carouselId}`);
+            currentCarousel = carouselId;
+            currentItems = Array.from(carouselContainer.querySelectorAll('.carousel-item'));
+            currentIndex = index;
+
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Update lightbox content
+        function updateLightbox() {
+            if (currentItems.length > 0) {
+                const item = currentItems[currentIndex];
+                const img = item.querySelector('img');
+                const caption = item.querySelector('.carousel-caption');
+
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightboxCaption.textContent = caption ? caption.textContent : '';
+                lightboxCounter.textContent = `${currentIndex + 1} / ${currentItems.length}`;
+            }
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Navigate to next image
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % currentItems.length;
+            updateLightbox();
+        }
+
+        // Navigate to previous image
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+            updateLightbox();
+        }
+
+        // Event listeners for lightbox controls
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', prevImage);
+        lightboxNext.addEventListener('click', nextImage);
+
+        // Close lightbox when clicking on overlay
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (lightbox.classList.contains('active')) {
+                switch (e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowRight':
+                        nextImage();
+                        break;
+                    case 'ArrowLeft':
+                        prevImage();
+                        break;
+                }
+            }
+        });
+
+        // Add click event to all carousel items
+        document.querySelectorAll('.carousel-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const carouselId = this.getAttribute('data-carousel');
+                const index = parseInt(this.getAttribute('data-index'));
+                openLightbox(carouselId, index);
+            });
+        });
+
         // Khởi tạo carousel cho mỗi section
         document.querySelectorAll('.carousel-container').forEach((container, index) => {
             const carousel = container.querySelector('.carousel');
@@ -646,7 +1076,7 @@
                 });
             });
 
-            // Tự động chuyển slide mỗi 5 giây
+            // Tự động chuyển slide mỗi 6 giây
             setInterval(() => {
                 currentIndex = (currentIndex + 1) % totalItems;
                 updateCarousel();
