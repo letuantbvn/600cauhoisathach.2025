@@ -1241,7 +1241,7 @@ tr:hover {
 .marquee-track {
     position: absolute;
     display: flex;
-    animation: marquee 15s linear infinite;
+    animation: marquee 30s linear infinite;
     height: 100%;
     align-items: center;
     gap: 40px;
