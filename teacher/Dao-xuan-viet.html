@@ -1095,6 +1095,41 @@
             initializeLightbox();
         });
     </script>
+
+    <!-- Tự động fix tất cả các link trong menu -->
+    <script>
+        // Tự động fix tất cả các link trong menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const basePath = '/600cauhoisathach.2025';
+
+            // Danh sách các link cần fix
+            const linksToFix = [
+                'index.html',
+                'Gallery.html',
+                'list-teacher.html',
+                'Meo.html',
+                'Sahinh.html',
+                'Video.html',
+                'Laisomhocduong.html'
+            ];
+
+            // Fix tất cả các link trong main menu
+            document.querySelectorAll('#mainMenu a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('/')) {
+                    // Đây là link tương đối
+                    if (linksToFix.some(linkPath => href.includes(linkPath))) {
+                        link.setAttribute('href', basePath + '/' + href);
+                    }
+                } else if (href && href.startsWith('/') && !href.startsWith(basePath)) {
+                    // Đây là link tuyệt đối không có base path
+                    if (linksToFix.some(linkPath => href.includes(linkPath))) {
+                        link.setAttribute('href', basePath + href);
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

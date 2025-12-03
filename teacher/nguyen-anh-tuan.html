@@ -76,26 +76,25 @@
     <!-- Main Menu -->
     <div class="container" style="padding: 0;">
         <ul class="main-menu" id="mainMenu">
-            <li><a href="/index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+            <li><a href="/600cauhoisathach.2025/index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"><i class="fa-solid fa-circle-info"></i> Về chúng tôi <i class="fas fa-chevron-down"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/Gallery.html"><i class="fa-solid fa-book"></i> Thư viện ảnh</a></li>
-                    <li><a href="/list-teacher.html" target="_blank"><i class="fa-solid fa-circle-user"></i> Các giảng viên</a></li>
+                    <li><a href="/600cauhoisathach.2025/Gallery.html"><i class="fa-solid fa-book"></i> Thư viện ảnh</a></li>
+                    <li><a href="/600cauhoisathach.2025/list-teacher.html" target="_blank"><i class="fa-solid fa-circle-user"></i> Các giảng viên</a></li>
                 </ul>
             </li>
-            <li><a href="/Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
+            <li><a href="/600cauhoisathach.2025/Meo.html"><i class="fa-solid fa-lightbulb"></i> Mẹo thi</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"><i class="fa-solid fa-car"></i> Thực hành <i class="fas fa-chevron-down"></i></a>
                 <ul class="dropdown-menu">
-                    <li><a href="/Sahinh.html"><i class="fa-solid fa-book"></i> 11 Bài sa hình</a></li>
+                    <li><a href="/600cauhoisathach.2025/Sahinh.html"><i class="fa-solid fa-book"></i> 11 Bài sa hình</a></li>
                     <li><a href="https://120mophong.com/" target="_blank"><i class="fa-solid fa-car"></i> 120 Mô phỏng</a></li>
                 </ul>
             </li>
-            <li><a href="/Video.html"><i class="fa-solid fa-video"></i> Video</a></li>
-            <li><a href="/Laisomhocduong.html"><i class="fa-solid fa-graduation-cap"></i> Lái sớm học đường</a></li>
+            <li><a href="/600cauhoisathach.2025/Video.html"><i class="fa-solid fa-video"></i> Video</a></li>
+            <li><a href="/600cauhoisathach.2025/Laisomhocduong.html"><i class="fa-solid fa-graduation-cap"></i> Lái sớm học đường</a></li>
             <li><a href="#footer"><i class="fa-solid fa-phone"></i> Liên hệ</a></li>
-
         </ul>
     </div>
 
@@ -1100,6 +1099,41 @@
             // ... các code khác ...
 
             initializeLightbox();
+        });
+    </script>
+
+    <!-- Tự động fix tất cả các link trong menu -->
+    <script>
+        // Tự động fix tất cả các link trong menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const basePath = '/600cauhoisathach.2025';
+
+            // Danh sách các link cần fix
+            const linksToFix = [
+                'index.html',
+                'Gallery.html',
+                'list-teacher.html',
+                'Meo.html',
+                'Sahinh.html',
+                'Video.html',
+                'Laisomhocduong.html'
+            ];
+
+            // Fix tất cả các link trong main menu
+            document.querySelectorAll('#mainMenu a').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('/')) {
+                    // Đây là link tương đối
+                    if (linksToFix.some(linkPath => href.includes(linkPath))) {
+                        link.setAttribute('href', basePath + '/' + href);
+                    }
+                } else if (href && href.startsWith('/') && !href.startsWith(basePath)) {
+                    // Đây là link tuyệt đối không có base path
+                    if (linksToFix.some(linkPath => href.includes(linkPath))) {
+                        link.setAttribute('href', basePath + href);
+                    }
+                }
+            });
         });
     </script>
 </body>
