@@ -1,6 +1,6 @@
-document.write('<style type="text/css">html{padding-bottom:20px}</style><img style="position:fixed;z-index:9999;top:0;left:0;" src="https://sharethuthuat.com/wp-content/uploads/2021/12/banner_left.png" _cke_saved_src="https://sharethuthuat.com/wp-content/uploads/2021/12/banner_right.png"/></a><img style="position:fixed;z-index:9999;top:0;right:0;" src="https://sharethuthuat.com/wp-content/uploads/2021/12/banner_right.png"/></a><div style="position:fixed;z-index:9999;bottom:-50px;left:0;width:100%;height:104px;background:url(https://sharethuthuat.com/wp-content/uploads/2021/12/nentet.png) repeat-x bottom left;"></div><img style="position:fixed;z-index:9999;bottom:20px;left:20px" src="https://sharethuthuat.com/wp-content/uploads/2021/12/banner_header.png"/></a>');
+document.write('<style type="text/css">html{padding-bottom:20px}</style><img style="position:fixed;z-index:9999;top:0;left:0;" src="image/Tet/banner_left.png" _cke_saved_src="image/Tet/banner_left.pngbanner_right.png"/></a><img style="position:fixed;z-index:9999;top:0;right:0;" src="image/Tet/banner_right.png"/></a><div style="position:fixed;z-index:9999;bottom:-50px;left:0;width:100%;height:104px;background:url(image/Tet/nentet.png) repeat-x bottom left;"></div><img style="position:fixed;z-index:9999;bottom:20px;left:20px" src="image/Tet/banner_header.png"/></a>');
 
-var pictureSrc = "https://sharethuthuat.com/wp-content/uploads/2021/12/hoamai.png"; //the location of the snowflakes
+var pictureSrc = "image/Tet/hoamai.png"; //the location of the snowflakes
 var pictureWidth = 15; //
 var pictureHeight = 15; //the height of the snowflakes
 var numFlakes = 10; //the number of snowflakes
